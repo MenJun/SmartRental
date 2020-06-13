@@ -1,0 +1,69 @@
+﻿
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        @*   @if (Session["SuperAdmin"] != null)
+        {
+            <div class="sidebar-collapse" style="position: fixed;width: inherit;">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header" style="padding: 0; padding-top: 15px;padding-bottom: 15px; background: rgb(255,255,255);">
+                        <div class="dropdown profile-element">
+                            <img src="~/Content/patterns/heade.png" />
+                        </div>
+                        <div class="logo-element" style="overflow: hidden;">
+                            <img src="~/Content/patterns/heade.png" />
+                        </div>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Home", action: "Main")">
+
+                        <a href="@Url.Action("Main", "Home")"><i class="fa fa-diamond"></i> <span class="nav-label">酒店管理</span> <span class="label label-primary float-right">Main</span></a>
+
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
+                        <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">用户管理</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
+                        <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">信息管理</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
+                        <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">订单管理</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
+                        <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">报表管理</span></a>
+                    </li>
+
+                </ul>
+            </div>
+        }
+        else if (Session["GeneralManager"] != null)
+        {*@
+
+        <div class="sidebar-collapse" style="position: fixed;width: inherit;">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header" style="padding: 0; padding-top: 15px;padding-bottom: 15px; background: rgb(255,255,255);">
+                    <div class="dropdown profile-element">
+                        <img src="~/Content/patterns/heade.png" />
+                    </div>
+                    <div class="logo-element" style="overflow: hidden;">
+                        <img src="~/Content/patterns/heade.png" />
+                    </div>
+                </li>
+                <li class="@Html.IsSelected(controller: "Home", action: "Main")">
+                    <a href="@Url.Action("Main", "Home")"><i class="fa fa-diamond"></i> <span class="nav-label">房态图</span> <span class="label label-primary float-right">Main</span></a>
+
+                </li>
+                <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
+                    <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">远期房态</span></a>
+                </li>
+                <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
+                    <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">订单</span></a>
+                </li>
+                <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
+                    <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">房单</span></a>
+                </li>
+                <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
+                    <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">报表</span></a>
+                </li>
+
+            </ul>
+        </div>
+        @*  *@}
+    </nav>
