@@ -27,7 +27,7 @@ namespace SmartRental.BLL
                 {
                     return 1;
                 }
-                else if (Rples.user_roles1 == "普通管理员")//普通管理员
+                else if (Rples.user_roles1 == "管理员")//普通管理员
                 {
                     return -1;
                 }
