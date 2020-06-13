@@ -4,9 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace SmartRental.Controllers
 {
+    [EnableCors(headers:"*",methods:"*", origins:"*")]
     public class HomesController : ApiController
     {
         [HttpGet]

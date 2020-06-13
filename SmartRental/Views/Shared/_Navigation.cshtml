@@ -1,6 +1,6 @@
 ﻿
     <nav class="navbar-default navbar-static-side" role="navigation">
-        @*   @if (Session["SuperAdmin"] != null)
+           @if (Session["SuperAdmin"] != null)
         {
             <div class="sidebar-collapse" style="position: fixed;width: inherit;">
                 <ul class="nav metismenu" id="side-menu">
@@ -34,7 +34,7 @@
             </div>
         }
         else if (Session["GeneralManager"] != null)
-        {*@
+        {
 
         <div class="sidebar-collapse" style="position: fixed;width: inherit;">
             <ul class="nav metismenu" id="side-menu">
@@ -65,5 +65,5 @@
 
             </ul>
         </div>
-        @*  *@}
+         }
     </nav>
