@@ -22,7 +22,9 @@ namespace SmartRental.Models
             this.UserBrowse = new HashSet<UserBrowse>();
             this.UserEvaluate = new HashSet<UserEvaluate>();
         }
-    
+
+       
+
         public int HotelID { get; set; }
         public string HotelName { get; set; }
         public string HotelCity { get; set; }

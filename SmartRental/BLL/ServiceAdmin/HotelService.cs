@@ -13,5 +13,18 @@ namespace SmartRental.BLL.ServiceAdmin
         {
           return  HotelMapper.GetHotel();
         }
+
+        internal static bool SetHotel(HotelManag ratify)
+        {
+
+            if (HotelMapper.UpdataAudit(ratify))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
