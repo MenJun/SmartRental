@@ -26,8 +26,8 @@ namespace SmartRental.Models
         public string UserPhone { get; set; }
         public string UserPwd { get; set; }
         public string Email { get; set; }
-        public string User_status { get; set; }
-        public string Sex { get; set; }
+        public bool User_status { get; set; }
+        public Nullable<bool> Sex { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
         public string HeadPhone { get; set; }
         public string UserGrade { get; set; }

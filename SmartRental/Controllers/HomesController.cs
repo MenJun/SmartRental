@@ -8,7 +8,7 @@ using System.Web.Http.Cors;
 
 namespace SmartRental.Controllers
 {
-    [EnableCors(headers:"*",methods:"*", origins:"*")]
+   
     public class HomesController : ApiController
     {
         [HttpGet]

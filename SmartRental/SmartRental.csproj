@@ -171,11 +171,14 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="BLL\LoginService.cs" />
+    <Compile Include="BLL\ServiceAPI\UserLoginService.cs" />
+    <Compile Include="Controllers\API\accountController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="DAL\LoginMapper.cs" />
+    <Compile Include="DAL\MapperAPI\UserLoginMapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

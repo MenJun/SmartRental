@@ -28,7 +28,6 @@ namespace SmartRental.Models
         public string AddressDetails { get; set; }
         public string HotelType { get; set; }
         public string HotelGrade { get; set; }
-        public string HotelDiscount { get; set; }
         public string HotelIntro { get; set; }
         public string HotelBoss { get; set; }
         public string HotelPhone { get; set; }
@@ -37,6 +36,7 @@ namespace SmartRental.Models
         public string HotelOpentime { get; set; }
         public Nullable<int> UserID { get; set; }
         public string HotelRatify { get; set; }
+        public string HotelFacility { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }

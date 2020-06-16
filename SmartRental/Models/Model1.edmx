@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SmartRentalSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SmartRentalSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="HotelManag">
           <Key>
             <PropertyRef Name="HotelID" />
@@ -16,7 +16,7 @@
           <Property Name="HotelType" Type="nvarchar" MaxLength="20" />
           <Property Name="HotelGrade" Type="nvarchar" MaxLength="50" />
           <Property Name="HotelDiscount" Type="nvarchar" MaxLength="50" />
-          <Property Name="HotelIntro" Type="nvarchar(max)" />
+          <Property Name="HotelIntro" Type="nvarchar(max)" Nullable="false" />
           <Property Name="HotelBoss" Type="nvarchar" MaxLength="5" />
           <Property Name="HotelPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="HotelPhoto" Type="nvarchar" MaxLength="20" />
@@ -24,6 +24,7 @@
           <Property Name="HotelOpentime" Type="nvarchar" MaxLength="50" />
           <Property Name="UserID" Type="int" />
           <Property Name="HotelRatify" Type="nvarchar" MaxLength="50" />
+          <Property Name="HotelFacility" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Mattres">
           <Key>
@@ -139,12 +140,12 @@
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="20" />
           <Property Name="UserPhone" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="UserPwd" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
-          <Property Name="User_status" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Sex" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="User_status" Type="bit" Nullable="false" />
+          <Property Name="Sex" Type="bit" />
           <Property Name="Birthday" Type="datetime" />
           <Property Name="HeadPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="UserGrade" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -357,8 +358,7 @@
             <End Role="UserEvaluate" EntitySet="UserEvaluate" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SmartRentalSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -372,8 +372,7 @@
           <Property Name="AddressDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HotelType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="HotelGrade" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HotelDiscount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HotelIntro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HotelIntro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="HotelBoss" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="HotelPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HotelPhoto" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
@@ -385,6 +384,7 @@
           <NavigationProperty Name="RoomMessage" Relationship="Self.FK_RoomMessage_HotelManag" FromRole="HotelManag" ToRole="RoomMessage" />
           <NavigationProperty Name="UserBrowse" Relationship="Self.FK_UserBrowse_HotelManag" FromRole="HotelManag" ToRole="UserBrowse" />
           <NavigationProperty Name="UserEvaluate" Relationship="Self.FK_UserEvaluate_HotelManag" FromRole="HotelManag" ToRole="UserEvaluate" />
+          <Property Name="HotelFacility" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Mattres">
           <Key>
@@ -517,12 +517,12 @@
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="UserPhone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserPwd" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="User_status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Sex" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_status" Type="Boolean" Nullable="false" />
+          <Property Name="Sex" Type="Boolean" />
           <Property Name="Birthday" Type="DateTime" Precision="3" />
           <Property Name="HeadPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserGrade" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -747,13 +747,13 @@
           <EntitySetMapping Name="HotelManag">
             <EntityTypeMapping TypeName="SmartRentalSystemModel.HotelManag">
               <MappingFragment StoreEntitySet="HotelManag">
+                <ScalarProperty Name="HotelFacility" ColumnName="HotelFacility" />
                 <ScalarProperty Name="HotelID" ColumnName="HotelID" />
                 <ScalarProperty Name="HotelName" ColumnName="HotelName" />
                 <ScalarProperty Name="HotelCity" ColumnName="HotelCity" />
                 <ScalarProperty Name="AddressDetails" ColumnName="AddressDetails" />
                 <ScalarProperty Name="HotelType" ColumnName="HotelType" />
                 <ScalarProperty Name="HotelGrade" ColumnName="HotelGrade" />
-                <ScalarProperty Name="HotelDiscount" ColumnName="HotelDiscount" />
                 <ScalarProperty Name="HotelIntro" ColumnName="HotelIntro" />
                 <ScalarProperty Name="HotelBoss" ColumnName="HotelBoss" />
                 <ScalarProperty Name="HotelPhone" ColumnName="HotelPhone" />
@@ -887,13 +887,13 @@
           <EntitySetMapping Name="UserMessage">
             <EntityTypeMapping TypeName="SmartRentalSystemModel.UserMessage">
               <MappingFragment StoreEntitySet="UserMessage">
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserPhone" ColumnName="UserPhone" />
                 <ScalarProperty Name="UserPwd" ColumnName="UserPwd" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="User_status" ColumnName="User_status" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
                 <ScalarProperty Name="Birthday" ColumnName="Birthday" />
                 <ScalarProperty Name="HeadPhone" ColumnName="HeadPhone" />
                 <ScalarProperty Name="UserGrade" ColumnName="UserGrade" />
