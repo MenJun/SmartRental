@@ -21,7 +21,7 @@ namespace SmartRental.Models
         }
     
         public int RoomTypeID { get; set; }
-        public Nullable<int> RoomType1 { get; set; }
+        public string RoomType1 { get; set; }
         public Nullable<System.DateTime> RoomTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -14,8 +14,16 @@ namespace SmartRental.Models
     
     public partial class Mattres
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Mattres()
+        {
+            this.RoomMessage = new HashSet<RoomMessage>();
+        }
+    
         public int MattresID { get; set; }
         public string MattresType { get; set; }
-        public Nullable<System.DateTime> MattresTime { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RoomMessage> RoomMessage { get; set; }
     }
 }

@@ -24,9 +24,10 @@ namespace SmartRental.Models
         public Nullable<System.DateTime> LeaveTime { get; set; }
         public Nullable<decimal> PayablePrice { get; set; }
         public Nullable<decimal> ActualPrice { get; set; }
-        public string ClientPhoto { get; set; }
+        public string ClientPhone { get; set; }
         public string ClientName { get; set; }
         public string OrderState { get; set; }
+        public string ClientId { get; set; }
     
         public virtual HotelManag HotelManag { get; set; }
         public virtual RoomMessage RoomMessage { get; set; }

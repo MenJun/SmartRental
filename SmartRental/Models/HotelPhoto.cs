@@ -12,18 +12,18 @@ namespace SmartRental.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserEvaluate
+    public partial class HotelPhoto
     {
-        public int EvaluateID { get; set; }
-        public int UserID { get; set; }
-        public int HotelID { get; set; }
-        public Nullable<System.DateTime> EvaluateTime { get; set; }
-        public Nullable<System.DateTime> ArrivalDate { get; set; }
-        public string RoomType { get; set; }
-        public Nullable<int> HotelAssess { get; set; }
-        public string HotelRemark { get; set; }
+        public int HotelPhotoID { get; set; }
+        public string Hotelphoto1 { get; set; }
+        public string Hotelphoto2 { get; set; }
+        public string Hotelphoto3 { get; set; }
+        public string Hotelphoto4 { get; set; }
+        public string Hotelphoto5 { get; set; }
+        public string Hotelphoto6 { get; set; }
+        public string Hotelphoto7 { get; set; }
+        public Nullable<int> HotelID { get; set; }
     
         public virtual HotelManag HotelManag { get; set; }
-        public virtual UserMessage UserMessage { get; set; }
     }
 }

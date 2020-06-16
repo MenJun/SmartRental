@@ -29,12 +29,12 @@ namespace SmartRental.Models
         public string RoomFacility { get; set; }
         public Nullable<int> RoomCount { get; set; }
         public Nullable<decimal> RoomPrice { get; set; }
-        public string Boolbreakfast { get; set; }
+        public Nullable<bool> Boolbreakfast { get; set; }
         public Nullable<int> HotelID { get; set; }
         public Nullable<int> RoomTypeID { get; set; }
     
         public virtual HotelManag HotelManag { get; set; }
-        public virtual MattresType MattresType { get; set; }
+        public virtual Mattres Mattres { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
         public virtual RoomType RoomType { get; set; }

@@ -26,8 +26,8 @@ namespace SmartRental.Models
         }
     
         public virtual DbSet<HotelManag> HotelManag { get; set; }
+        public virtual DbSet<HotelPhoto> HotelPhoto { get; set; }
         public virtual DbSet<Mattres> Mattres { get; set; }
-        public virtual DbSet<MattresType> MattresType { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<RoomMessage> RoomMessage { get; set; }
         public virtual DbSet<RoomPhoto> RoomPhoto { get; set; }

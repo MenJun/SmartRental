@@ -16,8 +16,13 @@ namespace SmartRental.Models
     {
         public int RmPtID { get; set; }
         public Nullable<int> RoomID { get; set; }
-        public string PhotoName { get; set; }
-        public byte[] PhotoNameimages { get; set; }
+        public string PhotoName1 { get; set; }
+        public string PhotoName2 { get; set; }
+        public string PhotoName3 { get; set; }
+        public string PhotoName4 { get; set; }
+        public string PhotoName5 { get; set; }
+        public string PhotoName6 { get; set; }
+        public string PhotoName7 { get; set; }
     
         public virtual RoomMessage RoomMessage { get; set; }
     }

@@ -4,19 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="76184b94362d47499ab0955503ccb269" Name="Diagram1" ZoomLevel="100">
-        <EntityTypeShape EntityType="SmartRentalSystemModel.HotelManag" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartRentalSystemModel.Mattres" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartRentalSystemModel.MattresType" Width="1.5" PointX="3.75" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartRentalSystemModel.Order" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartRentalSystemModel.RoomMessage" Width="1.5" PointX="6" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartRentalSystemModel.RoomPhoto" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartRentalSystemModel.RoomType" Width="1.5" PointX="3.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartRentalSystemModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartRentalSystemModel.User_roles" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartRentalSystemModel.UserBrowse" Width="1.5" PointX="11.25" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartRentalSystemModel.UserEvaluate" Width="1.5" PointX="3" PointY="16.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartRentalSystemModel.UserMessage" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+      <Diagram DiagramId="2ba71172caab4af6b75bf5f13ee78548" Name="Diagram1">
+        <EntityTypeShape EntityType="SmartRentalSystemModel.HotelManag" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartRentalSystemModel.HotelPhoto" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartRentalSystemModel.Mattres" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartRentalSystemModel.Order" Width="1.5" PointX="6" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartRentalSystemModel.RoomMessage" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartRentalSystemModel.RoomPhoto" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartRentalSystemModel.RoomType" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartRentalSystemModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartRentalSystemModel.User_roles" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartRentalSystemModel.UserBrowse" Width="1.5" PointX="8.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartRentalSystemModel.UserEvaluate" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartRentalSystemModel.UserMessage" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="SmartRentalSystemModel.FK_HotelPhoto_HotelManag" ManuallyRouted="false" />
         <AssociationConnector Association="SmartRentalSystemModel.FK_Order_HotelManag" ManuallyRouted="false" />
         <AssociationConnector Association="SmartRentalSystemModel.FK_RoomMessage_HotelManag" ManuallyRouted="false" />
         <AssociationConnector Association="SmartRentalSystemModel.FK_UserBrowse_HotelManag" ManuallyRouted="false" />
@@ -29,6 +30,7 @@
         <AssociationConnector Association="SmartRentalSystemModel.FK_UserBrowse_RoomMessage" ManuallyRouted="false" />
         <AssociationConnector Association="SmartRentalSystemModel.FK_UserBrowse_UserEvaluate" ManuallyRouted="false" />
         <AssociationConnector Association="SmartRentalSystemModel.FK_UserBrowse_UserMessage" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartRentalSystemModel.FK_UserEvaluate_UserEvaluate" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

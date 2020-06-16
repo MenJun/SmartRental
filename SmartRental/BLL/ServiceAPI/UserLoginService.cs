@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SmartRental.DAL.MapperAPI;
+using SmartRental.Helpers;
 
 namespace SmartRental.BLL.ServiceAPI
 {
@@ -16,7 +17,12 @@ namespace SmartRental.BLL.ServiceAPI
         /// <returns></returns>
         internal static bool registration(UserMessage user)
         {
-          return UserLoginMapper.Registr(user);
+            user.UserPwd = Helpers.TrickLock.WeiJiaMiGuid(user.UserPwd);
+            if (UserLoginMapper.getAccount(user.UserPhone) !=null) //查询是否存在
+            {
+                return UserLoginMapper.Registr(user);
+            }
+            return false;
         }
 
         /// <summary>
@@ -47,7 +53,7 @@ namespace SmartRental.BLL.ServiceAPI
         /// <returns></returns>
         internal static UserMessage getLogin(string userPhone, string userPwd)
         {
-           var  user = UserLoginMapper.getAccount(userPhone);
+            var  user = UserLoginMapper.getAccount(userPhone);
             if (user.UserPwd == userPwd)
             {
                 if (user.UserGrade =="用户")

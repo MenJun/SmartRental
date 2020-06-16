@@ -17,6 +17,7 @@ namespace SmartRental.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HotelManag()
         {
+            this.HotelPhoto1 = new HashSet<HotelPhoto>();
             this.Order = new HashSet<Order>();
             this.UserBrowse = new HashSet<UserBrowse>();
             this.UserEvaluate = new HashSet<UserEvaluate>();
@@ -27,7 +28,8 @@ namespace SmartRental.Models
         public string HotelCity { get; set; }
         public string AddressDetails { get; set; }
         public string HotelType { get; set; }
-        public string HotelGrade { get; set; }
+        public Nullable<decimal> HotelGrade { get; set; }
+        public string HotelDiscount { get; set; }
         public string HotelIntro { get; set; }
         public string HotelBoss { get; set; }
         public string HotelPhone { get; set; }
@@ -35,9 +37,12 @@ namespace SmartRental.Models
         public string HotelRule { get; set; }
         public string HotelOpentime { get; set; }
         public Nullable<int> UserID { get; set; }
-        public string HotelRatify { get; set; }
+        public Nullable<bool> HotelRatify { get; set; }
         public string HotelFacility { get; set; }
+        public System.DateTime Hoteltration_time { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HotelPhoto> HotelPhoto1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
         public virtual RoomMessage RoomMessage { get; set; }

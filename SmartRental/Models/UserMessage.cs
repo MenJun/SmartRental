@@ -19,6 +19,7 @@ namespace SmartRental.Models
         {
             this.UserBrowse = new HashSet<UserBrowse>();
             this.UserBrowse1 = new HashSet<UserBrowse>();
+            this.UserEvaluate = new HashSet<UserEvaluate>();
         }
     
         public int UserID { get; set; }
@@ -29,7 +30,7 @@ namespace SmartRental.Models
         public bool User_status { get; set; }
         public Nullable<bool> Sex { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
-        public string HeadPhone { get; set; }
+        public string HeadPhoto { get; set; }
         public string UserGrade { get; set; }
         public System.DateTime Last_landing_time { get; set; }
         public System.DateTime Registration_time { get; set; }
@@ -39,5 +40,7 @@ namespace SmartRental.Models
         public virtual ICollection<UserBrowse> UserBrowse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserBrowse> UserBrowse1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserEvaluate> UserEvaluate { get; set; }
     }
 }
