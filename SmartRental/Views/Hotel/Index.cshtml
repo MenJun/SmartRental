@@ -124,21 +124,24 @@
                                             }
                                         }
 
-                                        <td>
-                                            <button class="btn btn-default btn-sm" id="Yse" onclick="Pass(@item.HotelID)">
-                                                <i class="fa fa-pencil"></i>
-                                                通过
-                                            </button>
+                                    <td>
+                                        <button class="btn btn-default btn-sm" id="Yse" onclick="Pass(@item.HotelID)">
+                                            <i class="fa fa-pencil"></i>
+                                            通过
+                                        </button>
+                                        @if (item.HotelRatify != true)
+                                        {
                                             <button class="btn btn-default btn-sm" id="NO" onclick="refuse(@item.HotelID) ">
                                                 <i class="fa fa-pencil"></i>
                                                 拒绝
                                             </button>
-                                            <button class="btn btn-default btn-sm" id="Select" onclick="Select(@item.HotelID)">
-                                                <i class="fa fa-pencil"></i>
-                                                查看详情
-                                            </button>
+                                        }
+                                        <button class="btn btn-default btn-sm" id="Select" onclick="Select(@item.HotelID)">
+                                            <i class="fa fa-pencil"></i>
+                                            查看详情
+                                        </button>
 
-                                        </td>
+                                    </td>
                                     </tr>
                                 }
                             </tbody>
@@ -161,28 +164,33 @@
     <script>
        
             
-        function Pass(id) {
+        //function Pass(id) {
           
-                $.ajax({
-                    cache: false,
-                    type: "Get",
-                    url: "/Hotel/Audit",
-                    data: { "HotelID": id, "Ratify": true },
-                    success: function (res) {
-                        alert("成功");
+        //        $.ajax({
+        //            cache: false,
+        //            type: "Get",
+        //            url: "/Hotel/Audit",
+        //            data: { "HotelID": id, "Ratify": true },
+        //            success: function (res) {
+        //                alert("成功");
 
-                        history.go(0)//刷新页面
+        //                history.go(0)//刷新页面
 
-                    },
-                    error: function (res) {
-                        alert("失败");
-                    }
-                })
-        }
+        //            },
+        //            error: function (res) {
+        //                alert("失败");
+        //            }
+        //        })
+        //}
         function refuse(id) {
-            alert(123);
             $("#HotelID").val(id);
             $("#Ratify").val(false)
+            $("#forwordform").attr('action', '/Hotel/Index')
+            $("#forwordform").submit()
+        }
+        function Pass(id) {
+            $("#HotelID").val(id);
+            $("#Ratify").val(true)
             $("#forwordform").attr('action', '/Hotel/Index')
             $("#forwordform").submit()
         }
