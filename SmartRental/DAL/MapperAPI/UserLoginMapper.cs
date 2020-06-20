@@ -36,7 +36,8 @@ namespace SmartRental.DAL.MapperAPI
         /// <param name="userPhone">账号</param>
         internal static UserMessage getAccount(string userPhone)
         {
-           return db.UserMessage.Where(t => t.UserPhone == userPhone).FirstOrDefault();
+             var aa = db.UserMessage.Where(t => t.UserPhone == userPhone).FirstOrDefault();
+            return aa;
         }
     }
 }

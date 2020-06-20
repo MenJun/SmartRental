@@ -18,7 +18,7 @@ namespace SmartRental.BLL.ServiceAPI
         internal static bool registration(UserMessage user)
         {
             user.UserPwd = Helpers.TrickLock.WeiJiaMiGuid(user.UserPwd);
-            if (UserLoginMapper.getAccount(user.UserPhone) !=null) //查询是否存在
+            if (UserLoginMapper.getAccount(user.UserPhone) ==null) //查询是否存在
             {
                 return UserLoginMapper.Registr(user);
             }
@@ -51,10 +51,11 @@ namespace SmartRental.BLL.ServiceAPI
         /// <param name="userPhone"></param>
         /// <param name="userPwd"></param>
         /// <returns></returns>
-        internal static UserMessage getLogin(string userPhone, string userPwd)
+        internal static UserMessage getLogin(string userPhone, string Pwd)
         {
             var  user = UserLoginMapper.getAccount(userPhone);
-            if (user.UserPwd == userPwd)
+           var bb = TrickLock.WeiYiJieMiGuid(user.UserPwd);
+            if (bb == Pwd)
             {
                 if (user.UserGrade =="用户")
                 {

@@ -4,6 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Aliyun.Acs.Core;
+using Aliyun.Acs.Core.Exceptions;
+using Aliyun.Acs.Core.Http;
+using Aliyun.Acs.Core.Profile;
 using SmartRental.BLL.ServiceAPI;
 using SmartRental.Models;
 
@@ -87,6 +91,54 @@ namespace SmartRental.Controllers.API
                 return Ok(new { Code = "200", SUCCESS = "成功", details = user });
             }
             return Ok(new { Code = "404", SUCCESS = "失败", details = user });
+        }
+        /// <summary>
+        /// 验证码
+        /// </summary>
+        /// <param name="UserPhone">号码</param>
+        /// <returns></returns>
+        [HttpGet]
+        public  IHttpActionResult Code(string PhoneNum)
+        {
+            IClientProfile profile = DefaultProfile.GetProfile("cn-hangzhou", "LTAI4GKmekoxPjwRHHFtqsT1", "nvWCJdN8VvjC5TjPXiXIxqHTHVVGXA");
+            DefaultAcsClient client = new DefaultAcsClient(profile);
+            CommonRequest request = new CommonRequest();
+            request.Method = MethodType.POST;
+            request.Domain = "dysmsapi.aliyuncs.com";
+            request.Version = "2017-05-25";
+            request.Action = "SendSms";
+            // request.Protocol = ProtocolType.HTTP;
+            request.AddQueryParameters("PhoneNumbers", PhoneNum);
+            request.AddQueryParameters("SignName", "美食美客网");
+            request.AddQueryParameters("TemplateCode", "SMS_193242675");
+            string vc = "";
+            Random rNum = new Random();//随机生成类
+            int num1 = rNum.Next(0, 9);//返回指定范围内的随机数
+            int num2 = rNum.Next(0, 9);
+            int num3 = rNum.Next(0, 9);
+            int num4 = rNum.Next(0, 9);
+            int num5 = rNum.Next(0, 9);
+            int num6 = rNum.Next(0, 9);
+            int[] nums = new int[6] { num1, num2, num3, num4, num5, num6 };
+            for (int i = 0; i < nums.Length; i++)//循环添加四个随机生成数
+            {
+                vc += nums[i].ToString();
+            }
+            request.AddQueryParameters("TemplateParam", "{\"code\":\"" + vc + "\"}");
+            try
+            {
+                CommonResponse response = client.GetCommonResponse(request);
+                return Ok(vc);
+            }
+            catch (Aliyun.Acs.Core.Exceptions.ServerException e)
+            {
+                return Ok(e);
+            }
+            catch (ClientException e)
+            {
+                return Ok(e);
+            }
+            
         }
         public string Options()
         {

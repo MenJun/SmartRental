@@ -10,7 +10,9 @@ namespace SmartRental
         public static void Register(HttpConfiguration config)
         {
             // Web API 配置和服务
-         
+
+            GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+
             config.EnableCors();
             // Web API 路由
             config.MapHttpAttributeRoutes();
