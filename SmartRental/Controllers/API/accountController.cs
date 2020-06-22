@@ -13,7 +13,9 @@ using SmartRental.Models;
 
 namespace SmartRental.Controllers.API
 {
-
+    /// <summary>
+    /// 前端的登陆注册
+    /// </summary>
     [EnableCors(headers: "http://localhost:8081", methods: "*", origins: "*")]
     public class accountController : ApiController
     {

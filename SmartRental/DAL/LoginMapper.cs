@@ -24,9 +24,9 @@ namespace SmartRental.DAL
         /// </summary>
         /// <param name="userPhone">通过号码查询权限</param>
         /// <returns></returns>
-        internal static User_roles Rples(string userPhone)
+        internal static user_roles Rples(string userPhone)
         {
-            return db.User_roles.Where(t => t.UserName == userPhone).FirstOrDefault();
+            return db.user_roles.Where(t => t.UserPhone == userPhone).FirstOrDefault();
         }
     }
 }
