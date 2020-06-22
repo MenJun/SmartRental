@@ -32,26 +32,17 @@ namespace SmartRental.DAL.MapperAdmin
                         hotel.Hotelphoto7 = photo[i].ToString();
 
                 }
-
-                db.HotelPhoto.Add(hotel);
-
-
-
-               
+              var bb=db.HotelPhoto.Add(hotel);
                 db.SaveChanges();
-            }
-            using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
-            {
-
-             
-         
+                int photoID = bb.HotelPhotoID;
+                manager.HotelPhotoID = photoID;
                 db.HotelManag.Add(manager);
 
                 return db.SaveChanges();
 
 
-
             }
+          
 
 
 
