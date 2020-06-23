@@ -48,11 +48,25 @@ namespace SmartRental.DAL.MapperAPI
         }
 
         /// <summary>
+        /// 搜索栏模糊查询
+        /// </summary>
+        /// <param name="search"></param>
+        internal static object Hunt(string search)
+        {
+            using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
+            {
+                var aa = db.HotelManag.Where(t => t.HotelName.Contains(search) && t.HotelRatify == true).ToList();
+                return aa;
+            }
+        }
+
+        /// <summary>
         /// 查询上线后推荐的的酒店
         /// </summary>
         /// <returns></returns>
         public static List<HotelManag> Getrecommend()
         {
+            
             
             using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
             {
