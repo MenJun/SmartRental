@@ -43,5 +43,14 @@ namespace SmartRental.BLL.ServiceAPI
             return list;
         }
 
+        /// <summary>
+        /// 模糊查询
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        internal static object SearchHotel(string search)
+        {
+           return HotelMapper.Hunt(search);
+        }
     }
 }
