@@ -14,6 +14,10 @@ namespace SmartRental.Controllers.admin
         {
             return View();
         }
+        public ActionResult Main2()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Main(HotelManag manag, string city, string[] HotelFacility)
         {
@@ -29,7 +33,7 @@ namespace SmartRental.Controllers.admin
             manag.HotelFacility = fi;
             manag.HotelCity = city;
             manag.Hoteltration_time = DateTime.Now.ToLocalTime();
-        
+          
             manag.HotelGrade = 10;
             string[] bs = common.Upload.ImgName();
 
