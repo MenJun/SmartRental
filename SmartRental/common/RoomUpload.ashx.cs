@@ -6,9 +6,9 @@ using System.Web;
 namespace SmartRental.common
 {
     /// <summary>
-    /// Upload 的摘要说明
+    /// RoomUpload 的摘要说明
     /// </summary>
-    public class Upload : IHttpHandler
+    public class RoomUpload : IHttpHandler
     {
 
         public static string[] imgname;
@@ -27,9 +27,9 @@ namespace SmartRental.common
                 {
                     //上传的文件保存到目录(为了保证文件名不重复，加个Guid)
                     string guid = Guid.NewGuid().ToString();
-                    string path = "~/images/HotelPhoto/" + guid + file.FileName;
+                    string path = "~/images/RoomPhoto/" + guid + file.FileName;
                     file.SaveAs(context.Request.MapPath(path));//必须得是相对路径
-                    imgname[i] = "/images/HotelPhoto/"+guid + file.FileName;
+                    imgname[i] = "/images/RoomPhoto/" + guid + file.FileName;
                 }
                 else
                 {
@@ -46,8 +46,8 @@ namespace SmartRental.common
         public static string[] ImgName()
         {
             string[] imgName = imgname;
-            imgname = null;
 
+            imgname = null;
             return imgName;
 
         }

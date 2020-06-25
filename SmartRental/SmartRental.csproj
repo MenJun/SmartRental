@@ -188,6 +188,9 @@
     <Compile Include="BLL\ServiceAdmin\HotelService.cs" />
     <Compile Include="BLL\ServiceAPI\HotelService.cs" />
     <Compile Include="BLL\ServiceAPI\UserLoginService.cs" />
+    <Compile Include="common\RoomUpload.ashx.cs">
+      <DependentUpon>RoomUpload.ashx</DependentUpon>
+    </Compile>
     <Compile Include="common\Upload.ashx.cs">
       <DependentUpon>Upload.ashx</DependentUpon>
     </Compile>
@@ -414,6 +417,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="common\Upload.ashx" />
+    <Content Include="common\RoomUpload.ashx" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -465,6 +469,7 @@
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\GHotelHome\Main.cshtml" />
     <Content Include="Views\GHotelHome\Main2.cshtml" />
+    <Content Include="Views\GHotelHome\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
