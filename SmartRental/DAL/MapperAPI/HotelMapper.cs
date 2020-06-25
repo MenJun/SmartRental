@@ -32,10 +32,10 @@ namespace SmartRental.DAL.MapperAPI
 
                     var distinctPeople = db.HotelManag.Include("HotelPhoto")
                         .Where(t => t.HotelCity == _dbApplicationList && t.HotelRatify == true).ToList().FirstOrDefault();
-                    //.GroupBy(p => new { p.HotelCity, p.HotelName }).Select(g => g.FirstOrDefault()).ToList();
-                    //var aa = distinctPeople.FirstOrDefault();
-                    //var bb = db.HotelPhoto.Where(s => s.HotelID == aa.HotelID);
-
+                    if (distinctPeople == null)
+                    {
+                        continue;
+                    }
                     list.Add(distinctPeople);
                     if (num >= HotelNum)
                     {
@@ -70,6 +70,7 @@ namespace SmartRental.DAL.MapperAPI
             
             using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
             {
+                db.Configuration.ProxyCreationEnabled = false;
                 var aa = db.HotelManag.Include("HotelPhoto").Where(t => t.HotelRatify == true).OrderBy(t => t.Hotelrecommen).ToList();
                 return aa;
             }
