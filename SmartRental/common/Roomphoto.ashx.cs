@@ -6,9 +6,9 @@ using System.Web;
 namespace SmartRental.common
 {
     /// <summary>
-    /// RoomUpload 的摘要说明
+    /// Roomphoto 的摘要说明
     /// </summary>
-    public class RoomUpload : IHttpHandler
+    public class Roomphoto : IHttpHandler
     {
 
         public static string[] imgname;

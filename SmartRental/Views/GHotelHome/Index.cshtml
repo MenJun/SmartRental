@@ -1,7 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "Main";
+    ViewBag.Title = "Index";
 }
+
 
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
@@ -41,19 +42,19 @@
             </p>
             <p>
                 <label style="width:100px;">是否有早餐:</label>
-                <input type="radio" id="Boolbreakfast"  name="Boolbreakfast" value="true" checked="checked">是
+                <input type="radio" id="Boolbreakfast" name="Boolbreakfast" value="true" checked="checked">是
                 <input type="radio" id="Boolbreakfast" name="Boolbreakfast" value="false">否
                 @Html.ValidationMessage("Boolbreakfast")
             </p>
             <p>
                 <label style="width:100px">房型:</label>
-                <select name="RoomTypeID" id="RoomTypeID"  style="height:35px;width:300px">
+                <select name="RoomTypeID" id="RoomTypeID" style="height:35px;width:300px">
                     @foreach (var item in ViewBag.RoomType)
                     {
                         <option value="@item.Value">@item.Text</option>
                     }
                 </select>@Html.ValidationMessage("RoomTypeID")
-            </p>         
+            </p>
             <p>
 
                 <label style="width:100px">房间设施:</label>
@@ -90,7 +91,7 @@
             </p>
             <p>
                 <label style="width:100px">房间实价：</label>
-                <input type="text"  name="RoomPrice"  id="RoomPrice"style="width:300px" placeholder="请输入房间实价"> @Html.ValidationMessage("RoomPrice")
+                <input type="text" name="RoomPrice" id="RoomPrice" style="width:300px" placeholder="请输入房间实价"> @Html.ValidationMessage("RoomPrice")
             </p>
             <p>
                 <label style="width:100px;">酒店图片：</label>@Html.ValidationMessage("file")
@@ -143,7 +144,7 @@
     function Upload() {
         var param = new FormData(($("#regFrm")[0]));
         $.ajax({
-            url: "/common/RoomUpload.ashx",
+            url: "/common/Roomphoto.ashx",
             data: param,
             type: "post",
             processData: false,
@@ -218,10 +219,10 @@
                     max: 100,
                     min: 1,
                 },
-                RoomPrice: { required: true, min: 1,},
+                RoomPrice: { required: true, min: 1, },
                 RoomTypeID: { required: true },
-                PrimeCost: { required: true, min: 1,}, 
-                file: { required: true }, 
+                PrimeCost: { required: true, min: 1, },
+                file: { required: true },
                 "RoomFacility": {
                     required: true,
                     minlength: 2
@@ -237,15 +238,15 @@
                 RoomCount: {
                     reqiored: "数了量不能为空",
                     max: "房间数量不能超过100",
-                    min:"房间数量不能低于1"
-                   },
+                    min: "房间数量不能低于1"
+                },
                 MattresID: { required: "床型" },
                 RoomPrice: {
                     required: "请输入房间原价",
-                   
-                    min:"价格不能低于0",
+
+                    min: "价格不能低于0",
                 },
-                PrimeCost: { required: "请输入房间实际价格", min: "价格不能低于0", },              
+                PrimeCost: { required: "请输入房间实际价格", min: "价格不能低于0", },
                 file: { required: "图片不能为空" },
                 "RoomFacility": {
                     required: "请选择酒店设施",
