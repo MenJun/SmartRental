@@ -23,5 +23,10 @@ namespace SmartRental.BLL.ServiceAPI
         {
             return HotelDetailsMapper.All(id);
         }
+
+        internal static object AllRoom(int roomId)
+        {
+            return HotelDetailsMapper.Allroom(roomId);
+        }
     }
 }

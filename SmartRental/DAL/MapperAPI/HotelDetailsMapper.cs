@@ -23,6 +23,16 @@ namespace SmartRental.DAL.MapperAPI
             }
             
         }
+
+        internal static object Allroom(int roomId)
+        {
+            using(SmartRentalSystemEntities db =new SmartRentalSystemEntities())
+            {
+                var aa = db.RoomMessage.Include("RoomType").Include("RoomPhoto").Where(t => t.RoomID == roomId).ToList().FirstOrDefault();
+                return aa;
+            }
+        }
+
         /// <summary>
         /// 查询某个酒店
         /// </summary>

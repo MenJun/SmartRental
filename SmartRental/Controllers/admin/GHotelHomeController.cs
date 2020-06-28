@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SmartRental.Models;
+using SmartRental.common;
+
 namespace SmartRental.Controllers.admin
 {
     public class GHotelHomeController : Controller

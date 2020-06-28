@@ -35,5 +35,17 @@ namespace SmartRental.Controllers.API
 
             return Ok(HotelDetailsService.Allhotel(HotelId));
         }
+
+        /// <summary>
+        /// 单个房间信息
+        /// </summary>
+        /// <param name="RoomId">房间ID</param>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult Room(int RoomId)
+        {
+
+            return Ok(HotelDetailsService.AllRoom(RoomId));
+        }
     }
 }

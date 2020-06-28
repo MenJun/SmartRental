@@ -8,7 +8,7 @@ namespace SmartRental.common
     /// <summary>
     /// Roomphoto 的摘要说明
     /// </summary>
-    public class Roomphoto : IHttpHandler
+    public class RoomUpload : IHttpHandler
     {
 
         public static string[] imgname;
