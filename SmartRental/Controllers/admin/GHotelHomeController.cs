@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SmartRental.common;
 
 namespace SmartRental.Controllers.admin
 {
@@ -20,8 +19,17 @@ namespace SmartRental.Controllers.admin
             return View();
         }
         [HttpPost]
-        public ActionResult Main(HotelManag manag, string city, string[] HotelFacility)
+        public ActionResult Main(HotelManag manag, string city,string province, string[] HotelFacility)
         {
+            if (province.Contains("市"))
+            {
+                manag.HotelCity = province;
+            }
+            else
+            {
+                manag.HotelCity = city;
+            }
+          
             string fi = "";
 
             foreach (var item in HotelFacility)
@@ -32,7 +40,7 @@ namespace SmartRental.Controllers.admin
                 fi = fi + "," + item.ToString();//这样写方便调试看
             }
             manag.HotelFacility = fi;
-            manag.HotelCity = city;
+        
             manag.Hoteltration_time = DateTime.Now.ToLocalTime();
           
             manag.HotelGrade = 10;
@@ -70,7 +78,7 @@ namespace SmartRental.Controllers.admin
         public ActionResult Index(RoomMessage roomMessage, string[] RoomFacility)
         {
             string fi = "";
-
+         
             foreach (var item in RoomFacility)
             {
                 //可以自己写Insert语句(添加数据)
@@ -78,7 +86,7 @@ namespace SmartRental.Controllers.admin
                 fi = fi + "," + item.ToString();//这样写方便调时看
             }
             roomMessage.RoomFacility = fi;
-            string[] bs = common.RoomUpload.ImgName();
+            string[] bs = common.Roomphoto.ImgName();
             using (SmartRentalSystemEntities db = new SmartRentalSystemEntities()) { 
                 RoomPhoto roomph = new RoomPhoto();
             for (int i = 0; i <bs.Length; i++)
