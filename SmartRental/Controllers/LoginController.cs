@@ -31,22 +31,21 @@ namespace SmartRental.Controllers
             if (int.Parse(decryptionResult.ToString()) == 1) //超级管理员
             {
                 Session["SuperAdmin"] = userMessage.UserPhone;
-                return Json(new { roestr = "/Home/Main" }, JsonRequestBehavior.AllowGet);
+                return Json(new { succeed =200, roestr = "/Home/Main" }, JsonRequestBehavior.AllowGet);
             }
             else if (int.Parse(decryptionResult.ToString()) == 0) //密码错误
             {
 
-                return Json(new { roestr = "你妈逼错误了" }, JsonRequestBehavior.AllowGet);
+                return Json(new { succeed = 404, roestr = "密码错误" }, JsonRequestBehavior.AllowGet);
             }
             else if (int.Parse(decryptionResult.ToString()) == -1) // 普通管理员
             {
                 Session["GeneralManager"] = userMessage.UserPhone;
-                Session["HotelName"] = 10;
-                return Json(new { roestr = "/Home/Main" }, JsonRequestBehavior.AllowGet);
+                return Json(new { succeed = 200, roestr = "/Home/Main" }, JsonRequestBehavior.AllowGet);
             }
             else //不是管理员
             {
-                return Json(new { roestr = "没有权限" }, JsonRequestBehavior.AllowGet);
+                return Json(new { succeed = 404, roestr = "没有权限" }, JsonRequestBehavior.AllowGet);
             }
 
         }
