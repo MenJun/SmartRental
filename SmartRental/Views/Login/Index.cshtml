@@ -111,8 +111,8 @@
                     url: "/Login/GetDecryptionString",
                     type: "get",
                     data: formToJson($("#form")),
-                    //dataType: 'json',
-                    //contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
                     success: function (data) {
                         console.log(data)
                         if (data.succeed == 200) {

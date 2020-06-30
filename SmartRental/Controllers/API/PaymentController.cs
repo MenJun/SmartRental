@@ -14,7 +14,7 @@ using SmartRental.DAL.MapperAPI;
 
 namespace SmartRental.Controllers.API
 {
-    [EnableCors(headers: "*", methods: "*", origins: "http://localhost:8081")]
+    [EnableCors(headers: "*", methods: "*", origins: "*")]
     public class PaymentController : ApiController
     {
         //沙箱环境，请求支付链接的地址           
@@ -30,6 +30,12 @@ namespace SmartRental.Controllers.API
         //支付宝公钥
         const string ALIPAY_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDIgHnOn7LLILlKETd6BFRJ0GqgS2Y3mn1wMQmyh9zEyWlz5p1zrahRahbXAfCfSqshSNfqOmAQzSHRVjCqjsAw1jyqrXaPdKBmr90DIpIxmIyKXv4GGAkPyJ/6FTFY99uhpiq0qadD/uSzQsefWo0aTvP/65zi3eof7TcZ32oWpwIDAQAB";
  Models.Order order = new Models.Order();
+
+        IAopClient client = new DefaultAopClient(URL, APPID, APP_PRIVATE_KEY, FORMAT, "2.0", "RSA2", ALIPAY_PUBLIC_KEY, CHARSET, false);
+        //实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称如：
+        AlipayTradePrecreateRequest request = new AlipayTradePrecreateRequest();//创建API对应的request类,请求返回二维码
+        AlipayTradePagePayRequest requestPagePay = new AlipayTradePagePayRequest();//请求返回支付宝支付网页
+        AlipayTradePagePayModel model = new AlipayTradePagePayModel();
 
         [System.Web.Http.HttpPost]
         public IHttpActionResult Payment(dynamic data)
@@ -53,11 +59,7 @@ namespace SmartRental.Controllers.API
             order.OrderState = "待支付";
             PaymentService.Payment(order);
             //Alipay
-            IAopClient client = new DefaultAopClient(URL, APPID, APP_PRIVATE_KEY, FORMAT, "2.0", "RSA2", ALIPAY_PUBLIC_KEY, CHARSET, false);
-            //实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称如：
-            AlipayTradePrecreateRequest request = new AlipayTradePrecreateRequest();//创建API对应的request类,请求返回二维码
-            AlipayTradePagePayRequest requestPagePay = new AlipayTradePagePayRequest();//请求返回支付宝支付网页
-            AlipayTradePagePayModel model = new AlipayTradePagePayModel();
+           
             //model.Body = "一般般";
             //model.GoodsDetail = data;
             model.Subject = data.data.fang;
@@ -66,7 +68,7 @@ namespace SmartRental.Controllers.API
             model.StoreId = "William001";
               model.ProductCode = "FAST_INSTANT_TRADE_PAY";
             requestPagePay.SetBizModel(model);
-            requestPagePay.SetReturnUrl("https://localhost:44373/api/Payment/Payments");
+            requestPagePay.SetReturnUrl("http://localhost:8081/OrderDetails");
             var response = client.SdkExecute(requestPagePay);//Execute(request);
             if (!response.IsError)
             {
@@ -91,14 +93,24 @@ namespace SmartRental.Controllers.API
 
           
         }
-        [System.Web.Http.HttpGet]
-        public IHttpActionResult Payments(string out_trade_no, string trade_no, string timestamp, string total_amount)
+        /// <summary>
+        /// 支付完成
+        /// </summary>
+        /// <param name="out_trade_no">商家号</param>
+        /// <param name="trade_no">订单号</param>
+        /// <param name="timestamp">下单时间</param>
+        /// <param name="total_amount">价钱</param>
+        /// <returns></returns>
+        [System.Web.Http.HttpPost]
+        public IHttpActionResult Payments(dynamic data)
         {
-            order.OutTradeNo = out_trade_no;
-            order.OrderNumber = trade_no;
-            order.Ordertime =DateTime.Parse(timestamp);
-            order.ActualPrice = decimal.Parse(total_amount);
+           // string out_trade_no, string trade_no, string timestamp, string total_amount
+            order.OutTradeNo = data.data.out_trade_no;
+            order.OrderNumber = data.data.trade_no;
+            order.Ordertime =DateTime.Parse(data.data.timestamp.Value);
+            order.ActualPrice = decimal.Parse(data.data.total_amount.Value);
             PaymentService.CompletePayment(order);
+            //requestPagePay.SetReturnUrl("");
             return Ok(order);
         }
     }
