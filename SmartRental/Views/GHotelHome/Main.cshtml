@@ -6,10 +6,9 @@
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 
-<link href="~/Content/Site.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/Content/uploadImg.css">
 @section scripts{
-
+    @*<link href="~/Content/Site.css" rel="stylesheet" />*@
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
     <script src="~/Scripts/area.js"></script>
     <script src="~/Scripts/select.js"></script>
@@ -41,16 +40,16 @@
             </p>
             <p>
                 <label style="width:100px;">酒店详细地址:</label>
-                <textarea placeholder="请输入地址" name="AddressDetails" id="AddressDetails" style="margin: 0px 0.7px 0px 0px; width: 500px; height: 50px;"></textarea>
+                <textarea placeholder="请输入地址" name="AddressDetails" id="AddressDetails" style="margin: 0px 0.7px 0px 0px; width: 300px; height: 50px;"></textarea>
                 @Html.ValidationMessage("AddressDetails")
             </p>
             <p>
                 <label style="width:100px">酒店简介:</label>
-                <textarea placeholder="请输入简介信息" name="HotelIntro" id="HotelIntro" style="margin: 0px 0.7px 0px 0px; width: 500px; height: 50px;"></textarea>@Html.ValidationMessage("HotelIntro")
+                <textarea placeholder="请输入简介信息" name="HotelIntro" id="HotelIntro" style="margin: 0px 0.7px 0px 0px; width: 300px; height: 50px;"></textarea>@Html.ValidationMessage("HotelIntro")
             </p>
             <p>
                 <label style="width:100px">酒店规则:</label>
-                <textarea placeholder="请输入酒店规则" name="HotelRule" id="HotelRule" style="margin: 0px 0.7px 0px 0px; width: 500px; height: 50px;"></textarea>@Html.ValidationMessage("HotelRule")
+                <textarea placeholder="请输入酒店规则" name="HotelRule" id="HotelRule" style="margin: 0px 0.7px 0px 0px; width: 300px; height: 50px;"></textarea>@Html.ValidationMessage("HotelRule")
             </p>
             <p>
 

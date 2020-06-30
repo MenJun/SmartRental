@@ -1,4 +1,5 @@
-﻿using SmartRental.Models;
+﻿//using Microsoft.AspNetCore.Mvc;
+using SmartRental.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,22 @@ namespace SmartRental.Controllers.admin
 {
     public class GHotelHomeController : Controller
     {
+        /// <summary>
+        /// 酒店信息添加
+        /// </summary>
+        /// <returns></returns>
         // GET: GHotelHome
-        public ActionResult Main()
+        public System.Web.Mvc.ActionResult Main()
+        {
+            
+            return View();
+        }
+        public System.Web.Mvc.ActionResult Main2()
         {
             return View();
         }
-        public ActionResult Main2()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Main(HotelManag manag, string city,string province, string[] HotelFacility)
+        [System.Web.Http.HttpPost]
+        public System.Web.Mvc.ActionResult Main(HotelManag manag, string city,string province, string[] HotelFacility)
         {
             if (province.Contains("市"))
             {
@@ -67,7 +73,12 @@ namespace SmartRental.Controllers.admin
         /// <returns></returns>
         public ActionResult Index()
         {
-
+            ViewBag.RoomTy = new List<SelectListItem>()
+            {
+                new SelectListItem(){Selected = false,Text = "北京",Value="1"},
+                new SelectListItem(){Selected = true,Text = "上海",Value="2"},
+                new SelectListItem(){Selected = false,Text = "广州",Value="3"}
+            };
             ViewBag.RoomType = new SelectList(BLL.ServiceAdmin.GHotelManageService.GetAll2(), "RoomTypeID", "RoomType1");
             ViewBag.Mattres = new SelectList(BLL.ServiceAdmin.GHotelManageService.GetAll1(), "MattresID", "MattresType");
             ViewBag.HotelName = new SelectList(BLL.ServiceAdmin.GHotelManageService.GetAll3(), "HotelID", "HotelName");
@@ -75,7 +86,7 @@ namespace SmartRental.Controllers.admin
         }
 
         [HttpPost]
-        public ActionResult Index(RoomMessage roomMessage, string[] RoomFacility)
+        public System.Web.Mvc.ActionResult Index(RoomMessage roomMessage, string[] RoomFacility)
         {
             string fi = "";
          
@@ -120,5 +131,50 @@ namespace SmartRental.Controllers.admin
            
             return Content("<script>alert('添加成功');</script>");
         }
+
+
+        public ActionResult RoomIndex()
+        {
+
+        
+            return View();
+        }
+
+        public JsonResult Roommessagelist()
+        {
+           var  HotelNameID = 5;//以酒店为10做测试
+
+            SmartRentalSystemEntities db = new SmartRentalSystemEntities();
+            int pageSize = int.Parse(Request["limit"] ?? "10");
+            int pageIndex = int.Parse(Request["page"] ?? "1");
+           var roommessagelist = db.RoomMessage.Where(f=>f.HotelID == HotelNameID).OrderBy(s => s.RoomID).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+           
+            //总共多少数据
+            var allCount = db.RoomMessage.Where(f => f.HotelID == HotelNameID).Count();
+            //把totle和rows:[{},{}]一起返回
+            //先建立一个匿名类
+            var dataJson = new {code=0, msg="",count = allCount, data = roommessagelist };
+            var json = Json(dataJson, JsonRequestBehavior.AllowGet);
+            return json;
+        }
+        [HttpPost]
+        public ActionResult DeleteRoom(int id)
+        {
+            SmartRentalSystemEntities dbContext = new SmartRentalSystemEntities();
+            var s = dbContext.RoomMessage.Find(id);
+            dbContext.RoomMessage.Remove(s);
+            dbContext.SaveChanges();
+            return Content("ok:删除成功");
+        }
+
+        public ActionResult EditRoom(int id)
+        {
+            SmartRentalSystemEntities dbContext = new SmartRentalSystemEntities();
+            var s = dbContext.RoomMessage.Find(id);
+        
+            return View(s);
+        }
+        
+
     }
 }

@@ -80,5 +80,16 @@ namespace SmartRental.DAL.MapperAdmin
                 return db.HotelManag.ToList();
             }
         }
+        /// <summary>
+        /// 查询酒店的所有房间
+        /// </summary>
+        /// <returns></returns>
+        public static List<RoomMessage> HotelRoom()
+        {
+            using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
+            {
+                return db.RoomMessage.ToList();
+            }
+        }
     }
 }
