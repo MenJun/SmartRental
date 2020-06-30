@@ -31,7 +31,7 @@ namespace SmartRental.Controllers
             if (int.Parse(decryptionResult.ToString()) == 1) //超级管理员
             {
                 Session["SuperAdmin"] = userMessage.UserPhone;
-                return Json(new { succeed =404, roestr = "/Home/Main" }, JsonRequestBehavior.AllowGet);
+                return Json(new { succeed =200, roestr = "/Home/Main" }, JsonRequestBehavior.AllowGet);
             }
             else if (int.Parse(decryptionResult.ToString()) == 0) //密码错误
             {

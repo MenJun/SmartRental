@@ -1,4 +1,5 @@
-﻿using SmartRental.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using SmartRental.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,16 @@ namespace SmartRental.Controllers.admin
     public class GHotelHomeController : Controller
     {
         // GET: GHotelHome
-        public ActionResult Main()
+        public System.Web.Mvc.ActionResult Main()
         {
             return View();
         }
-        public ActionResult Main2()
+        public System.Web.Mvc.ActionResult Main2()
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult Main(HotelManag manag, string city,string province, string[] HotelFacility)
+        [System.Web.Http.HttpPost]
+        public System.Web.Mvc.ActionResult Main(HotelManag manag, string city,string province, string[] HotelFacility)
         {
             if (province.Contains("市"))
             {
@@ -65,7 +66,7 @@ namespace SmartRental.Controllers.admin
         /// 酒店房间添加界面
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        public System.Web.Mvc.ActionResult Index()
         {
 
             ViewBag.RoomType = new SelectList(BLL.ServiceAdmin.GHotelManageService.GetAll2(), "RoomTypeID", "RoomType1");
@@ -74,8 +75,8 @@ namespace SmartRental.Controllers.admin
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Index(RoomMessage roomMessage, string[] RoomFacility)
+        [System.Web.Http.HttpPost]
+        public System.Web.Mvc.ActionResult Index(RoomMessage roomMessage, string[] RoomFacility)
         {
             string fi = "";
          
@@ -86,7 +87,7 @@ namespace SmartRental.Controllers.admin
                 fi = fi + "," + item.ToString();//这样写方便调时看
             }
             roomMessage.RoomFacility = fi;
-            string[] bs = common.Roomphoto.ImgName();
+            string[] bs = common.RoomUpload.ImgName();
             using (SmartRentalSystemEntities db = new SmartRentalSystemEntities()) { 
                 RoomPhoto roomph = new RoomPhoto();
             for (int i = 0; i <bs.Length; i++)
