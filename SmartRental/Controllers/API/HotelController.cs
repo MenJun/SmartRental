@@ -15,7 +15,7 @@ namespace SmartRental.Controllers.API
     /// <summary>
     /// 前端首页
     /// </summary>
-    [EnableCors(headers: "http://localhost:8081", methods: "*", origins: "*")]
+    [EnableCors(headers: "*", methods: "*", origins: "*")]
     public class HotelController : ApiController
     {
         /// <summary>
