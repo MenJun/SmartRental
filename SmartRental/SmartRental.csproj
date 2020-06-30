@@ -302,6 +302,7 @@
     <Compile Include="BLL\ServiceAdmin\HotelService.cs" />
     <Compile Include="BLL\ServiceAPI\HotelDetailsService.cs" />
     <Compile Include="BLL\ServiceAPI\HotelService.cs" />
+    <Compile Include="BLL\ServiceAPI\PaymentService.cs" />
     <Compile Include="BLL\ServiceAPI\UserLoginService.cs" />
     <Compile Include="common\RoomUpload.ashx.cs">
       <DependentUpon>RoomUpload.ashx</DependentUpon>
@@ -324,6 +325,7 @@
     <Compile Include="DAL\MapperAdmin\HotelMapper.cs" />
     <Compile Include="DAL\MapperAPI\HotelDetailsMapper.cs" />
     <Compile Include="DAL\MapperAPI\HotelMapper.cs" />
+    <Compile Include="DAL\MapperAPI\PaymentMapper.cs" />
     <Compile Include="DAL\MapperAPI\UserLoginMapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -647,6 +649,12 @@
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\AWSSDK.CloudWatch.3.3.107.41\analyzers\dotnet\cs\AWSSDK.CloudWatch.CodeAnalysis.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\alipay-sdk-NET20170615110549\AopSdk.csproj">
+      <Project>{9c11cae5-5188-4e71-825b-68fc3135728a}</Project>
+      <Name>AopSdk</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
