@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿//using Microsoft.AspNetCore.Mvc;
 using SmartRental.Models;
 using System;
 using System.Collections.Generic;
@@ -17,6 +17,7 @@ namespace SmartRental.Controllers.admin
         // GET: GHotelHome
         public System.Web.Mvc.ActionResult Main()
         {
+            
             return View();
         }
         public System.Web.Mvc.ActionResult Main2()
@@ -70,16 +71,21 @@ namespace SmartRental.Controllers.admin
         /// 酒店房间添加界面
         /// </summary>
         /// <returns></returns>
-        public System.Web.Mvc.ActionResult Index()
+        public ActionResult Index()
         {
-
+            ViewBag.RoomTy = new List<SelectListItem>()
+            {
+                new SelectListItem(){Selected = false,Text = "北京",Value="1"},
+                new SelectListItem(){Selected = true,Text = "上海",Value="2"},
+                new SelectListItem(){Selected = false,Text = "广州",Value="3"}
+            };
             ViewBag.RoomType = new SelectList(BLL.ServiceAdmin.GHotelManageService.GetAll2(), "RoomTypeID", "RoomType1");
             ViewBag.Mattres = new SelectList(BLL.ServiceAdmin.GHotelManageService.GetAll1(), "MattresID", "MattresType");
             ViewBag.HotelName = new SelectList(BLL.ServiceAdmin.GHotelManageService.GetAll3(), "HotelID", "HotelName");
             return View();
         }
 
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         public System.Web.Mvc.ActionResult Index(RoomMessage roomMessage, string[] RoomFacility)
         {
             string fi = "";
@@ -141,7 +147,8 @@ namespace SmartRental.Controllers.admin
             SmartRentalSystemEntities db = new SmartRentalSystemEntities();
             int pageSize = int.Parse(Request["limit"] ?? "10");
             int pageIndex = int.Parse(Request["page"] ?? "1");
-            List<RoomMessage> roommessagelist = db.RoomMessage.Where(f=>f.HotelID == HotelNameID).OrderBy(s => s.RoomID).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+           var roommessagelist = db.RoomMessage.Where(f=>f.HotelID == HotelNameID).OrderBy(s => s.RoomID).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+           
             //总共多少数据
             var allCount = db.RoomMessage.Where(f => f.HotelID == HotelNameID).Count();
             //把totle和rows:[{},{}]一起返回
@@ -159,6 +166,15 @@ namespace SmartRental.Controllers.admin
             dbContext.SaveChanges();
             return Content("ok:删除成功");
         }
+
+        public ActionResult EditRoom(int id)
+        {
+            SmartRentalSystemEntities dbContext = new SmartRentalSystemEntities();
+            var s = dbContext.RoomMessage.Find(id);
+        
+            return View(s);
+        }
+        
 
     }
 }

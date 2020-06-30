@@ -43,21 +43,18 @@
                 , totalRow: true
                 , cols: [[
                     { type: 'checkbox', fixed: 'left' }
-                    , { field: 'RoomID', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计' }
-                    , { field: 'RoomName', title: '房间名', width: 120, edit: 'text' }
+                    //, { field: 'RoomID', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计' }
+                    , { field: 'RoomName', title: '房间名', width: 150,  }
                     , {
-                        field: 'RoomLayout', title: '房间布局', width: 150, edit: 'text', 
-                        }
-                    
-                , { field: 'MattresID', title: '积分', width: 80, sort: true, totalRow: true }
-                    , { field: 'RoomFacility', title: '性别', width: 80, edit: 'text', sort: true }
-                    , { field: 'RoomCount', title: '登入次数', width: 100, sort: true, totalRow: true }
-                    , { field: 'PrimeCost', title: '签名' }
-                    , { field: 'RoomPrice', title: '城市', width: 100 }
-                    , { field: 'Boolbreakfast', title: 'IP', width: 120 }
-                    , { field: 'RoomTypeID', title: '加入时间', width: 120, }
-                   
-                    , { field: 'Roomstate', title: '加入时间', width: 120 }
+                        field: 'RoomType', title: '房间类型', width:120,
+                        }                    
+                    , { field: 'MattresType', title: '床型', width: 120,   }
+                    , { field: 'RoomFacility', title: '房间设施', width: 150,  }
+                    , { field: 'RoomLayout', title: '房间布局', width: 150, }
+                    , { field: 'RoomCount', title: '房间数量', width: 90 }
+                    , { field: 'Boolbreakfast', title: '是否有早餐', width: 100 }
+                    , { field: 'PrimeCost', title: '房间原价', width: 110, totalRow: true, sort: true,}                 
+                    , { field: 'RoomPrice', title: '房间实价', width: 110, totalRow: true, sort: true,}                  
                     , {
                         fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150
                        
@@ -112,15 +109,17 @@
              
               
             } else if (obj.event === 'edit') {
-                layer.prompt({
-                    formType: 2
-                    , value: data.email
-                }, function (value, index) {
-                    obj.update({
-                        email: value
-                    });
-                    layer.close(index);
-                });
+
+                $.post("/GHotelHome/EditRoom", { id: index })
+                //layer.prompt({
+                //    formType: 2
+                //    , value: data.email
+                //}, function (value, index) {
+                //    obj.update({
+                //        email: value
+                //    });
+                //    layer.close(index);
+                //});
             }
           
         });

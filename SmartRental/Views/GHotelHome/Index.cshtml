@@ -105,7 +105,12 @@
             </p>
         </div>
 
-
+        <select name="RoomTypeID" id="RoomTy" style="height:35px;width:300px">
+            @foreach (var item in ViewBag.RoomTy)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
     </div>
     <div style="text-align:center;margin:0 auto">
         <input type="submit" value="提交" style="height:30px;width:100px;background-color:aqua;border:none;font-weight:900; margin-top:500px;margin-left:-200px" onclick="Upload()">
