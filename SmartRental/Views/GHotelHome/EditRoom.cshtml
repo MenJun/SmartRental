@@ -1,7 +1,278 @@
-﻿
+﻿   `
 @{
-    ViewBag.Title = "EditRoom";
+    ViewBag.Title = "Index";
 }
 
-<h2>EditRoom</h2>
+@using SmartRental.Models
+@{ 
+    RoomMessage roomMessage = Model as RoomMessage;
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
 
+@*<link href="~/Content/Site.css" rel="stylesheet" />*@
+<link rel="stylesheet" href="~/Content/uploadImg.css">
+@section scripts{
+
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/area.js"></script>
+    <script src="~/Scripts/select.js"></script>
+}
+<style>
+    p {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+</style>
+@using (Html.BeginForm("EditRoom", "GHotelHome", System.Web.Mvc.FormMethod.Post, new { id = "regFrm", name = "regFrm" }))
+{
+
+    <div style="margin:0 auto">
+        <div style="width:600px;float:left;margin-left:30px">
+            @Html.Hidden("RoomID"); @Html.Hidden("RoomPhotoID");
+            <p>
+                @*@Html.TextBox("RoomName", null, new { @class = "form-control", placeholder = "姓名" })*@
+                <label style="width:100px">房间名称:</label>
+                <input type="text" name="RoomName" id="RoomName" style="width:300px" placeholder="请输入房间名称请输入房间名称" value="@roomMessage.RoomName">@Html.ValidationMessage("RoomName")
+            </p>
+            <p>
+                <label style="width:100px">房间布局：</label>
+
+                <input type="text" name="RoomLayout" style="width:300px" id="RoomLayout" placeholder="请输入房间布局" value="@roomMessage.RoomLayout">@Html.ValidationMessage("RoomLayout")
+            </p>
+            <p>
+                <label style="width:100px">房间数量:</label>
+                <input type="text" style="width:300px" id="RoomCount" name="RoomCount" value="@roomMessage.RoomCount">
+                @Html.ValidationMessage("RoomCount")
+            </p>
+            <p>
+                <label style="width:100px;">是否有早餐:</label>
+                <span>是</span>  @Html.RadioButton("Boolbreakfast", true, new { placeholder = "是" })
+                <span>否</span>  @Html.RadioButton("Boolbreakfast", false, new { placeholder = "否" })
+                @Html.ValidationMessage("Boolbreakfast")
+            </p>
+            <p>
+                <label style="width:100px">房型:</label>
+                <select name="RoomTypeID" id="RoomTypeID" style="height:35px;width:300px">
+                    @foreach (var item in ViewBag.RoomType)
+                    {
+                        if (item.Value == roomMessage.RoomTypeID.ToString())
+                        {
+                            <option value="@item.Value" selected="selected">@item.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    }
+                </select>@Html.ValidationMessage("RoomTypeID")
+            </p>
+            <p>
+
+                <label style="width:100px">房间设施:</label>
+                <fieldset id="newsletter_topics" style="margin-left:120px; margin-top:-30px">
+
+                    <input type="checkbox" style="background-color:transparent;height:0px;width:0px;" name="RoomFacility" value="热水">
+                    <input type="checkbox" name="RoomFacility" value="热水">热水
+                    <input type="checkbox" name="RoomFacility" value="空调">空调
+                    <input type="checkbox" name="RoomFacility" value="WIFI">WIFI
+                    <input type="checkbox" name="RoomFacility" value="电脑">电脑
+                    <br />
+                    <input type="checkbox" name="RoomFacility" value="吹风机">吹风机
+                    <input type="checkbox" name="RoomFacility" value="电视">电视
+                    <input type="checkbox" name="RoomFacility" value="电热水壶">电热水壶
+                    <br /> <span style="color:cadetblue">原来选择设施：</span><input type="text" name="RoomFacility" id="RoomFacility" style="width:300px;border:none;color:burlywood" disabled="disabled" placeholder="未选择设施" value="@roomMessage.RoomFacility">
+                </fieldset>
+
+            </p>
+        </div>
+
+
+
+        <div style="width:600px;float:right;">
+            <p>
+                <label style="width:100px">床型：</label>
+                <select name="MattresID" id="MattresID" style="height:35px;width:300px">
+                    @foreach (var item in ViewBag.Mattres)
+                    {
+                        if (item.Value == roomMessage.MattresID.ToString())
+                        {
+                            <option value="@item.Value" selected="selected">@item.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    }
+                </select>@Html.ValidationMessage("MattresID")
+            </p>
+            <p>
+                <label style="width:100px">房间原价：</label>
+                <input type="text" name="PrimeCost" id="PrimeCost" style="width:300px" placeholder="请输入房间原价" value="@roomMessage.PrimeCost"> @Html.ValidationMessage("PrimeCost")
+            </p>
+            <p>
+                <label style="width:100px">房间实价：</label>
+                <input type="text" name="RoomPrice" id="RoomPrice" style="width:300px" placeholder="请输入房间实价" value="@roomMessage.PrimeCost"> @Html.ValidationMessage("RoomPrice")
+            </p>
+            <p>
+                <label style="width:100px;">酒店图片：</label>@Html.ValidationMessage("file")
+                <input type="file" name="file" id="file" multiple="multiple" onchange="xmTanUploadImg(this)" />
+
+
+                <!--图片显示位置-->
+                <div id="showimg" style="height:200px;width:320px; background-color:beige">
+
+                </div>
+            </p>
+        </div>      
+    </div>
+    <div style="text-align:center;margin:0 auto">
+        <input type="submit" value="提交" style="height:30px;width:100px;background-color:aqua;border:none;font-weight:900; margin-top:500px;margin-left:-200px" onclick="Upload()">
+
+        <br />   <label>酒店名称：</label>
+                 <select name="HotelID" class="form-control" style="height:35px;width:300px">
+                     @foreach (var item in ViewBag.HotelName)
+                     {
+                         <option value="@item.Value">@item.Text</option>
+                     }
+                 </select>
+
+    </div>
+
+}
+<style>
+    /*  input.error {
+        border: 1px solid red;
+    }*/
+
+    label.error {
+        background: url("./demo/images/unchecked.gif") no-repeat 0px 0px;
+        padding-left: 16px;
+        padding-bottom: 2px;
+        font-weight: bold;
+        color: #EA5200;
+    }
+
+    label.checked {
+        background: url("./demo/images/checked.gif") no-repeat 0px 0px;
+    }
+</style>
+<script type="text/javascript">
+
+
+    function Upload() {
+        var param = new FormData(($("#regFrm")[0]));
+        $.ajax({
+            url: "/common/Upload.ashx",
+            data: param,
+            type: "post",
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                alert(data)
+            }
+
+
+        })
+    }
+
+
+    function xmTanUploadImg(obj) {
+        var imgTypes = new Array();
+        imgTypes[0] = "JPG";
+        imgTypes[1] = "ICO";
+        imgTypes[2] = "PNG";
+        imgTypes[3] = "GIF";
+        imgTypes[4] = "JPEG";
+        imgTypes[5] = "TGA";
+        var num = 0;//选错图片格式的个数
+        var fl = obj.files.length;
+        document.getElementById("showimg").innerText = null;
+        if (fl <= 7) {
+
+            for (var i = 0; i < fl; i++) {
+                var file = obj.files[i];
+                //判断图片格式
+                var filename = obj.files[i].name;
+                imgType = filename.substring(filename.lastIndexOf(".") + 1, file.length)
+                var reader = new FileReader();
+                //判断是否是图片格式
+                if (imgType.toUpperCase() == imgTypes[0] || imgType.toUpperCase() == imgTypes[1] || imgType.toUpperCase() == imgTypes[2] || imgType.toUpperCase() == imgTypes[3] || imgType.toUpperCase() == imgTypes[4] || imgType.toUpperCase() == imgTypes[5]) {
+                    reader.onload = function (e) {
+
+                        img = document.createElement("img");
+                        img.src = this.result;
+                        img.style.width = "80px";
+                        img.style.height = "100px";
+                        document.getElementById("showimg").appendChild(img);
+                        $("#upload").attr("disabled", false);
+                    }
+                } else {
+                    num++;
+                    alert("你选择的图片格式不正确:" + num + "张图片格式不正确");
+                    $("#upload").attr("disabled", true);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        } else {
+
+            alert("每次只能上传7张图片");
+        }
+
+    }
+</script>
+<script>
+    $(function () {
+        $("#regFrm").validate({
+            rules: {
+                RoomName: { required: true },
+                RoomLayout: {
+                    required: true,
+
+
+                },
+                MattresID: { required: true, },
+                RoomCount: {
+                    required: true,
+                    max: 100,
+                    min: 1,
+                },
+                RoomPrice: { required: true, min: 1, },
+                RoomTypeID: { required: true },
+                PrimeCost: { required: true, min: 1, },
+                file: { required: true },
+                "RoomFacility": {
+                    required: true,
+                    minlength: 2
+                },
+            },
+            messages: {
+                RoomName: { required: "房间名不能为空" },
+                RoomLayout: {
+                    required: "请输入房间布局(说明房间布局大小等)"
+
+
+                },
+                RoomCount: {
+                    reqiored: "数了量不能为空",
+                    max: "房间数量不能超过100",
+                    min: "房间数量不能低于1"
+                },
+                MattresID: { required: "床型" },
+                RoomPrice: {
+                    required: "请输入房间原价",
+
+                    min: "价格不能低于0",
+                },
+                PrimeCost: { required: "请输入房间实际价格", min: "价格不能低于0", },
+                file: { required: "图片不能为空" },
+                "RoomFacility": {
+                    required: "请选择酒店设施",
+                    minlength: "最少选择二个"
+                },
+            },
+        })
+
+    });
+</script>

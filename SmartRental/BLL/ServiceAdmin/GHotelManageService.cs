@@ -40,5 +40,8 @@ namespace SmartRental.BLL.ServiceAdmin
         {
             return DAL.MapperAdmin.GHotelManagerMan.HotelRoom();
         }
+
+
+
     }
 }

@@ -304,9 +304,6 @@
     <Compile Include="BLL\ServiceAPI\HotelService.cs" />
     <Compile Include="BLL\ServiceAPI\PaymentService.cs" />
     <Compile Include="BLL\ServiceAPI\UserLoginService.cs" />
-    <Compile Include="common\RoomUpload.ashx.cs">
-      <DependentUpon>RoomUpload.ashx</DependentUpon>
-    </Compile>
     <Compile Include="common\Upload.ashx.cs">
       <DependentUpon>Upload.ashx</DependentUpon>
     </Compile>
@@ -537,7 +534,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="common\Upload.ashx" />
-    <Content Include="common\RoomUpload.ashx" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
