@@ -9,7 +9,7 @@ using SmartRental.BLL.ServiceAPI;
 
 namespace SmartRental.Controllers.API
 {
-    [EnableCors(headers: "http://localhost:8081", methods: "*", origins: "*")]
+    [EnableCors(headers: "*", methods: "*", origins: "*")]
     public class HotelDetailsController : ApiController
     {
         /// <summary>

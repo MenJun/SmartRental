@@ -86,7 +86,7 @@ namespace SmartRental.Controllers.admin
                 fi = fi + "," + item.ToString();//这样写方便调时看
             }
             roomMessage.RoomFacility = fi;
-            string[] bs = common.Roomphoto.ImgName();
+            string[] bs = common.RoomUpload.ImgName();
             using (SmartRentalSystemEntities db = new SmartRentalSystemEntities()) { 
                 RoomPhoto roomph = new RoomPhoto();
             for (int i = 0; i <bs.Length; i++)

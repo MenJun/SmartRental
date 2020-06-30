@@ -28,6 +28,8 @@ namespace SmartRental.Models
         public string ClientName { get; set; }
         public string OrderState { get; set; }
         public string ClientId { get; set; }
+        public Nullable<int> Ordercount { get; set; }
+        public string OutTradeNo { get; set; }
     
         public virtual HotelManag HotelManag { get; set; }
         public virtual RoomMessage RoomMessage { get; set; }

@@ -65,6 +65,8 @@
           <Property Name="ClientName" Type="nvarchar" MaxLength="50" />
           <Property Name="OrderState" Type="nvarchar" MaxLength="50" />
           <Property Name="ClientId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ordercount" Type="int" />
+          <Property Name="OutTradeNo" Type="nchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="RoomMessage">
           <Key>
@@ -82,6 +84,7 @@
           <Property Name="RoomPrice" Type="money" />
           <Property Name="Boolbreakfast" Type="bit" />
           <Property Name="RoomPhotoID" Type="int" />
+          <Property Name="Roomstate" Type="bit" />
         </EntityType>
         <EntityType Name="RoomPhoto">
           <Key>
@@ -448,6 +451,8 @@
           <NavigationProperty Name="HotelManag" Relationship="Self.FK_ORDER_RELATIONS_HOTELMAN" FromRole="Order" ToRole="HotelManag" />
           <NavigationProperty Name="RoomMessage" Relationship="Self.FK_ORDER_RELATIONS_ROOMMESS" FromRole="Order" ToRole="RoomMessage" />
           <NavigationProperty Name="UserMessage" Relationship="Self.FK_ORDER_RELATIONS_USERMESS" FromRole="Order" ToRole="UserMessage" />
+          <Property Name="Ordercount" Type="Int32" />
+          <Property Name="OutTradeNo" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="RoomMessage">
           <Key>
@@ -470,6 +475,7 @@
           <NavigationProperty Name="Order" Relationship="Self.FK_ORDER_RELATIONS_ROOMMESS" FromRole="RoomMessage" ToRole="Order" />
           <NavigationProperty Name="RoomType" Relationship="Self.FK_ROOMMESS_RELATIONS_ROOMTYPE" FromRole="RoomMessage" ToRole="RoomType" />
           <NavigationProperty Name="RoomPhoto" Relationship="Self.FK_RoomMessage_RoomPhoto" FromRole="RoomMessage" ToRole="RoomPhoto" />
+          <Property Name="Roomstate" Type="Boolean" />
         </EntityType>
         <EntityType Name="RoomPhoto">
           <Key>
@@ -825,6 +831,8 @@
           <EntitySetMapping Name="Order">
             <EntityTypeMapping TypeName="SmartSystemModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OutTradeNo" ColumnName="OutTradeNo" />
+                <ScalarProperty Name="Ordercount" ColumnName="Ordercount" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="HotelID" ColumnName="HotelID" />
                 <ScalarProperty Name="RoomID" ColumnName="RoomID" />
@@ -845,6 +853,7 @@
           <EntitySetMapping Name="RoomMessage">
             <EntityTypeMapping TypeName="SmartSystemModel.RoomMessage">
               <MappingFragment StoreEntitySet="RoomMessage">
+                <ScalarProperty Name="Roomstate" ColumnName="Roomstate" />
                 <ScalarProperty Name="RoomID" ColumnName="RoomID" />
                 <ScalarProperty Name="HotelID" ColumnName="HotelID" />
                 <ScalarProperty Name="MattresID" ColumnName="MattresID" />
