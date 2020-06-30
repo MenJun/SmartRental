@@ -41,6 +41,7 @@ namespace SmartRental.Controllers
             else if (int.Parse(decryptionResult.ToString()) == -1) // 普通管理员
             {
                 Session["GeneralManager"] = userMessage.UserPhone;
+                Session["HotelName"] = 10;
                 return Json(new { roestr = "/Home/Main" }, JsonRequestBehavior.AllowGet);
             }
             else //不是管理员

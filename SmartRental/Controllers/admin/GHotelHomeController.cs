@@ -9,6 +9,10 @@ namespace SmartRental.Controllers.admin
 {
     public class GHotelHomeController : Controller
     {
+        /// <summary>
+        /// 酒店信息添加
+        /// </summary>
+        /// <returns></returns>
         // GET: GHotelHome
         public ActionResult Main()
         {
@@ -120,5 +124,40 @@ namespace SmartRental.Controllers.admin
            
             return Content("<script>alert('添加成功');</script>");
         }
+
+
+        public ActionResult RoomIndex()
+        {
+
+        
+            return View();
+        }
+
+        public JsonResult Roommessagelist()
+        {
+           var  HotelNameID = 5;//以酒店为10做测试
+
+            SmartRentalSystemEntities db = new SmartRentalSystemEntities();
+            int pageSize = int.Parse(Request["limit"] ?? "10");
+            int pageIndex = int.Parse(Request["page"] ?? "1");
+            List<RoomMessage> roommessagelist = db.RoomMessage.Where(f=>f.HotelID == HotelNameID).OrderBy(s => s.RoomID).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+            //总共多少数据
+            var allCount = db.RoomMessage.Where(f => f.HotelID == HotelNameID).Count();
+            //把totle和rows:[{},{}]一起返回
+            //先建立一个匿名类
+            var dataJson = new {code=0, msg="",count = allCount, data = roommessagelist };
+            var json = Json(dataJson, JsonRequestBehavior.AllowGet);
+            return json;
+        }
+        [HttpPost]
+        public ActionResult DeleteRoom(int id)
+        {
+            SmartRentalSystemEntities dbContext = new SmartRentalSystemEntities();
+            var s = dbContext.RoomMessage.Find(id);
+            dbContext.RoomMessage.Remove(s);
+            dbContext.SaveChanges();
+            return Content("ok:删除成功");
+        }
+
     }
 }
