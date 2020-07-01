@@ -591,6 +591,7 @@
     <Content Include="Views\GHotelHome\Index.cshtml" />
     <Content Include="Views\GHotelHome\RoomIndex.cshtml" />
     <Content Include="Views\GHotelHome\EditRoom.cshtml" />
+    <Content Include="Views\GHotelHome\MainIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

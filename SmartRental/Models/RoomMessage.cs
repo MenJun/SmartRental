@@ -33,6 +33,7 @@ namespace SmartRental.Models
         public Nullable<bool> Boolbreakfast { get; set; }
         public Nullable<int> RoomPhotoID { get; set; }
         public Nullable<bool> Roomstate { get; set; }
+        public Nullable<int> RoomRemain { get; set; }
     
         public virtual HotelManag HotelManag { get; set; }
         public virtual Mattres Mattres { get; set; }

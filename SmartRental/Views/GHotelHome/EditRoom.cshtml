@@ -1,11 +1,12 @@
-﻿   `
+﻿
 @{
     ViewBag.Title = "Index";
 }
 
 @using SmartRental.Models
-@{ 
+@{
     RoomMessage roomMessage = Model as RoomMessage;
+    var roomph = ViewBag.Photoname;
 }
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
@@ -29,7 +30,7 @@
 
     <div style="margin:0 auto">
         <div style="width:600px;float:left;margin-left:30px">
-            @Html.Hidden("RoomID"); @Html.Hidden("RoomPhotoID");
+            @Html.Hidden("RoomID") @Html.Hidden("RoomPhotoID")
             <p>
                 @*@Html.TextBox("RoomName", null, new { @class = "form-control", placeholder = "姓名" })*@
                 <label style="width:100px">房间名称:</label>
@@ -77,10 +78,14 @@
                     <input type="checkbox" name="RoomFacility" value="空调">空调
                     <input type="checkbox" name="RoomFacility" value="WIFI">WIFI
                     <input type="checkbox" name="RoomFacility" value="电脑">电脑
+                    <input type="checkbox" name="RoomFacility" value="沙发">沙发
                     <br />
                     <input type="checkbox" name="RoomFacility" value="吹风机">吹风机
                     <input type="checkbox" name="RoomFacility" value="电视">电视
                     <input type="checkbox" name="RoomFacility" value="电热水壶">电热水壶
+                    <input type="checkbox" name="RoomFacility" value="麻将桌">麻将桌
+                    <input type="checkbox" name="RoomFacility" value="拖鞋">拖鞋
+
                     <br /> <span style="color:cadetblue">原来选择设施：</span><input type="text" name="RoomFacility" id="RoomFacility" style="width:300px;border:none;color:burlywood" disabled="disabled" placeholder="未选择设施" value="@roomMessage.RoomFacility">
                 </fieldset>
 
@@ -115,27 +120,52 @@
                 <input type="text" name="RoomPrice" id="RoomPrice" style="width:300px" placeholder="请输入房间实价" value="@roomMessage.PrimeCost"> @Html.ValidationMessage("RoomPrice")
             </p>
             <p>
-                <label style="width:100px;">酒店图片：</label>@Html.ValidationMessage("file")
-                <input type="file" name="file" id="file" multiple="multiple" onchange="xmTanUploadImg(this)" />
+                <label style="width:100px;">房间图片：</label>@Html.ValidationMessage("file")
+                <input type="file" name="file" id="file" multiple="multiple" onchange="xmTanUploadImg(this)" value="" /><span style="color:brown">未选择为不更换图片</span>
 
 
                 <!--图片显示位置-->
                 <div id="showimg" style="height:200px;width:320px; background-color:beige">
 
+
+
+                    @if (roomph.PhotoName1 != null)
+                    {
+                        <img src="@roomph.PhotoName1" style="height:100px;width:80px;float:left;" />
+                    }
+                    @if (roomph.PhotoName2 != null)
+                    {
+                        <img src="@roomph.PhotoName2" style="height:100px;width:80px;float:left;" />
+                    }
+                    @if (roomph.PhotoName3 != null)
+                    {
+                        <img src="@roomph.PhotoName3" style="height:100px;width:80px;float:left;" />
+                    }
+                    @if (roomph.PhotoName4 != null)
+                    {
+                        <img src="@roomph.PhotoName4" style="height:100px;width:80px;float:left;" />
+                    }
+                    @if (roomph.PhotoName5!= null)
+                    {
+                        <img src="@roomph.PhotoName5" style="height:100px;width:80px;float:left;" />
+                    }
+                    @if (roomph.PhotoName6 != null)
+                    {
+                        <img src="@roomph.PhotoName6" style="height:100px;width:80px;float:left;" />
+                    }
+                    @if (roomph.PhotoName7 != null)
+                    {
+                        <img src="@roomph.PhotoName7" style="height:100px;width:80px;float:left;" />
+                    }
                 </div>
             </p>
-        </div>      
+        </div>
     </div>
     <div style="text-align:center;margin:0 auto">
-        <input type="submit" value="提交" style="height:30px;width:100px;background-color:aqua;border:none;font-weight:900; margin-top:500px;margin-left:-200px" onclick="Upload()">
-
-        <br />   <label>酒店名称：</label>
-                 <select name="HotelID" class="form-control" style="height:35px;width:300px">
-                     @foreach (var item in ViewBag.HotelName)
-                     {
-                         <option value="@item.Value">@item.Text</option>
-                     }
-                 </select>
+        <input type="submit" value="确认修改" style="height:30px;width:100px;background-color:aqua;border:none;font-weight:900; margin-top:500px;margin-left:-200px;border-radius:15px;" onclick="Upload()">
+        <a href="~/GHotelHome/RoomIndex" style="font-size:14px;margin-left:10px;color:blue">返回</a>
+       
+     
 
     </div>
 
@@ -221,6 +251,7 @@
         }
 
     }
+ 
 </script>
 <script>
     $(function () {
@@ -238,10 +269,9 @@
                     max: 100,
                     min: 1,
                 },
-                RoomPrice: { required: true, min: 1, },
+                RoomPrice: { required: true, min: 0, },
                 RoomTypeID: { required: true },
-                PrimeCost: { required: true, min: 1, },
-                file: { required: true },
+                PrimeCost: { required: true, min: 0, },
                 "RoomFacility": {
                     required: true,
                     minlength: 2
@@ -266,7 +296,6 @@
                     min: "价格不能低于0",
                 },
                 PrimeCost: { required: "请输入房间实际价格", min: "价格不能低于0", },
-                file: { required: "图片不能为空" },
                 "RoomFacility": {
                     required: "请选择酒店设施",
                     minlength: "最少选择二个"
