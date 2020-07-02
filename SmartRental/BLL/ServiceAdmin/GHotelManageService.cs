@@ -41,7 +41,14 @@ namespace SmartRental.BLL.ServiceAdmin
             return DAL.MapperAdmin.GHotelManagerMan.HotelRoom();
         }
 
-
+        public static List<Order> GetStudentByPaging(int pageindex, int pagesize, out int pagecount, int HotelID)
+        {
+            return DAL.MapperAdmin.GHotelManagerMan.Select(pageindex, pagesize, out pagecount, HotelID);
+        }
+        public static List<Order> GetStudentByPaging1(int pageindex, int pagesize, out int pagecount, string a, string b, int HotelID)
+        {
+            return DAL.MapperAdmin.GHotelManagerMan.Select1(pageindex, pagesize, out pagecount, a, b,  HotelID);
+        }
 
     }
 }

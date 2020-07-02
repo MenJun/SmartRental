@@ -101,6 +101,8 @@ namespace SmartRental.Controllers.admin
                     Hotelphoto7 = hotelph.Hotelphoto7,
 
                 };
+
+              
                 return View(hotelrmes);
             }
           
@@ -111,12 +113,132 @@ namespace SmartRental.Controllers.admin
         /// 酒店信息修改
         /// </summary>
         /// <returns></returns>
-             public ActionResult MainEdit()
+        /// 
+        public ActionResult MainEdit(int id)
         {
-            return View();
+            using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
+            {
+
+                var hotelrmes = db.HotelManag.Where(s => s.HotelID == id).FirstOrDefault();
+                var hotelph = db.HotelPhoto.Where(s => s.HotelPhotoID == hotelrmes.HotelPhotoID).FirstOrDefault();
+                var sf = hotelrmes.HotelFacility;
+                var fct = sf.Split(',').Count();
+                string bb = "";
+                for (int i = 1; i < fct; i++)
+                {
+                    if (i < fct - 1)
+                        bb = bb + sf.Split(',')[i] + "+";
+                    else
+                    {
+                        bb = bb + sf.Split(',')[i];
+                    }
+                }
+                hotelrmes.HotelFacility = bb;
+
+                ViewBag.HotelPhotonameEdit = new HotelPhoto
+                {
+                    Hotelphoto1 = hotelph.Hotelphoto1,
+                    Hotelphoto2 = hotelph.Hotelphoto2,
+                    Hotelphoto3 = hotelph.Hotelphoto3,
+                    Hotelphoto4 = hotelph.Hotelphoto4,
+                    Hotelphoto5 = hotelph.Hotelphoto5,
+                    Hotelphoto6 = hotelph.Hotelphoto6,
+                    Hotelphoto7 = hotelph.Hotelphoto7,
+
+                };
+
+
+                return View(hotelrmes);
+            }
+
         }
+        [HttpPost]
+        public ActionResult MainEdit(HotelManag manag, string city, string province, string[] HotelFacility)
+        {
+            if (province.Contains("市"))
+            {
+                manag.HotelCity = province;
+            }
+            else
+            {
+                manag.HotelCity = city;
+            }
+            string fi = "";
+
+            foreach (var item in HotelFacility)
+            {
+                //可以自己写Insert语句(添加数据)
+
+                fi = fi + "," + item.ToString();//这样写方便调时看
+            }
+            manag.HotelFacility = fi;
+
+            string[] bs = common.Upload.ImgName();
+            HotelPhoto roomph = new HotelPhoto();
+            using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
+            {
+                if (bs[0] != "" && bs != null)
+                {
+                    for (int i = 0; i < bs.Length; i++)
+                    {
+
+                        if (i == 0)
+                            roomph.Hotelphoto1 = bs[i].ToString();
+                        if (i == 1)
+                            roomph.Hotelphoto2 = bs[i].ToString();
+                        if (i == 2)
+                            roomph.Hotelphoto3= bs[i].ToString();
+                        if (i == 3)
+                            roomph.Hotelphoto4 = bs[i].ToString();
+                        if (i == 4)
+                            roomph.Hotelphoto5 = bs[i].ToString();
+                        if (i == 5)
+                            roomph.Hotelphoto6 = bs[i].ToString();
+                        if (i == 6)
+                            roomph.Hotelphoto7 = bs[i].ToString();
+
+                    }
+
+                    for (int s = bs.Length; s < 7; s++)
+                    {
+                        if (s == 0)
+                            roomph.Hotelphoto1 = null;
+                        if (s == 1)
+                            roomph.Hotelphoto2 = null;
+                        if (s == 2)
+                            roomph.Hotelphoto3 = null;
+                        if (s == 3)
+                            roomph.Hotelphoto4 = null;
+                        if (s == 4)
+                            roomph.Hotelphoto5 = null;
+                        if (s == 5)
+                            roomph.Hotelphoto6 = null;
+                        if (s == 6)
+                            roomph.Hotelphoto7 = null;
+                    }
+                    roomph.HotelPhotoID = (int)manag.HotelPhotoID;
+                    db.Entry(roomph).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                var hotmana = db.HotelManag.Find(manag.HotelID);
+                hotmana.HotelName = manag.HotelName;
+                hotmana.HotelCity = manag.HotelCity;
+                hotmana.AddressDetails = manag.HotelCity;
+                hotmana.HotelType = manag.HotelType;
+                hotmana.HotelIntro = manag.HotelIntro;
+                hotmana.HotelBoss = manag.HotelBoss;
+                hotmana.HotelRule = manag.HotelRule;
+                hotmana.HotelFacility = manag.HotelFacility;
+                hotmana.HotelPhone = manag.HotelPhone;
+                hotmana.HotelOpentime = manag.HotelOpentime;
+                //db.Entry(manag).State = EntityState.Modified;
+                db.SaveChanges();
 
 
+
+                return Content("<script>alert('修改成功');</script>");
+            }
+           }
 
 
         /// <summary>
@@ -171,6 +293,7 @@ namespace SmartRental.Controllers.admin
                 db.SaveChanges();
                 int photoID = bb.RoomPhotoID;
                 roomMessage.RoomPhotoID = photoID;
+                roomMessage.RoomRemain = roomMessage.RoomCount;
                 db.RoomMessage.Add(roomMessage);
                 db.SaveChanges();
                 //if (db.SaveChanges()>0)
@@ -316,14 +439,87 @@ namespace SmartRental.Controllers.admin
                 db.Entry(roomph).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            db.Entry(roomMessage).State = EntityState.Modified;
-            db.SaveChanges();
+                var hotmana = db.RoomMessage.Find(roomMessage.RoomID);
+                hotmana.MattresID = roomMessage.MattresID;
+                hotmana.RoomTypeID = roomMessage.RoomTypeID;
+                hotmana.RoomName = roomMessage.RoomName;
+                hotmana.RoomLayout = roomMessage.RoomLayout;
+                hotmana.RoomFacility = roomMessage.RoomFacility;
+                hotmana.RoomCount = roomMessage.RoomCount;
+                hotmana.PrimeCost = roomMessage.PrimeCost;
+                hotmana.RoomPrice = roomMessage.RoomPrice;
+                hotmana.Boolbreakfast = roomMessage.Boolbreakfast;
+            
+                //db.Entry(manag).State = EntityState.Modified;
+                db.SaveChanges();
 
 
-
-            return Content("<script>alert('修改成功');</script>");
+                return Content("<script>alert('修改成功');</script>");
         }
     }
 
-}
+
+
+        public ActionResult HotelOrder(int pageindex=1,int pagesize=5)
+        {
+            var HotelIDss = 10;/*Session["HotelID"];*///获取酒店HotelID
+            Session["order"] = null;
+            int countss = 5;
+            var student = BLL.ServiceAdmin.GHotelManageService.GetStudentByPaging(pageindex, pagesize, out int pagecount,(int)HotelIDss);
+            ViewBag.pageindex = pageindex;
+            ViewBag.pagecount = pagecount;
+            ViewBag.pagesize = pagesize;
+            if (pagesize % 5 == 0)
+            {
+                ViewBag.countss = pagesize;
+            }
+            else
+            {
+                ViewBag.countss = countss;
+            }
+            //db.Order.Include(t => t.HotelManag).Include(p => p.RoomMessage).ToList()
+            return View(student);
+          
+        }
+        [HttpPost]
+        public ActionResult HotelOrder(int? OrderID, string OrderState, string ab, string text1, int pageindex = 1, int pagesize = 8)
+        {
+            var HotelIDss = 10;/*Session["HotelID"];*///获取酒店HotelID
+            SmartRentalSystemEntities db = new SmartRentalSystemEntities();
+            var sss = ab; var bbb = text1;
+            if (sss == null && bbb == null)
+            {
+                Order order = db.Order.Where(t => t.OrderID == OrderID).FirstOrDefault();
+                order.OrderState = OrderState;
+               var or=db.Order.Find(OrderID);
+                or.OrderState = OrderState;
+                db.SaveChanges();
+            }
+            else if (sss == "所有订单")
+            {
+                return RedirectToAction("HotelOrder");
+            }
+            else
+            {
+                int countss = 5;
+                var student = BLL.ServiceAdmin.GHotelManageService.GetStudentByPaging1(pageindex, pagesize, out int pagecount, sss, bbb,HotelIDss);
+                //Session["order"] = 1;
+                ViewBag.pageindex = pageindex;
+                ViewBag.pagecount = pagecount;
+                ViewBag.pagesize = pagesize;
+                if (pagesize % 5 == 0)
+                {
+                    ViewBag.countss = pagesize;
+                }
+                else
+                {
+                    ViewBag.countss = countss;
+                }
+                return View(student);
+
+            }
+            return RedirectToAction("HotelOrder");
+        }
+
+    }
 }

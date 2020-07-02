@@ -30,7 +30,7 @@
 
     <div style="margin:0 auto">
         <div style="width:600px;float:left;margin-left:30px">
-            @Html.Hidden("RoomID") @Html.Hidden("RoomPhotoID")
+            @Html.Hidden("RoomID",roomMessage.RoomID) @Html.Hidden("RoomPhotoID", roomMessage.RoomPhotoID)
             <p>
                 @*@Html.TextBox("RoomName", null, new { @class = "form-control", placeholder = "姓名" })*@
                 <label style="width:100px">房间名称:</label>
