@@ -153,5 +153,28 @@ namespace SmartRental.DAL.MapperAdmin
                 return orders.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
             }
         }
+
+        /// <summary>
+        /// 酒店数据获取当天的交易情况
+        /// </summary>
+        /// <returns></returns>
+        public static List<Order> SelectClassInfo(int hotelID)
+        {
+            using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
+            {
+                //利用EF框架通过分组查询男女生人数，其中Name：代表数据库中的性别；Nums：代表查询出来的人数
+                var all = db.Order.Where(s=>s.HotelID==hotelID).GroupBy(s => new { s.ArrivalDate.Value.Date }).Select(s => new { Name = s.Key.Date, Nums = s.Count() }).ToList();
+                var list = new List<Order>();
+                foreach (var temp in all)
+                {
+                    //为了方便数据显示，重新new了Student对象,将Name赋值给StuSex，将Nums赋值给StuID
+                    var energyFlowGraph = new Order();
+                    energyFlowGraph.Ordertime = temp.Name;
+                    energyFlowGraph.Ordercount = temp.Nums;
+                    list.Add(energyFlowGraph);
+                }
+                return list;
+            }
+        }
     }
 }

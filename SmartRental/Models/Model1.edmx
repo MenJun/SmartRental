@@ -157,6 +157,113 @@
           <Property Name="Registration_time" Type="datetime" />
           <Property Name="HotelID" Type="int" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“SmartSystem.dbo.view_Datedaymoney”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="view_Datedaymoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="datemoneytime" Type="varchar" MaxLength="10" />
+          <Property Name="summoney" Type="money" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“SmartSystem.dbo.view_DateHourmoney”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="view_DateHourmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="datemoneytime" Type="varchar" MaxLength="13" />
+          <Property Name="summoney" Type="money" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“SmartSystem.dbo.view_Datemonthmoney”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="view_Datemonthmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="datemoneytime" Type="varchar" MaxLength="7" />
+          <Property Name="summoney" Type="money" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“SmartSystem.dbo.view_DateWeekmoney”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="view_DateWeekmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="datemoneytime" Type="nvarchar" MaxLength="30" />
+          <Property Name="summoney" Type="money" />
+          <Property Name="ArrivalDate" Type="datetime" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“SmartSystem.dbo.view_DateYearmoney”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="view_DateYearmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="datemoneytime" Type="varchar" MaxLength="4" />
+          <Property Name="summoney" Type="money" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“SmartSystem.dbo.view_HotelDatedaymoney”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="view_HotelDatedaymoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="datemoneytime" Type="varchar" MaxLength="10" />
+          <Property Name="HotelID" Type="int" />
+          <Property Name="summoney" Type="money" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“SmartSystem.dbo.view_HotelDateHourmoney”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="view_HotelDateHourmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="datemoneytime" Type="varchar" MaxLength="13" />
+          <Property Name="HotelID" Type="int" />
+          <Property Name="summoney" Type="money" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“SmartSystem.dbo.view_HotelDatemonthmoney”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="view_HotelDatemonthmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="datemoneytime" Type="varchar" MaxLength="7" />
+          <Property Name="HotelID" Type="int" />
+          <Property Name="summoney" Type="money" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“SmartSystem.dbo.view_HotelDateWeekmoney”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="view_HotelDateWeekmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="datemoneytime" Type="nvarchar" MaxLength="30" />
+          <Property Name="HotelID" Type="int" />
+          <Property Name="summoney" Type="money" />
+          <Property Name="ArrivalDate" Type="datetime" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“SmartSystem.dbo.view_HotelDateYearmoney”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="view_HotelDateYearmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="datemoneytime" Type="varchar" MaxLength="4" />
+          <Property Name="HotelID" Type="int" />
+          <Property Name="summoney" Type="money" />
+        </EntityType>
         <Association Name="FK_HotelManag_HotelPhoto">
           <End Role="HotelPhoto" Type="Self.HotelPhoto" Multiplicity="0..1" />
           <End Role="HotelManag" Type="Self.HotelManag" Multiplicity="*" />
@@ -325,6 +432,83 @@
           <EntitySet Name="UserBrowse" EntityType="Self.UserBrowse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserEvaluate" EntityType="Self.UserEvaluate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserMessage" EntityType="Self.UserMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="view_Datedaymoney" EntityType="Self.view_Datedaymoney" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_Datedaymoney].[guid] AS [guid], 
+    [view_Datedaymoney].[datemoneytime] AS [datemoneytime], 
+    [view_Datedaymoney].[summoney] AS [summoney]
+    FROM [dbo].[view_Datedaymoney] AS [view_Datedaymoney]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_DateHourmoney" EntityType="Self.view_DateHourmoney" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_DateHourmoney].[guid] AS [guid], 
+    [view_DateHourmoney].[datemoneytime] AS [datemoneytime], 
+    [view_DateHourmoney].[summoney] AS [summoney]
+    FROM [dbo].[view_DateHourmoney] AS [view_DateHourmoney]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_Datemonthmoney" EntityType="Self.view_Datemonthmoney" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_Datemonthmoney].[guid] AS [guid], 
+    [view_Datemonthmoney].[datemoneytime] AS [datemoneytime], 
+    [view_Datemonthmoney].[summoney] AS [summoney]
+    FROM [dbo].[view_Datemonthmoney] AS [view_Datemonthmoney]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_DateWeekmoney" EntityType="Self.view_DateWeekmoney" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_DateWeekmoney].[guid] AS [guid], 
+    [view_DateWeekmoney].[datemoneytime] AS [datemoneytime], 
+    [view_DateWeekmoney].[summoney] AS [summoney], 
+    [view_DateWeekmoney].[ArrivalDate] AS [ArrivalDate]
+    FROM [dbo].[view_DateWeekmoney] AS [view_DateWeekmoney]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_DateYearmoney" EntityType="Self.view_DateYearmoney" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_DateYearmoney].[guid] AS [guid], 
+    [view_DateYearmoney].[datemoneytime] AS [datemoneytime], 
+    [view_DateYearmoney].[summoney] AS [summoney]
+    FROM [dbo].[view_DateYearmoney] AS [view_DateYearmoney]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_HotelDatedaymoney" EntityType="Self.view_HotelDatedaymoney" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_HotelDatedaymoney].[guid] AS [guid], 
+    [view_HotelDatedaymoney].[datemoneytime] AS [datemoneytime], 
+    [view_HotelDatedaymoney].[HotelID] AS [HotelID], 
+    [view_HotelDatedaymoney].[summoney] AS [summoney]
+    FROM [dbo].[view_HotelDatedaymoney] AS [view_HotelDatedaymoney]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_HotelDateHourmoney" EntityType="Self.view_HotelDateHourmoney" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_HotelDateHourmoney].[guid] AS [guid], 
+    [view_HotelDateHourmoney].[datemoneytime] AS [datemoneytime], 
+    [view_HotelDateHourmoney].[HotelID] AS [HotelID], 
+    [view_HotelDateHourmoney].[summoney] AS [summoney]
+    FROM [dbo].[view_HotelDateHourmoney] AS [view_HotelDateHourmoney]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_HotelDatemonthmoney" EntityType="Self.view_HotelDatemonthmoney" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_HotelDatemonthmoney].[guid] AS [guid], 
+    [view_HotelDatemonthmoney].[datemoneytime] AS [datemoneytime], 
+    [view_HotelDatemonthmoney].[HotelID] AS [HotelID], 
+    [view_HotelDatemonthmoney].[summoney] AS [summoney]
+    FROM [dbo].[view_HotelDatemonthmoney] AS [view_HotelDatemonthmoney]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_HotelDateWeekmoney" EntityType="Self.view_HotelDateWeekmoney" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_HotelDateWeekmoney].[guid] AS [guid], 
+    [view_HotelDateWeekmoney].[datemoneytime] AS [datemoneytime], 
+    [view_HotelDateWeekmoney].[HotelID] AS [HotelID], 
+    [view_HotelDateWeekmoney].[summoney] AS [summoney], 
+    [view_HotelDateWeekmoney].[ArrivalDate] AS [ArrivalDate]
+    FROM [dbo].[view_HotelDateWeekmoney] AS [view_HotelDateWeekmoney]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_HotelDateYearmoney" EntityType="Self.view_HotelDateYearmoney" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_HotelDateYearmoney].[guid] AS [guid], 
+    [view_HotelDateYearmoney].[datemoneytime] AS [datemoneytime], 
+    [view_HotelDateYearmoney].[HotelID] AS [HotelID], 
+    [view_HotelDateYearmoney].[summoney] AS [summoney]
+    FROM [dbo].[view_HotelDateYearmoney] AS [view_HotelDateYearmoney]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_HotelManag_HotelPhoto" Association="Self.FK_HotelManag_HotelPhoto">
             <End Role="HotelPhoto" EntitySet="HotelPhoto" />
             <End Role="HotelManag" EntitySet="HotelManag" />
@@ -780,7 +964,104 @@
             <End Role="UserMessage" EntitySet="UserMessage" />
             <End Role="UserEvaluate" EntitySet="UserEvaluate" />
           </AssociationSet>
+          <EntitySet Name="view_Datedaymoney" EntityType="SmartSystemModel.view_Datedaymoney" />
+          <EntitySet Name="view_DateHourmoney" EntityType="SmartSystemModel.view_DateHourmoney" />
+          <EntitySet Name="view_Datemonthmoney" EntityType="SmartSystemModel.view_Datemonthmoney" />
+          <EntitySet Name="view_DateWeekmoney" EntityType="SmartSystemModel.view_DateWeekmoney" />
+          <EntitySet Name="view_DateYearmoney" EntityType="SmartSystemModel.view_DateYearmoney" />
+          <EntitySet Name="view_HotelDatedaymoney" EntityType="SmartSystemModel.view_HotelDatedaymoney" />
+          <EntitySet Name="view_HotelDateHourmoney" EntityType="SmartSystemModel.view_HotelDateHourmoney" />
+          <EntitySet Name="view_HotelDatemonthmoney" EntityType="SmartSystemModel.view_HotelDatemonthmoney" />
+          <EntitySet Name="view_HotelDateWeekmoney" EntityType="SmartSystemModel.view_HotelDateWeekmoney" />
+          <EntitySet Name="view_HotelDateYearmoney" EntityType="SmartSystemModel.view_HotelDateYearmoney" />
         </EntityContainer>
+        <EntityType Name="view_Datedaymoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="datemoneytime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="summoney" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="view_DateHourmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="datemoneytime" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="summoney" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="view_Datemonthmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="datemoneytime" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="summoney" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="view_DateWeekmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="datemoneytime" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="summoney" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="view_DateYearmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="datemoneytime" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="summoney" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="view_HotelDatedaymoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="datemoneytime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HotelID" Type="Int32" />
+          <Property Name="summoney" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="view_HotelDateHourmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="datemoneytime" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="HotelID" Type="Int32" />
+          <Property Name="summoney" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="view_HotelDatemonthmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="datemoneytime" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="HotelID" Type="Int32" />
+          <Property Name="summoney" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="view_HotelDateWeekmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="datemoneytime" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="HotelID" Type="Int32" />
+          <Property Name="summoney" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="view_HotelDateYearmoney">
+          <Key>
+            <PropertyRef Name="guid" />
+          </Key>
+          <Property Name="guid" Type="Guid" Nullable="false" />
+          <Property Name="datemoneytime" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="HotelID" Type="Int32" />
+          <Property Name="summoney" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -947,6 +1228,103 @@
                 <ScalarProperty Name="Last_landing_time" ColumnName="Last_landing_time" />
                 <ScalarProperty Name="Registration_time" ColumnName="Registration_time" />
                 <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_Datedaymoney">
+            <EntityTypeMapping TypeName="SmartSystemModel.view_Datedaymoney">
+              <MappingFragment StoreEntitySet="view_Datedaymoney">
+                <ScalarProperty Name="summoney" ColumnName="summoney" />
+                <ScalarProperty Name="datemoneytime" ColumnName="datemoneytime" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_DateHourmoney">
+            <EntityTypeMapping TypeName="SmartSystemModel.view_DateHourmoney">
+              <MappingFragment StoreEntitySet="view_DateHourmoney">
+                <ScalarProperty Name="summoney" ColumnName="summoney" />
+                <ScalarProperty Name="datemoneytime" ColumnName="datemoneytime" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_Datemonthmoney">
+            <EntityTypeMapping TypeName="SmartSystemModel.view_Datemonthmoney">
+              <MappingFragment StoreEntitySet="view_Datemonthmoney">
+                <ScalarProperty Name="summoney" ColumnName="summoney" />
+                <ScalarProperty Name="datemoneytime" ColumnName="datemoneytime" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_DateWeekmoney">
+            <EntityTypeMapping TypeName="SmartSystemModel.view_DateWeekmoney">
+              <MappingFragment StoreEntitySet="view_DateWeekmoney">
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="summoney" ColumnName="summoney" />
+                <ScalarProperty Name="datemoneytime" ColumnName="datemoneytime" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_DateYearmoney">
+            <EntityTypeMapping TypeName="SmartSystemModel.view_DateYearmoney">
+              <MappingFragment StoreEntitySet="view_DateYearmoney">
+                <ScalarProperty Name="summoney" ColumnName="summoney" />
+                <ScalarProperty Name="datemoneytime" ColumnName="datemoneytime" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_HotelDatedaymoney">
+            <EntityTypeMapping TypeName="SmartSystemModel.view_HotelDatedaymoney">
+              <MappingFragment StoreEntitySet="view_HotelDatedaymoney">
+                <ScalarProperty Name="summoney" ColumnName="summoney" />
+                <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+                <ScalarProperty Name="datemoneytime" ColumnName="datemoneytime" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_HotelDateHourmoney">
+            <EntityTypeMapping TypeName="SmartSystemModel.view_HotelDateHourmoney">
+              <MappingFragment StoreEntitySet="view_HotelDateHourmoney">
+                <ScalarProperty Name="summoney" ColumnName="summoney" />
+                <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+                <ScalarProperty Name="datemoneytime" ColumnName="datemoneytime" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_HotelDatemonthmoney">
+            <EntityTypeMapping TypeName="SmartSystemModel.view_HotelDatemonthmoney">
+              <MappingFragment StoreEntitySet="view_HotelDatemonthmoney">
+                <ScalarProperty Name="summoney" ColumnName="summoney" />
+                <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+                <ScalarProperty Name="datemoneytime" ColumnName="datemoneytime" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_HotelDateWeekmoney">
+            <EntityTypeMapping TypeName="SmartSystemModel.view_HotelDateWeekmoney">
+              <MappingFragment StoreEntitySet="view_HotelDateWeekmoney">
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="summoney" ColumnName="summoney" />
+                <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+                <ScalarProperty Name="datemoneytime" ColumnName="datemoneytime" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_HotelDateYearmoney">
+            <EntityTypeMapping TypeName="SmartSystemModel.view_HotelDateYearmoney">
+              <MappingFragment StoreEntitySet="view_HotelDateYearmoney">
+                <ScalarProperty Name="summoney" ColumnName="summoney" />
+                <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+                <ScalarProperty Name="datemoneytime" ColumnName="datemoneytime" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

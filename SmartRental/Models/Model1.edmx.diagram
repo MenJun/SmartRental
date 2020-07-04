@@ -29,6 +29,16 @@
         <AssociationConnector Association="SmartSystemModel.FK_RoomMessage_RoomPhoto" ManuallyRouted="false" />
         <AssociationConnector Association="SmartSystemModel.FK_USERBROW_RELATIONS_USERMESS" ManuallyRouted="false" />
         <AssociationConnector Association="SmartSystemModel.FK_USEREVAL_RELATIONS_USERMESS" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SmartSystemModel.view_Datedaymoney" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SmartSystemModel.view_DateHourmoney" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SmartSystemModel.view_Datemonthmoney" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SmartSystemModel.view_DateWeekmoney" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SmartSystemModel.view_DateYearmoney" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SmartSystemModel.view_HotelDatedaymoney" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SmartSystemModel.view_HotelDateHourmoney" Width="1.5" PointX="5.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SmartSystemModel.view_HotelDatemonthmoney" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SmartSystemModel.view_HotelDateWeekmoney" Width="1.5" PointX="7.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SmartSystemModel.view_HotelDateYearmoney" Width="1.5" PointX="8.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

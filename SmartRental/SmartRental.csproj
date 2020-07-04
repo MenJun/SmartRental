@@ -311,6 +311,7 @@
     </Compile>
     <Compile Include="Controllers\admin\GHotelHomeController.cs" />
     <Compile Include="Controllers\admin\HotelController.cs" />
+    <Compile Include="Controllers\admin\YAdminwoController.cs" />
     <Compile Include="Controllers\API\accountController.cs" />
     <Compile Include="Controllers\API\HotelController.cs" />
     <Compile Include="Controllers\API\HotelDetailsController.cs" />
@@ -379,6 +380,36 @@
     <Compile Include="Models\user_roles.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\view_Datedaymoney.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_DateHourmoney.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_Datemonthmoney.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_DateWeekmoney.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_DateYearmoney.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_HotelDatedaymoney.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_HotelDateHourmoney.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_HotelDatemonthmoney.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_HotelDateWeekmoney.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_HotelDateYearmoney.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -387,6 +418,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dataTables.bootstrap.min.css" />
+    <Content Include="Content\echarts.min.js" />
     <Content Include="Content\email.css" />
     <Content Include="Content\landing\avatar_all.png" />
     <Content Include="Content\landing\header_one.jpg" />
@@ -594,10 +626,12 @@
     <Content Include="Views\GHotelHome\MainIndex.cshtml" />
     <Content Include="Views\GHotelHome\MainEdit.cshtml" />
     <Content Include="Views\GHotelHome\HotelOrder.cshtml" />
+    <Content Include="Views\GHotelHome\HotelEchart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\RoomPhoto\" />
+    <Folder Include="Views\YAdminwo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css.map" />

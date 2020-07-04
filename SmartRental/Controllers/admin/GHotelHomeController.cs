@@ -1,9 +1,12 @@
 ﻿//using Microsoft.AspNetCore.Mvc;
 using SmartRental.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -520,6 +523,204 @@ namespace SmartRental.Controllers.admin
             }
             return RedirectToAction("HotelOrder");
         }
+        /// <summary>
+        /// 酒店报表
+        /// </summary>
+        public ActionResult HotelEchart()
+        {
 
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult HotelEchart(string select)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetEchartsPie(string dateday)
+        {
+            var HotelIDss = 10;/*Session["HotelID"];*///获取酒店HotelID
+            using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
+            {
+                var month = dateday.Split('-')[1];
+                var year = dateday.Split('-')[0];
+                var day= dateday.Split('-')[2];
+               
+                var all = db.view_HotelDateHourmoney.Where(v => v.HotelID == HotelIDss && v.datemoneytime.Contains(year + "-" + month+"-"+ day)).Select(s => new { Name = s.datemoneytime, ID = s.summoney }).OrderBy(s => s.Name);
+
+                //声明两个动态数据，存储循环出来的数据
+                ArrayList xAxisData = new ArrayList();
+                ArrayList yAxisData = new ArrayList();
+              
+              
+                string st2 = null;
+                string[] st3 = new string[32];
+                decimal[] sum = new decimal[32];
+                //循环list将数据循环存储在动态数组中
+                foreach (var item in all)
+                {
+                    var df = item.Name;                    
+                    st2 = item.Name.Split(' ')[1];                
+                        st3[int.Parse(st2)] = st2;
+                        sum[int.Parse(st2)] = (decimal)item.ID;
+                 
+                                    
+                }
+                for (int i = 0; i <= 23; i++)
+                {
+                    string ni = i.ToString();
+                    if (i < 10)
+                    {
+                        ni = "0" + i.ToString();
+                    }
+                    if (st3[i] != null && st3[i] == ni)
+                    {
+
+                        xAxisData.Add(i.ToString()+":00");
+                        yAxisData.Add(sum[i]);
+
+                    }
+                    else
+                    {
+                        xAxisData.Add(i.ToString()+":00");
+                        yAxisData.Add(0);
+                    }
+
+                }
+                var results = new { Sex = xAxisData, Num = yAxisData };
+                return Json(results, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public JsonResult GetEchartsIndex(string dates)
+        {
+            var HotelIDss = 10;/*Session["HotelID"];*///获取酒店HotelID
+            using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
+            {
+                var month = dates.Split('-')[1];
+                var year = dates.Split('-')[0];
+                
+                int days = DateTime.DaysInMonth(int.Parse(year), int.Parse(month));
+
+               
+                var all = db.view_HotelDatedaymoney.Where(v=>v.HotelID==HotelIDss&&v.datemoneytime.Contains(year+"-"+month)).Select(s=>new {Name=s.datemoneytime,ID=s.summoney }).OrderBy(s=>s.Name);
+                
+                //声明两个动态数据，存储循环出来的数据
+                ArrayList xAxisData = new ArrayList();
+                ArrayList yAxisData = new ArrayList();
+                var b = 1;
+                string st1 = null;
+                string st2 = null;
+                string[] st3 = new string[32];
+                decimal[] sum = new decimal[32];
+                //循环list将数据循环存储在动态数组中
+                foreach (var item in all)
+                {  
+                     st1 = item.Name.Split('-')[0];
+                    
+                     st2  = item.Name.Split('-')[1];
+
+
+                     string bs = item.Name.Split('-')[2];
+                    if ( st1 == year && st2 == month) { 
+                        st3[int.Parse(bs)] = item.Name.Split('-')[2];
+                         sum[int.Parse(bs)] = (decimal)item.ID;
+                    }
+                    else { 
+                        st3[b] = null; 
+                    }
+                    b++;             
+                }
+                for (int i = 1; i <= days; i++)
+                { 
+                    string ni = i.ToString();
+                    if (i < 10)
+                    {
+                        ni = "0" + i.ToString();
+                    }
+                    if (st3[i]!=null&&st3[i]== ni)
+                    {
+                       
+                        xAxisData.Add(i.ToString());
+                        yAxisData.Add(sum[i]);
+                     
+                    }
+                    else
+                    {
+                        xAxisData.Add(i.ToString());
+                        yAxisData.Add(0);
+                    }
+                  
+                }
+                var result = new { Sex = xAxisData, Num = yAxisData };
+                return Json(result, JsonRequestBehavior.AllowGet);
+                 
+                //2、不循环添加数据直接数据Json化数据
+                //var all = db.Student.GroupBy(s => new { s.StuSex }).Select(s => new { Name = s.Key.StuSex, ID = s.Count() }).ToList();
+                //return Json(new { data = all }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        [HttpPost]
+        //酒店月销量和房间销量图
+        public JsonResult GetEchartsyear(string datesyear)
+        {
+            var HotelIDss = 10;/*Session["HotelID"];*///获取酒店HotelID
+            using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
+            {
+                var all = db.view_HotelDatemonthmoney.Where(v => v.HotelID == HotelIDss && v.datemoneytime.Contains(datesyear)).Select(s => new { Name = s.datemoneytime, ID = s.summoney }).OrderBy(s => s.Name);
+
+                //声明两个动态数据，存储循环出来的数据
+                ArrayList xAxisData = new ArrayList();
+                ArrayList yAxisData = new ArrayList();
+              
+                string st2 = null;
+                string[] st3 = new string[32];
+                decimal[] sum = new decimal[32];
+                //循环list将数据循环存储在动态数组中
+                foreach (var item in all)
+                {
+                   
+
+                    st2 = item.Name.Split('-')[1];
+                
+                   
+                        st3[int.Parse(st2)] = st2;
+                        sum[int.Parse(st2)] = (decimal)item.ID;
+                    
+                                     
+                }
+                for (int i = 1; i <= 12; i++)
+                {
+                    string ni = i.ToString();
+                    if (i < 10)
+                    {
+                        ni = "0" + i.ToString();
+                    }
+                    if (st3[i] != null && st3[i] == ni)
+                    {
+
+                        xAxisData.Add(i.ToString());
+                        yAxisData.Add(sum[i]);
+
+                    }
+                    else
+                    {
+                        xAxisData.Add(i.ToString());
+                        yAxisData.Add(0);
+                    }
+
+                }
+                var resultsd = new { Sex = xAxisData, Num = yAxisData };
+                return Json(resultsd, JsonRequestBehavior.AllowGet);
+
+                //2、不循环添加数据直接数据Json化数据
+                //var all = db.Student.GroupBy(s => new { s.StuSex }).Select(s => new { Name = s.Key.StuSex, ID = s.Count() }).ToList();
+                //return Json(new { data = all }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
