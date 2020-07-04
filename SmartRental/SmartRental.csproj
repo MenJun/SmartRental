@@ -302,6 +302,7 @@
     <Compile Include="BLL\LoginService.cs" />
     <Compile Include="BLL\ServiceAdmin\GHotelManageService.cs" />
     <Compile Include="BLL\ServiceAdmin\HotelService.cs" />
+    <Compile Include="BLL\ServiceAdmin\YAdminManageServise.cs" />
     <Compile Include="BLL\ServiceAPI\HotelDetailsService.cs" />
     <Compile Include="BLL\ServiceAPI\HotelService.cs" />
     <Compile Include="BLL\ServiceAPI\PaymentService.cs" />
@@ -323,6 +324,7 @@
     <Compile Include="DAL\LoginMapper.cs" />
     <Compile Include="DAL\MapperAdmin\GHotelManagerMan.cs" />
     <Compile Include="DAL\MapperAdmin\HotelMapper.cs" />
+    <Compile Include="DAL\MapperAdmin\YAdminManagerMan.cs" />
     <Compile Include="DAL\MapperAPI\HotelDetailsMapper.cs" />
     <Compile Include="DAL\MapperAPI\HotelMapper.cs" />
     <Compile Include="DAL\MapperAPI\PaymentMapper.cs" />
@@ -627,11 +629,12 @@
     <Content Include="Views\GHotelHome\MainEdit.cshtml" />
     <Content Include="Views\GHotelHome\HotelOrder.cshtml" />
     <Content Include="Views\GHotelHome\HotelEchart.cshtml" />
+    <Content Include="Views\YAdminwo\Index.cshtml" />
+    <Content Include="Views\YAdminwo\AdminOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\RoomPhoto\" />
-    <Folder Include="Views\YAdminwo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css.map" />

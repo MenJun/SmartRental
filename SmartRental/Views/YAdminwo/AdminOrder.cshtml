@@ -1,0 +1,199 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    var order = Model as List<SmartRental.Models.Order>;
+}
+<style>
+    #mytable {
+        padding: 0;
+        margin: 0;
+        border-collapse: collapse;
+    }
+
+    td {
+        border: 1px solid #C1DAD7;
+        background: #fff;
+        font-size: 11px;
+        padding: 6px 6px 6px 12px;
+        color: #4f6b72;
+    }
+</style>
+<form action="/YAdminwo/AdminOrder" method="post">
+    <h2>订单表</h2>
+    <label>类型</label>
+    <select id="ab" name="ab">
+        <option value="">-请选择-</option>
+        <option value="所有订单">-所有订单-</option>
+        <option value="订单编号">订单编号</option>
+        <option value="订单状态">订单状态</option>
+        <option value="房间">房间</option>
+        <option value="入住日期">入住日期</option>
+        <option value="电话">电话</option>
+        <option value="房间">房间</option>
+
+    </select>
+
+    <input type="text" id="text1" name="text1" />
+    <input type="submit" @*onclick="bbc($('#ab').options[this.options.selectedIndex].value), $('#text1').val()"*@ value="搜索" />
+</form>
+<table class="table table-bordered table-hover table-striped" id="mytable">
+    <thead>
+        <tr>
+            <td>订单编号</td>
+            <td>下单账号</td>
+            <td>下单时间</td>
+            <td>入住时间</td>
+            <td>离店时间</td>
+            <td>应付金额</td>
+            <td>实付金额</td>
+            <td>入住人电话</td>
+            <td>入住人姓名</td>
+            <td>订单状态</td>
+            <td>入住人身份证</td>
+            <td>酒店</td>
+            <td>房间</td>
+            <td>订单状态</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in order)
+        {
+            <tr>
+                <td>@item.OrderNumber</td>
+                <td>@item.UserMessage.UserPhone</td>
+                <td>@item.Ordertime</td>
+                <td>@item.ArrivalDate</td>
+                <td>@item.LeaveTime</td>
+                <td>
+                    @if (item.PayablePrice != null)
+                    {
+                        <span>  @String.Format("{0:F}", item.PayablePrice) </span>
+                    }
+                    else
+                    {
+                        <span>未填写</span>
+                    }
+                </td>
+                <td>@item.ActualPrice</td>
+                <td>@item.ClientPhone</td>
+                <td>@item.ClientName</td>
+                <td>@item.OrderState</td>
+                <td>
+                    @*@item.ClientId*@
+                    @if (item.ClientId != null)
+                    {
+                        <span>  @item.ClientId) </span>
+                    }
+                    else
+                    {
+                        <span>未填写</span>
+                    }
+                </td>
+                <td>@item.HotelManag.HotelName</td>
+                <td>@item.RoomMessage.RoomName</td>
+                <td>
+                    <select id="aaa" style="border:0;outline:none;font-size:15px" name="OrderState" onchange="Pass(@item.OrderID,this.options[this.options.selectedIndex].value)">
+
+
+
+                        @if (item.OrderState.ToString() == "退款")
+                        {
+                            <option value="待处理" selected="selected">待处理</option>
+                            <option value="已退款">同意退款</option>
+                            <option value="拒绝退款">拒绝退款</option>
+                        }
+
+                        @if (item.OrderState.ToString() == "拒绝退款")
+                        {
+                            <option value="拒绝退款" selected="selected">拒绝退款</option>
+                            <option value="已退款">同意退款</option>
+                        }
+                        @if (item.OrderState.ToString() == "已支付")
+                        {
+                            <option value="已支付" selected="selected">交易中</option>
+                            <option value="已退款">退款</option>
+                        }
+                        @if (item.OrderState.ToString() == "成功交易")
+                        {
+                            <option value="已支付" selected="selected">成功交易</option>
+
+                        }
+                        @if (item.OrderState.ToString() == "已退款")
+                        {
+                            <option value="已退款" selected="selected">已退款</option>
+
+                        }
+                    </select>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var pageindex = (int)ViewBag.pageindex;
+    var pagecount = (int)ViewBag.pagecount;
+    var pagesize = (int)ViewBag.pagesize;
+    var countss = (int)ViewBag.countss;
+}
+
+@if (Session["order"] == null)
+{
+
+    <span>第 @pageindex 页</span>
+    <span>总 @pagecount 页</span>
+    if (pageindex <= 1)
+    {
+        @Html.ActionLink("上一页", "AdminOrder", null, new { disabled = "disabled", @class = "btn btn-primary" })
+    }
+    else
+    {
+
+        @Html.ActionLink("上一页", "AdminOrder", new { pageindex = (pageindex - 1), pagesize = pagesize }, new { @class = "btn btn-primary" })
+    }
+    if (pageindex >= pagecount)
+    {
+        @Html.ActionLink("下一页", "AdminOrder", null, new { disabled = "disabled", @class = "btn btn-primary" })
+    }
+    else
+    {
+
+        @Html.ActionLink("下一页", "AdminOrder", new { pageindex = (pageindex + 1), pagesize = pagesize }, new { @class = "btn btn-primary" })
+    }
+    <select name="counts" id="counts">
+        @for (int i = 5; i <= 20; i += 5)
+        {
+            if (@i == countss)
+            {
+                <option value=@i selected="selected">@i</option>
+            }
+            else
+            {
+                <option value=@i>@i</option>
+            }
+        }
+    </select>
+}
+
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $("#counts").change(function () {
+            window.location.href ="/YAdminwo/AdminOrder?pageindex=@pageindex&&pagesize="+$("#counts").val();
+        })
+        function Pass(id,hh) {
+            jQuery.ajax({
+                url: '/YAdminwo/AdminOrder?pageindex=@pageindex&&pagesize='+$("#counts").val(),
+                type: "post",
+                data: { "OrderID": id, "OrderState": hh },
+                success: function (data) {
+                    history.go(0)
+                }
+            })
+        }
+    </script>
+}
+

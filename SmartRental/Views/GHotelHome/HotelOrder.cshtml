@@ -24,7 +24,9 @@
     <h2>订单表</h2>
     <label>类型</label>
     <select id="ab" name="ab">
-        <option>-请选择-</option>
+        <option>-请选择-</option>      
+        <option>-所有订单-</option>
+        <option>订单编号</option>
         <option>订单状态</option>
         <option>房间</option>
         <option>入住日期</option>
@@ -57,54 +59,73 @@
     <tbody>
         @foreach (var item in order)
         {
-            <tr>
-                <td>@item.OrderNumber</td>
-                <td>@item.Ordertime</td>
-                <td>@item.ArrivalDate</td>
-                <td>@item.LeaveTime</td>
-                <td>@item.PayablePrice</td>
-                <td>@item.ActualPrice</td>
-                <td>@item.ClientPhone</td>
-                <td>@item.ClientName</td>
-                <td>@item.OrderState</td>
-                <td>@item.ClientId</td>
-                <td>@item.HotelManag.HotelName</td>
-                <td>@item.RoomMessage.RoomName</td>
-                <td>
-                    <select id="aaa" style="border:0;outline:none;font-size:15px" name="OrderState" onchange="Pass(@item.OrderID,this.options[this.options.selectedIndex].value)">
+        <tr>
+            <td>@item.OrderNumber</td>
+            <td>@item.Ordertime</td>
+            <td>@item.ArrivalDate</td>
+            <td>@item.LeaveTime</td>
+            <td>
+                @if (item.PayablePrice != null)
+                {
+                    <span>  @String.Format("{0:F}", item.PayablePrice) </span>
+                }
+                else
+                {
+                    <span>未填写</span>
+                }
+            </td>
+            <td>@item.ActualPrice</td>
+            <td>@item.ClientPhone</td>
+            <td>@item.ClientName</td>
+            <td>@item.OrderState</td>
+            <td>
+                @*@item.ClientId*@
+                @if (item.ClientId != null)
+                {
+                    <span>  @item.ClientId) </span>
+                }
+                else
+                {
+                    <span>未填写</span>
+                }
+            </td>
+            <td>@item.HotelManag.HotelName</td>
+            <td>@item.RoomMessage.RoomName</td>
+            <td>
+                <select id="aaa" style="border:0;outline:none;font-size:15px" name="OrderState" onchange="Pass(@item.OrderID,this.options[this.options.selectedIndex].value)">
 
 
 
-                        @if (item.OrderState.ToString() == "退款")
-                        {
-                            <option value="待处理" selected="selected">待处理</option>
-                            <option value="已退款">同意退款</option>
-                            <option value="拒绝退款">拒绝退款</option>
-                        }
+                    @if (item.OrderState.ToString() == "退款")
+                    {
+                        <option value="待处理" selected="selected">待处理</option>
+                        <option value="已退款">同意退款</option>
+                        <option value="拒绝退款">拒绝退款</option>
+                    }
 
-                        @if (item.OrderState.ToString() == "拒绝退款")
-                        {
-                            <option value="拒绝退款" selected="selected">拒绝退款</option>
-                            <option value="已退款">同意退款</option>
-                        }
-                        @if (item.OrderState.ToString() == "已支付")
-                        {
-                            <option value="已支付" selected="selected">交易中</option>
-                            <option value="已退款">退款</option>
-                        }
-                        @if (item.OrderState.ToString() == "成功交易")
-                        {
-                            <option value="已支付" selected="selected">成功交易</option>
+                    @if (item.OrderState.ToString() == "拒绝退款")
+                    {
+                        <option value="拒绝退款" selected="selected">拒绝退款</option>
+                        <option value="已退款">同意退款</option>
+                    }
+                    @if (item.OrderState.ToString() == "已支付")
+                    {
+                        <option value="已支付" selected="selected">交易中</option>
+                        <option value="已退款">退款</option>
+                    }
+                    @if (item.OrderState.ToString() == "成功交易")
+                    {
+                        <option value="已支付" selected="selected">成功交易</option>
 
-                        }
-                        @if (item.OrderState.ToString() == "已退款")
-                        {
-                           <option value="已退款" selected="selected">已退款</option>
-      
-                        }
-                    </select>
-                </td>
-            </tr>
+                    }
+                    @if (item.OrderState.ToString() == "已退款")
+                    {
+                        <option value="已退款" selected="selected">已退款</option>
+
+                    }
+                </select>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
