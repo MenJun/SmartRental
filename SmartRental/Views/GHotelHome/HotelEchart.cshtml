@@ -1,10 +1,9 @@
-﻿@{
-    string[] typename = { "商务型酒店", "度假型酒店", "长住型酒店", "经济型酒店", "电竞型酒店" };
+﻿@{ 
     int dateday = (int)DateTime.Now.Year;
 }
 @* 时间销量柱状图 *@<div style="width:200px;height:25px">
                  <p>
-                     <select id="timebao">
+                     <select id="timebao" style="width:60px">
                          <option value="时销量" selected="selected">时销量</option>
                          <option value="年销量">年销量</option>
                      </select>
@@ -29,9 +28,9 @@
 </div>
 <div id="Pie" style="width: 1300px; height:280px"></div>
 
-<div style="width:200px;height:25px">
+<div style="width:300px;height:25px">
 
-    <label>日销量</label>
+    <label>&nbsp;&nbsp;日销量&nbsp;&nbsp;</label>
     <input style="width:130px" type="month" id="btmonth">
 
 

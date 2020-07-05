@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Recommend";
+}
+@{
+    var order = Model as List<SmartRental.Models.HotelManag>;
+}
+<div>
+    <div>
+        <h2 style="color:#54b8fd">首页精选酒店修改</h2>
+        <hr style="height:3px;background-color:#54b8fd;" />
+    </div>
+    <div class="row">
+        @foreach (var item in order)
+        {
+            if (item.Hotelrecommen <= 7)
+            {
+                if (item.Hotelrecommen == 1)
+                {
+                    <div class="col-lg-3">
+                        <dl style="float:left">
+                            <dt>
+                                <a href="/YAdminwo/RecommendAlter?Id=@item.HotelID"><img style="width:280px;height:368px" src="@item.HotelPhoto.Hotelphoto1" /></a>
+                            </dt>
+                            <dd>
+                                @item.HotelName
+                            </dd>
+                            <dd style="float:right">
+                                <span style="color:red">店长： @item.HotelBoss</span>
+                            </dd>
+                        </dl>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-lg-3">
+                        <dl style="float:left;margin-left:10px">
+                            <dt>
+                                <a href="/YAdminwo/RecommendAlter?Id=@item.HotelID"><img style="width:280px;height:154px" src="@item.HotelPhoto.Hotelphoto1" /></a>
+                            </dt>
+                            <dd>
+                                @item.HotelName
+                            </dd>
+                            <dd style="float:right">
+                                <span style="color:red">店长： @item.HotelBoss</span>
+                            </dd>
+                        </dl>
+                    </div>
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+    </div>
+</div>
+

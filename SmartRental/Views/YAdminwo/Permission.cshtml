@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Permission";
+}
+@{
+    var usermessages = Model as List<SmartRental.Models.UserMessage>;
+}
+<h2>权限管理</h2>
+<div>
+    <table class="table table-bordered table-hover table-striped" id="mytable">
+        <thead>
+            <tr>
+                <td>用户名</td>
+                <td>用户电话</td>
+                <td>用户状态</td>
+                <td>用户权限</td>
+                <td>注册时间</td>
+                <td>状态操作</td>
+                <td>权限操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in usermessages)
+            {
+                <tr>
+                    <td>
+                        @if (item.UserName != null)
+                        {
+                            <span>@item.UserName</span>
+                        }
+                        else
+                        {
+                            <span>未填写</span>
+                        }
+                    </td>
+                    <td>@item.UserPhone</td>
+                    <td>@(item.User_status==true?"正常":"已冻结")</td>
+                    <td>@item.UserGrade</td>
+                    <td>@string.Format("{0:f}", item.Registration_time) </td>
+                    <td>
+                        @if (item.User_status == true)
+                        {
+                            <input style="border:none;background-color:royalblue;outline:none;color:black" onclick="Pass(@item.UserID)" type="button"  value="冻结" />
+                        }
+                        else
+                        {
+                            <input style="border:none;background-color:red;outline:none;color:black" onclick="Pass(@item.UserID)" type="button" value="解封" />
+                        }
+                    </td>
+                    <td>
+                        <select id="aaa" style="border:0;outline:none;font-size:15px;background-color:transparent" name="OrderState" onchange="Operate(@item.UserID,this.options[this.options.selectedIndex].value)">
+                            <option>请选择</option>
+                            <option value="用户">用户</option>
+                            <option value="管理员">管理员</option>
+                            <option value="超级管理员">超级管理员</option>
+                        </select>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        function Pass(id) {
+            jQuery.ajax({
+                url: '/YAdminwo/Permission',
+                type: "post",
+                data: { "UserID": id },
+                success: function (data) {
+                    history.go(0)
+                }
+            })
+        }
+        function Operate(id,e) {
+            jQuery.ajax({
+                url: '/YAdminwo/Permission',
+                type: "post",
+                data: { "UserID": id, "UserGrade": e },
+                success: function (data) {
+                    history.go(0)
+                }
+            })
+        }
+    </script>
+}
+

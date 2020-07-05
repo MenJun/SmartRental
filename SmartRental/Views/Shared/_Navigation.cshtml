@@ -15,28 +15,22 @@
                             <img src="~/Content/patterns/heade.png" />
                         </div>
                     </li>
-                    <li class="@Html.IsSelected(controller: "GHotelHome", action: "Main")">
+                    <li class="@Html.IsSelected(controller: "Hotel", action: "Index")">
 
-                        <a href="@Url.Action("GHotelHome", "Main")"><i class="fa fa-diamond"></i> <span class="nav-label">酒店管理</span> <span class="label label-primary float-right">Main</span></a>
-                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Hotel", cssClass: "in")">
-                            <li class="@Html.IsSelected(action: "Main")"><a href="@Url.Action("Main", "Hotel")">酒店详情</a></li>
-                            <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">Dashboard v.2</a></li>
-                            <li class="@Html.IsSelected(action: "Dashboard_3")"><a href="@Url.Action("Dashboard_3", "Dashboards")">Dashboard v.3</a></li>
-                            <li class="@Html.IsSelected(action: "Dashboard_4_1")"><a href="@Url.Action("Dashboard_4_1", "Dashboards")">Dashboard v.4</a></li>
-                            <li class="@Html.IsSelected(action: "Dashboard_5")"><a href="@Url.Action("Dashboard_5", "Dashboards")">Dashboard v.5</a></li>
-                        </ul>
+                        <a href="@Url.Action("Index", "Hotel")"><i class="fa fa-diamond"></i> <span class="nav-label">酒店管理</span></a>
+                       
                     </li>
-                    <li class="@Html.IsSelected(controller: "Home", action: "Main")">
-                        <a href="@Url.Action("Main", "GHotelHome")"><i class="fa fa-server"></i> <span class="nav-label">信息管理</span></a>
+                    <li class="@Html.IsSelected(controller: "YAdminwo", action: "Permission")">
+                        <a href="@Url.Action("Permission", "YAdminwo")"><i class="fa fa-server"></i> <span class="nav-label">权限管理</span></a>
                     </li>
-                    <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
-                        <a href="@Url.Action("GHotelHome", "Index")"><i class="fa fa-server"></i> <span class="nav-label">房间管理</span></a>
+                    <li class="@Html.IsSelected(controller: "YAdminwo", action: "AdminOrder")">
+                        <a href="@Url.Action("AdminOrder", "YAdminwo")"><i class="fa fa-server"></i> <span class="nav-label">订单管理</span></a>
                     </li>
-                    <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
-                        <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">订单管理</span></a>
+                    <li class="@Html.IsSelected(controller: "YAdminwo", action: "Recommend")">
+                        <a href="@Url.Action("Recommend", "YAdminwo")"><i class="fa fa-server"></i> <span class="nav-label">界面管理</span></a>
                     </li>
-                    <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
-                        <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">报表管理</span></a>
+                    <li class="@Html.IsSelected(controller: "YAdminwo", action: "AdminwoEchart")">
+                        <a href="@Url.Action("AdminwoEchart", "YAdminwo")"><i class="fa fa-server"></i> <span class="nav-label">蜗牛报表</span></a>
                     </li>
 
                 </ul>
@@ -55,29 +49,24 @@
                             <img src="~/Content/patterns/heade.png" />
                         </div>
                     </li>
-                    <li class="@Html.IsSelected(controller: "GHotelHome", action: "Main")">
-                        <a href="@Url.Action("Main", "GHotelHome")"><i class="fa fa-diamond"></i> <span class="nav-label">酒店管理</span> <span class="label label-primary float-right">Main</span></a>
+                    <li class="@Html.IsSelected(controller: "GHotelHome", action: "MainIndex")">
+                        <a href="@Url.Action("MainIndex", "GHotelHome")"><i class="fa fa-diamond"></i> <span class="nav-label">酒店信息</span> <span class="label label-primary float-right">Main</span></a>
 
                     </li>
                     <li class="@Html.IsSelected(controller: "GHotelHome", action: "Index")">
-                        <a href="@Url.Action("Index", "GHotelHome")"><i class="fa fa-server"></i> <span class="nav-label">房间管理</span></a>
+                        <a href="@Url.Action("RoomIndex", "GHotelHome")"><i class="fa fa-server"></i> <span class="nav-label">房间管理</span></a>
                         <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Hotel", cssClass: "in")">
-                            <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "GHotelHome")">上市房间</a></li>
-                            <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">添加房间</a></li>
-                            <li class="@Html.IsSelected(action: "Dashboard_3")"><a href="@Url.Action("Dashboard_3", "Dashboards")">Dashboard v.3</a></li>
-                            <li class="@Html.IsSelected(action: "Dashboard_4_1")"><a href="@Url.Action("Dashboard_4_1", "Dashboards")">Dashboard v.4</a></li>
-                            <li class="@Html.IsSelected(action: "Dashboard_5")"><a href="@Url.Action("Dashboard_5", "Dashboards")">Dashboard v.5</a></li>
+                            <li class="@Html.IsSelected(action: "RoomIndex")"><a href="@Url.Action("RoomIndex", "GHotelHome")">酒店房间</a></li>
+                            <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "GHotelHome")">添加房间</a></li>                          
                         </ul>
                     </li>
-                    <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
-                        <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">订单管理</span></a>
+                    <li class="@Html.IsSelected(controller: "GHotelHome", action: "HotelOrder")">
+                        <a href="@Url.Action("HotelOrder", "GHotelHome")"><i class="fa fa-server"></i> <span class="nav-label">订单管理</span></a>
                     </li>
-                    <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
-                        <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">房单</span></a>
+                    <li class="@Html.IsSelected(controller: "GHotelHome", action: "HotelEchart")">
+                        <a href="@Url.Action("HotelEchart", "GHotelHome")"><i class="fa fa-server"></i> <span class="nav-label">酒店报表</span></a>
                     </li>
-                    <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
-                        <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">报表</span></a>
-                    </li>
+                   
 
                 </ul>
             </div>

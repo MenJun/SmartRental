@@ -35,5 +35,46 @@ namespace SmartRental.Controllers.admin
             }
            
         }
+        public ActionResult MainIndex(int hotelID)
+        {
+          
+            using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
+            {
+
+                var hotelrmes = db.HotelManag.Where(s => s.HotelID == hotelID).FirstOrDefault();
+                var hotelph = db.HotelPhoto.Where(s => s.HotelPhotoID == hotelrmes.HotelPhotoID).FirstOrDefault();
+                var sf = hotelrmes.HotelFacility;
+                var fct = sf.Split(',').Count();
+                string bb = "";
+                for (int i = 1; i < fct; i++)
+                {
+                    if (i < fct - 1)
+                        bb = bb + sf.Split(',')[i] + "+";
+                    else
+                    {
+                        bb = bb + sf.Split(',')[i];
+                    }
+                }
+                hotelrmes.HotelFacility = bb;
+
+                ViewBag.HotelPhotoname = new HotelPhoto
+                {
+                    Hotelphoto1 = hotelph.Hotelphoto1,
+                    Hotelphoto2 = hotelph.Hotelphoto2,
+                    Hotelphoto3 = hotelph.Hotelphoto3,
+                    Hotelphoto4 = hotelph.Hotelphoto4,
+                    Hotelphoto5 = hotelph.Hotelphoto5,
+                    Hotelphoto6 = hotelph.Hotelphoto6,
+                    Hotelphoto7 = hotelph.Hotelphoto7,
+
+                };
+
+
+                return View(hotelrmes);
+            }
+
+
+
+        }
     }
 }

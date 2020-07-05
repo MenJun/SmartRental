@@ -631,6 +631,12 @@
     <Content Include="Views\GHotelHome\HotelEchart.cshtml" />
     <Content Include="Views\YAdminwo\Index.cshtml" />
     <Content Include="Views\YAdminwo\AdminOrder.cshtml" />
+    <Content Include="Views\YAdminwo\AdminwoEchart.cshtml" />
+    <Content Include="Views\YAdminwo\AdminwoEchart2.cshtml" />
+    <Content Include="Views\YAdminwo\Permission.cshtml" />
+    <Content Include="Views\YAdminwo\RecommendAlter.cshtml" />
+    <Content Include="Views\YAdminwo\Recommend.cshtml" />
+    <Content Include="Views\Hotel\MainIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

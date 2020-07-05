@@ -1,0 +1,291 @@
+﻿@{
+    int dateday = (int)DateTime.Now.Year;
+}
+@* 时间销量柱状图 *@<div style=" width: 1130px; height: 25px;margin-top:-15px;">
+                 <p>
+                     <label>时销量</label>
+                     <input style="width:130px" type="date" id="bt">
+                     <a href="/YAdminwo/AdminwoEchart2" style="float:right;height:10px;font-size:16px"> 更多报表</a>
+                 </p>
+  
+</div>
+<div id="Pie" style="width: 1250px; height:280px"></div>
+
+<div style="width:200px;height:25px">
+
+    <label>日销量</label>
+    <input style="width:130px" type="month" id="btmonth">
+
+
+</div>
+@* 日销量柱状图 *@
+<div id="main" style="width: 1250px; height:280px"></div>
+
+@section scripts{
+    <script src="~/Content/echarts.min.js"></script>
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var ddd = new Date();
+            var day = ddd.getDate();
+
+            if (ddd.getMonth() < 10) {
+                var month = "0" + (ddd.getMonth() + 1);
+            }
+
+            if (ddd.getDate() < 10) {
+                day = "0" + ddd.getDate();
+            }
+
+            var datew = ddd.getFullYear() + "-" + month + "-" + day;
+            var datew = datew.toString();
+
+            $("#bt").val(datew);
+            var datewmonth = ddd.getFullYear() + "-" + month;
+            var datewmonth = datewmonth.toString();
+            $("#btmonth").val(datewmonth);
+
+
+        });
+
+
+
+
+        //时间销量柱状图
+        $(function () {
+            Bar();
+        });
+        $("#btmonth").change(function () {
+           Bar();
+        })     
+        $("#bt").change(function () {
+            Bar2();
+        })
+        var names = [];    //定义数组，数组可自由定义
+        var scores = [];
+        function Bar() {
+            $.ajax({
+                url: "/YAdminwo/GetEchartsIndex?dates=" + $("#btmonth").val(),
+                type: "post",
+                async: false,
+                dataType: "json",
+                success: function (result) {
+                    //根据自己的希求以及熟练程度选择for循环或者$.each循环方法
+                    //for循环遍历所需的数据
+                    for (var i = 0; i < result.Num.length; i++) {
+                        scores[i] = JSON.parse(result.Num[i]);//以特定的JSON的格式接收数字
+                    }
+                    for (var i = 0; i < result.Sex.length; i++) {
+                        names[i] = result.Sex[i];//以JSON的方式接收字符串
+                    }
+                    //$.each方法遍历所需的数据
+                    $.each(result.data, function (index, item) {
+                        names.push(item.Name);
+                        scores.push(item.ID)
+                    });
+                    //调用柱状图方法
+                    InitChart(names, scores);
+                },
+                error: function (error) {
+                    alert("Ajax获取服务器数据出错了！" + error);
+                }
+            });
+        }
+        //创建一个方法来封装柱状图
+        function InitChart(names, scores) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('main'));//初始化echarts
+            option = {
+                title: {
+                    text: '日销量',//可视化主标题
+                    textStyle: {//主标题的样式
+                        color: 'red',
+                        fontWeight: 'bold',
+                        fontStyle: 'italic',
+                        fontFamily: '微软雅黑'
+                    },
+                    subtext: '本月日销量对比',//副标题
+                    subtextStyle: {//副标题的样式
+                        color: 'black',
+                        fontFamily: '微软雅黑'
+                    },
+                    x: 'center'
+                },
+                grid: {
+                    top: '25%',
+                },
+                xAxis: {
+
+                    name: '日期/天',
+                    type: 'category',
+                    data: names,
+                    axisLabel: {
+                        rotate: '0',
+                        interval: 0,
+
+
+                    },
+                },
+                //提示框组件
+                tooltip: {
+                    trigger: 'axis',//触发类型；item:数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用；axis：坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用
+                },
+                //工具组件：如：下载保存统计图表、切换为折线图、切换为柱状图
+                toolbox: {
+                    feature: {
+                        magicType: { show: true, type: ['line', 'bar'] },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '销量/元',
+                },
+                series: [{
+                    data: scores,
+                    type: 'bar',//图形类型
+                    label: {
+                        normal: {
+                            formatter: "{c}" ,//数据格式化
+                            show: true,
+                            position: 'top',//数据显示的位置，事例中显示在顶部
+                            textStyle: {//显示的数据样式
+                                color: 'black',
+                                fontFamily: '微软雅黑',
+
+                            },
+
+                        }
+                    },
+                    barWidth: '80%',
+
+                }]
+            };
+            // 使用刚指定的配置项和数据显示图表-绑定数据
+            myChart.setOption(option);
+        }
+
+
+
+
+
+
+
+        $(function () {
+            Bar2();
+        });
+        var names2 = [];    //定义数组，数组可自由定义
+        var scores2 = [];
+        function Bar2() {
+            $.ajax({
+                url: "/YAdminwo/GetEchartsPie?dateday=" + $("#bt").val(),
+                type: "post",
+                async: false,
+                dataType: "json",
+                success: function (results) {
+                    //根据自己的希求以及熟练程度选择for循环或者$.each循环方法
+                    //for循环遍历所需的数据
+                    for (var i = 0; i < results.Num.length; i++) {
+                        scores2[i] = JSON.parse(results.Num[i]);//以特定的JSON的格式接收数字
+                    }
+                    for (var i = 0; i < results.Sex.length; i++) {
+                        names2[i] = results.Sex[i];//以JSON的方式接收字符串
+                    }
+                    //$.each方法遍历所需的数据
+                    $.each(results.data, function (index, item) {
+                        names2.push(item.Name);
+                        scores2.push(item.ID)
+                    });
+                    //调用柱状图方法
+                    InitChart2(names2, scores2);
+                },
+                error: function (error) {
+                    alert("Ajax获取服务器数据出错了！" + error);
+                }
+            });
+        }
+        //创建一个方法来封装柱状图
+        function InitChart2(names, scores) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart2 = echarts.init(document.getElementById('Pie'));//初始化echarts
+            options = {
+                title: {
+                    text: '时销量',//可视化主标题
+                    textStyle: {//主标题的样式
+                        color: 'red',
+                        fontWeight: 'bold',
+                        fontStyle: 'italic',
+                        fontFamily: '微软雅黑'
+                    },
+                    subtext: '本日时销量对比',//副标题
+                    subtextStyle: {//副标题的样式
+                        color: 'black',
+                        fontFamily: '微软雅黑'
+                    },
+                    x: 'center'
+                },
+                grid: {
+                    top: '25%',
+                },
+                xAxis: {
+
+                    name: '时间/小时',
+                    type: 'category',
+                    data: names,
+                    axisLabel: {
+                        rotate: '0',
+                        interval: 0,
+
+
+                    },
+                },
+                //提示框组件
+                tooltip: {
+                    trigger: 'axis',//触发类型；item:数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用；axis：坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用
+                },
+                //工具组件：如：下载保存统计图表、切换为折线图、切换为柱状图
+                toolbox: {
+                    feature: {
+                        magicType: { show: true, type: ['line', 'bar'] },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '销量/元',
+                },
+                series: [{
+                    data: scores,
+                    type: 'bar',//图形类型
+                    label: {
+                        normal: {
+                            formatter: "{c}" ,//数据格式化
+                            show: true,
+                            position: 'top',//数据显示的位置，事例中显示在顶部
+                            textStyle: {//显示的数据样式
+                                color: 'black',
+                                fontFamily: '微软雅黑',
+
+                            },
+
+                        }
+                    },
+                    barWidth: '80%',
+
+                }]
+            };
+            // 使用刚指定的配置项和数据显示图表-绑定数据
+            myChart2.setOption(options);
+        }
+
+
+
+
+
+
+       
+    </script>
+}

@@ -53,9 +53,13 @@ namespace SmartRental.BLL
             }
 
 
+           
 
-
-
-        }
+            }
+        internal static object DecryptionHotelID(string userPhone)
+          {
+                var user = LoginMapper.GetLogin(userPhone);
+            return user.HotelID;
+           }
     }
 }

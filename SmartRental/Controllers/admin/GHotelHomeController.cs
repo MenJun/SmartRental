@@ -1,4 +1,5 @@
 ﻿//using Microsoft.AspNetCore.Mvc;
+using Aop.Api.Domain;
 using SmartRental.Models;
 using System;
 using System.Collections;
@@ -73,7 +74,7 @@ namespace SmartRental.Controllers.admin
         /// <returns></returns>
         public ActionResult MainIndex()
         {
-            var hotelID = 10;//Session["HotelID"] 酒店ID
+            var hotelID =int.Parse( Session["HotelID"].ToString());//Session["HotelID"] 酒店ID
             using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
             {
                
@@ -322,7 +323,7 @@ namespace SmartRental.Controllers.admin
         /// <returns></returns>
         public JsonResult Roommessagelist()
         {
-            var HotelNameID = 10;//以酒店为10做测试   //Session["HotelID"] 酒店ID
+            var HotelNameID = int.Parse(Session["HotelID"].ToString());//以酒店为10做测试   //Session["HotelID"] 酒店ID
 
             SmartRentalSystemEntities db = new SmartRentalSystemEntities();
           
@@ -463,10 +464,17 @@ namespace SmartRental.Controllers.admin
 
 
 
-        public ActionResult HotelOrder(int pageindex=1,int pagesize=5)
+        public ActionResult HotelOrder(int pageindex=1,int pagesize=10)
         {
-            var HotelIDss = 10;/*Session["HotelID"];*///获取酒店HotelID
-            Session["order"] = null;
+            var HotelIDss = int.Parse(Session["HotelID"].ToString());/*Session["HotelID"];*///获取酒店HotelID
+            if ((Session["order"] != null&& Session["order"].ToString()!=""))
+            {
+                Session["order"] = 45;
+            }
+            else
+            {
+                Session["order"] =null;
+            }
             int countss = 5;
             var student = BLL.ServiceAdmin.GHotelManageService.GetStudentByPaging(pageindex, pagesize, out int pagecount,(int)HotelIDss);
             ViewBag.pageindex = pageindex;
@@ -485,11 +493,16 @@ namespace SmartRental.Controllers.admin
           
         }
         [HttpPost]
-        public ActionResult HotelOrder(int? OrderID, string OrderState, string ab, string text1, int pageindex = 1, int pagesize = 8)
+        public ActionResult HotelOrder(int? OrderID, string OrderState, string ab, string text1, int pageindex = 1, int pagesize = 10)
         {
-            var HotelIDss = 10;/*Session["HotelID"];*///获取酒店HotelID
+            Session["order"] =45;
+            var HotelIDss = int.Parse(Session["HotelID"].ToString());/*Session["HotelID"];*///获取酒店HotelID
             SmartRentalSystemEntities db = new SmartRentalSystemEntities();
             var sss = ab; var bbb = text1;
+            if (ab != null && ab != "" )
+            {
+                Session["se"] = ab; Session["ts"] = text1;
+            }
             if (sss == null && bbb == null)
             {
                 Order order = db.Order.Where(t => t.OrderID == OrderID).FirstOrDefault();
@@ -541,7 +554,7 @@ namespace SmartRental.Controllers.admin
         [HttpPost]
         public JsonResult GetEchartsPie(string dateday)
         {
-            var HotelIDss = 10;/*Session["HotelID"];*///获取酒店HotelID
+            var HotelIDss = int.Parse(Session["HotelID"].ToString());/*Session["HotelID"];*///获取酒店HotelID
             using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
             {
                 var month = dateday.Split('-')[1];
@@ -596,7 +609,7 @@ namespace SmartRental.Controllers.admin
         [HttpPost]
         public JsonResult GetEchartsIndex(string dates)
         {
-            var HotelIDss = 10;/*Session["HotelID"];*///获取酒店HotelID
+            var HotelIDss = int.Parse(Session["HotelID"].ToString());/*Session["HotelID"];*///获取酒店HotelID
             using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
             {
                 var month = dates.Split('-')[1];
@@ -668,7 +681,7 @@ namespace SmartRental.Controllers.admin
         //酒店月销量和房间销量图
         public JsonResult GetEchartsyear(string datesyear)
         {
-            var HotelIDss = 10;/*Session["HotelID"];*///获取酒店HotelID
+            var HotelIDss = int.Parse(Session["HotelID"].ToString());/*Session["HotelID"];*///获取酒店HotelID
             using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
             {
                 var all = db.view_HotelDatemonthmoney.Where(v => v.HotelID == HotelIDss && v.datemoneytime.Contains(datesyear)).Select(s => new { Name = s.datemoneytime, ID = s.summoney }).OrderBy(s => s.Name);

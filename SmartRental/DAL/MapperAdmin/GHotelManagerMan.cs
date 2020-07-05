@@ -129,9 +129,9 @@ namespace SmartRental.DAL.MapperAdmin
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
                     return students.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
                 }
-                else if (a == "房间")
+                else if (a == "酒店")
                 {
-                    var students = orders.Where(t => t.RoomMessage.RoomName.Contains(b)).ToList();
+                    var students = orders.Where(t => t.HotelManag.HotelName.Contains(b)).ToList();
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
                     return students.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
                 }
@@ -142,7 +142,7 @@ namespace SmartRental.DAL.MapperAdmin
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
                     return students.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
                 }
-                else if (a == "电话")
+                else if (a == "入住电话")
                 {
                     var students = orders.Where(t => t.ClientPhone.Contains(b)).ToList();
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
