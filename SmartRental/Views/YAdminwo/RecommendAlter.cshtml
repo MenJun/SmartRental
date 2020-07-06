@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "RecommendAlter";
+}
+@{
+    var order = Model as List<SmartRental.Models.HotelManag>;
+    var jj = ViewBag.hh;
+    var bb = ViewBag.kk;
+}
+
+@*<form action="/Order/RecommendAlter" method="post">*@
+<div>
+    <h1>当前酒店 @bb</h1>
+
+    <form action="/YAdminwo/RecommendAlter" method="post">
+        <div style="width:1200px">
+            <input id="HotelName" name="HotelName" type="text" placeholder="请输入酒店名称" /><input type="submit" value="搜索" /><a href="/YAdminwo/Recommend" style="float:right;font-size:18px">返回〉</a>
+            @*<input type="hidden" name="OldHotelrecommen" id="OldHotelrecommen" value="@jj" />
+            <input type="hidden" name="HotelNames" id="HotelNames" value="@bb" />*@
+            
+        </div>
+    </form>
+
+    <h3 style="color:#54b8fd">请选择替换的酒店</h3>
+    <hr style="height:3px;background-color:#54b8fd;" />
+</div>
+<div>
+    @foreach (var item in order)
+    {
+        <div class="col-lg-3" style="margin-bottom:20px">
+            <dl style="float:left">
+                <dt>
+                    <img style="width:280px;height:368px" src="@item.HotelPhoto.Hotelphoto1" />
+                </dt>
+                <dd>
+                    @item.HotelName
+                </dd>
+                <dd style="float:right">
+                    <span style="color:red">店长： @item.HotelBoss</span>
+                </dd>
+            </dl>
+            <input type="hidden" name="Hotelrecommen" id="Hotelrecommen" value="@item.Hotelrecommen" />
+            <input type="hidden" name="OldHotelrecommen" id="OldHotelrecommen" value="@jj" />
+            <input type="hidden" name="HotelID" id="HotelID" value="@item.HotelID" />
+            <input style="float:right;color:blueviolet" type="button" value="选择" onclick="Pass(@item.Hotelrecommen,@jj,@item.HotelID)" />
+        </div>
+    }
+</div>
+@*</form>*@
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        function Pass(id,hh,jj) {
+            jQuery.ajax({
+                url: '/YAdminwo/RecommendAlter',
+                type: "post",
+                data: { "Hotelrecommen": id, "OldHotelrecommen": hh, "HotelID": jj },
+                success: function (data) {
+                    window.location.href ="/YAdminwo/Recommend";
+                }
+            })
+        }
+    </script>
+}
+
+
+

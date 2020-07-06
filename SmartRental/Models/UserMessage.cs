@@ -20,6 +20,8 @@ namespace SmartRental.Models
             this.Order = new HashSet<Order>();
             this.UserBrowse = new HashSet<UserBrowse>();
             this.UserEvaluate = new HashSet<UserEvaluate>();
+          
+         
         }
     
         public int UserID { get; set; }

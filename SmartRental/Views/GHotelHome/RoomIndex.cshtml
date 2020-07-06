@@ -15,13 +15,13 @@
 
     <table class="layui-hide" id="test" lay-filter="test"></table>
 
-    <script type="text/html" id="toolbarDemo">
+    @*<script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
             <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
             <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
             <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
         </div>
-    </script>
+    </script>*@
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -42,13 +42,13 @@
                 , title: '用户数据表'
                 , totalRow: true
                 , cols: [[
-                    { type: 'checkbox', fixed: 'left' }
-                    //, { field: 'RoomID', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计' }
-                    , { field: 'RoomName', title: '房间名', width: 150,  }
+                    //{ type: 'checkbox', fixed: 'left' }
+                    //, { field: 'RoomID', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计' },
+                     { field: 'RoomName', title: '房间名', width: 150,  }
                     , {
                         field: 'RoomType', title: '房间类型', width:120,
                         }                    
-                    , { field: 'MattresType', title: '床型', width: 120,   }
+                    , { field: 'Mattres', title: '床型', width: 120,   }
                     , { field: 'RoomFacility', title: '房间设施', width: 150,  }
                     , { field: 'RoomLayout', title: '房间布局', width: 150, }
                     , { field: 'RoomCount', title: '房间数量', width: 90 }
@@ -85,16 +85,16 @@
 
         table.on('tool(test)', function (obj) {
             var data = obj.data;
-                           
+         
             //console.log(obj)
             if (obj.event === 'del') {
-            
-                 index = obj.data.RoomID;
+                index = obj.data.RoomID;
+              
                 //    
                 // layer.close(index);
                 // $.messager.alert("提示", "删除失败");
                 if (confirm('真的删除行么')) {
-                        $.post("/GHotelHome/DeleteRoom", { id: index }, function (data) {
+                        $.post("/GHotelHome/DeleteRoom", { id:index }, function (data) {
                             if (data.substring(0, 2) == "ok") {
                                 //刷新表格                             
                                 alert("删除成功");
@@ -102,6 +102,7 @@
                             }
                             else {
                                 alert("删除失败");
+                                
                             }
                         });
                       
@@ -109,8 +110,9 @@
              
               
             } else if (obj.event === 'edit') {
-
-                $.post("/GHotelHome/EditRoom", { id: index })
+                index = obj.data.RoomID;
+             
+                location.href = "/GHotelHome/EditRoom?id=" + index;
                 //layer.prompt({
                 //    formType: 2
                 //    , value: data.email
