@@ -40,6 +40,7 @@ namespace SmartRental.Models
         public string HotelFacility { get; set; }
         public Nullable<System.DateTime> Hoteltration_time { get; set; }
         public Nullable<int> Hotelrecommen { get; set; }
+        public string HotelPhone { get; set; }
     
         public virtual HotelPhoto HotelPhoto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

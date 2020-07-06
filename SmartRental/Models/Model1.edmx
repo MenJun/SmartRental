@@ -25,6 +25,7 @@
           <Property Name="HotelFacility" Type="nvarchar" MaxLength="300" />
           <Property Name="Hoteltration_time" Type="datetime" />
           <Property Name="Hotelrecommen" Type="int" />
+          <Property Name="HotelPhone" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="HotelPhoto">
           <Key>
@@ -85,6 +86,7 @@
           <Property Name="Boolbreakfast" Type="bit" />
           <Property Name="RoomPhotoID" Type="int" />
           <Property Name="Roomstate" Type="bit" />
+          <Property Name="RoomRemain" Type="int" />
         </EntityType>
         <EntityType Name="RoomPhoto">
           <Key>
@@ -155,6 +157,24 @@
           <Property Name="Registration_time" Type="datetime" />
           <Property Name="HotelID" Type="int" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6013: 表/视图“SmartSystem.dbo.view_Datedayhourmoney”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
+        <EntityType Name="view_Datedayhourmoney">
+          <Property Name="datedaytime" Type="varchar" MaxLength="13" />
+          <Property Name="summoney" Type="money" />
+        </EntityType>-->
+        <!--生成过程中发现错误:
+警告 6013: 表/视图“SmartSystem.dbo.view_Datedaymoney”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
+        <EntityType Name="view_Datedaymoney">
+          <Property Name="dateday" Type="varchar" MaxLength="10" />
+          <Property Name="summoney" Type="money" />
+        </EntityType>-->
+        <!--生成过程中发现错误:
+警告 6013: 表/视图“SmartSystem.dbo.view_Datedaymoneymoney”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
+        <EntityType Name="view_Datedaymoneymoney">
+          <Property Name="datemoneytime" Type="varchar" MaxLength="7" />
+          <Property Name="summoney" Type="money" />
+        </EntityType>-->
         <Association Name="FK_HotelManag_HotelPhoto">
           <End Role="HotelPhoto" Type="Self.HotelPhoto" Multiplicity="0..1" />
           <End Role="HotelManag" Type="Self.HotelManag" Multiplicity="*" />
@@ -406,6 +426,7 @@
           <NavigationProperty Name="UserBrowse" Relationship="Self.FK_USERBROW_RELATIONS_HOTELMAN" FromRole="HotelManag" ToRole="UserBrowse" />
           <NavigationProperty Name="UserEvaluate" Relationship="Self.FK_UserEvaluate_HotelManag" FromRole="HotelManag" ToRole="UserEvaluate" />
           <NavigationProperty Name="UserMessage" Relationship="Self.FK_UserMessage_HotelManag" FromRole="HotelManag" ToRole="UserMessage" />
+          <Property Name="HotelPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="HotelPhoto">
           <Key>
@@ -476,6 +497,7 @@
           <NavigationProperty Name="RoomType" Relationship="Self.FK_ROOMMESS_RELATIONS_ROOMTYPE" FromRole="RoomMessage" ToRole="RoomType" />
           <NavigationProperty Name="RoomPhoto" Relationship="Self.FK_RoomMessage_RoomPhoto" FromRole="RoomMessage" ToRole="RoomPhoto" />
           <Property Name="Roomstate" Type="Boolean" />
+          <Property Name="RoomRemain" Type="Int32" />
         </EntityType>
         <EntityType Name="RoomPhoto">
           <Key>
@@ -786,6 +808,7 @@
           <EntitySetMapping Name="HotelManag">
             <EntityTypeMapping TypeName="SmartSystemModel.HotelManag">
               <MappingFragment StoreEntitySet="HotelManag">
+                <ScalarProperty Name="HotelPhone" ColumnName="HotelPhone" />
                 <ScalarProperty Name="HotelID" ColumnName="HotelID" />
                 <ScalarProperty Name="HotelName" ColumnName="HotelName" />
                 <ScalarProperty Name="HotelCity" ColumnName="HotelCity" />
@@ -853,6 +876,7 @@
           <EntitySetMapping Name="RoomMessage">
             <EntityTypeMapping TypeName="SmartSystemModel.RoomMessage">
               <MappingFragment StoreEntitySet="RoomMessage">
+                <ScalarProperty Name="RoomRemain" ColumnName="RoomRemain" />
                 <ScalarProperty Name="Roomstate" ColumnName="Roomstate" />
                 <ScalarProperty Name="RoomID" ColumnName="RoomID" />
                 <ScalarProperty Name="HotelID" ColumnName="HotelID" />

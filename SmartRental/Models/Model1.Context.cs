@@ -18,7 +18,7 @@ namespace SmartRental.Models
         public SmartRentalSystemEntities()
             : base("name=SmartRentalSystemEntities")
         {
-            Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

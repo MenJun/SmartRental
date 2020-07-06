@@ -11,6 +11,8 @@ using System.Web.Http.Cors;
 using System.Web.Mvc;
 using SmartRental.BLL.ServiceAPI;
 using SmartRental.DAL.MapperAPI;
+using System.IO;
+using System.Text;
 
 namespace SmartRental.Controllers.API
 {
@@ -41,7 +43,6 @@ namespace SmartRental.Controllers.API
         public IHttpActionResult Payment(dynamic data)
         {
             var avl = "";
-
             order.UserID = data.data.UserId;//用户ID
             order.HotelID = data.data.hotelId;//酒店ID
             order.RoomID = data.data.RoomID;//房间ID
@@ -112,6 +113,37 @@ namespace SmartRental.Controllers.API
             PaymentService.CompletePayment(order);
             //requestPagePay.SetReturnUrl("");
             return Ok(order);
+            
         }
+        
+        /// <summary>
+        /// 订单支付成功显示
+        /// </summary>
+        /// <param name="order">订单号</param>
+        /// <returns></returns>
+        [System.Web.Http.HttpGet]
+        public IHttpActionResult Order(string order, int UserId)
+        {
+
+          return  Ok(PaymentService.Order(order, UserId));
+        }
+
+        [System.Web.Http.HttpGet]
+        public IHttpActionResult dingw()
+        {
+            StreamReader sr = null;
+            Stream s = null;
+            string strUrl = "https://api.ipify.org"; //获得IP的网址了
+            Uri uri = new Uri(strUrl);
+            WebRequest wr = WebRequest.Create(uri);
+            s = wr.GetResponse().GetResponseStream();
+            sr = new StreamReader(s, Encoding.Default);
+            string all = sr.ReadToEnd(); //读取网站的数据
+
+            string url = "https://restapi.amap.com/v3/ip?ip=106.17.192.121&output=xml&key=1779729a3e64011a6993f6cda397764d";
+            return Ok();
+        }
+
+     
     }
 }

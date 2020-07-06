@@ -24,7 +24,7 @@ namespace SmartRental.Controllers.admin
         {
             return View();
         }
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         public System.Web.Mvc.ActionResult Main(HotelManag manag, string city,string province, string[] HotelFacility)
         {
             if (province.Contains("市"))

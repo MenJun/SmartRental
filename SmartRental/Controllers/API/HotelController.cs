@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Aliyun.Acs.Core.Http;
@@ -55,5 +56,24 @@ namespace SmartRental.Controllers.API
             return Ok(HotelService.SearchHotel(Search));
         }
 
+        [HttpGet]
+        public IHttpActionResult select()
+        {
+            string ip = "118.250.120.180";
+            try
+            {
+                string url = "http://int.dpool.sina.com.cn/iplookup/iplookup.php?ip=118.250.120.180" + ip;
+                WebClient MyWebClient = new WebClient();
+                MyWebClient.Credentials = CredentialCache.DefaultCredentials;//获取或设置用于向Internet资源的请求进行身份验证的网络凭据
+                Byte[] pageData = MyWebClient.DownloadData(url); //从指定网站下载数据
+                string stt = Encoding.GetEncoding("GBK").GetString(pageData).Trim();
+                return Ok(stt.Substring(stt.Length - 2, 2));
+            }
+            catch
+            {
+                 return Ok(404);
+            }
+          
+        }
     }
 }
