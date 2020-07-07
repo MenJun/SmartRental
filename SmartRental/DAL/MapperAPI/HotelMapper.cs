@@ -22,8 +22,8 @@ namespace SmartRental.DAL.MapperAPI
             {
                
                 int num = 0;
-                db.Configuration.ProxyCreationEnabled = false;
-                var dbApplicationList = db.HotelManag.GroupBy(x => x.HotelCity).Select(x => new { key = x.Key });
+               // db.Configuration.ProxyCreationEnabled = false;
+                var dbApplicationList = db.HotelManag.GroupBy(x => x.HotelCity).Select(x => new { key = x.Key }).ToList();
 
                 foreach (var item in dbApplicationList)
                 {

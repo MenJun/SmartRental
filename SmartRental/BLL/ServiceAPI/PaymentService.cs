@@ -18,5 +18,9 @@ namespace SmartRental.BLL.ServiceAPI
         {
             return PaymentMapper.insertCompletePayment(order) > 0;
         }
+        internal static Order Order(string order, int UsertID)
+        {
+            return PaymentMapper.GetOrder(order, UsertID);
+        }
     }
 }

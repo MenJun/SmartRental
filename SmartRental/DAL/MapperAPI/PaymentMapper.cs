@@ -37,5 +37,14 @@ namespace SmartRental.DAL.MapperAPI
                 
             }
         }
+
+        internal static Order GetOrder(string order, int UsertID)
+        {
+            using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
+            {
+                return db.Order.Include("UserMessage").Include("HotelManag").Include("RoomMessage").Where(t => t.OrderNumber == order && t.UserID == UsertID).ToList().FirstOrDefault();
+                
+            }
+        }
     }
 }

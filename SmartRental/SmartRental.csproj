@@ -306,6 +306,7 @@
     <Compile Include="BLL\ServiceAPI\HotelDetailsService.cs" />
     <Compile Include="BLL\ServiceAPI\HotelService.cs" />
     <Compile Include="BLL\ServiceAPI\PaymentService.cs" />
+    <Compile Include="BLL\ServiceAPI\PersonalCenterService.cs" />
     <Compile Include="BLL\ServiceAPI\UserLoginService.cs" />
     <Compile Include="Controllers\admin\GHotelHomeController.cs" />
     <Compile Include="Controllers\admin\HotelController.cs" />
@@ -314,6 +315,7 @@
     <Compile Include="Controllers\API\HotelController.cs" />
     <Compile Include="Controllers\API\HotelDetailsController.cs" />
     <Compile Include="Controllers\API\PaymentController.cs" />
+    <Compile Include="Controllers\API\PersonalCenterController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomesController.cs" />
@@ -325,6 +327,7 @@
     <Compile Include="DAL\MapperAPI\HotelDetailsMapper.cs" />
     <Compile Include="DAL\MapperAPI\HotelMapper.cs" />
     <Compile Include="DAL\MapperAPI\PaymentMapper.cs" />
+    <Compile Include="DAL\MapperAPI\PersonalCenterMapper.cs" />
     <Compile Include="DAL\MapperAPI\UserLoginMapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

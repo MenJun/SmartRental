@@ -18,6 +18,7 @@ namespace SmartRental.Models
         public SmartRentalSystemEntities()
             : base("name=SmartRentalSystemEntities")
         {
+            Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -36,16 +37,5 @@ namespace SmartRental.Models
         public virtual DbSet<UserBrowse> UserBrowse { get; set; }
         public virtual DbSet<UserEvaluate> UserEvaluate { get; set; }
         public virtual DbSet<UserMessage> UserMessage { get; set; }
-        public virtual DbSet<view_Datedaymoney> view_Datedaymoney { get; set; }
-        public virtual DbSet<view_DateHourmoney> view_DateHourmoney { get; set; }
-        public virtual DbSet<view_Datemonthmoney> view_Datemonthmoney { get; set; }
-        public virtual DbSet<view_DateWeekmoney> view_DateWeekmoney { get; set; }
-        public virtual DbSet<view_DateYearmoney> view_DateYearmoney { get; set; }
-        public virtual DbSet<view_HotelDatedaymoney> view_HotelDatedaymoney { get; set; }
-        public virtual DbSet<view_HotelDateHourmoney> view_HotelDateHourmoney { get; set; }
-        public virtual DbSet<view_HotelDatemonthmoney> view_HotelDatemonthmoney { get; set; }
-        public virtual DbSet<view_HotelDateWeekmoney> view_HotelDateWeekmoney { get; set; }
-        public virtual DbSet<view_HotelDateYearmoney> view_HotelDateYearmoney { get; set; }
-        public virtual DbSet<view_OrderHotelPhotos> view_OrderHotelPhotos { get; set; }
     }
 }

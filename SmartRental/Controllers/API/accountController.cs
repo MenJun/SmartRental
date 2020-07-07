@@ -16,7 +16,7 @@ namespace SmartRental.Controllers.API
     /// <summary>
     /// 前端的登陆注册
     /// </summary>
-    [EnableCors(headers: "http://localhost:8081", methods: "*", origins: "*")]
+    [EnableCors(headers: "*", methods: "*", origins: "*")]
     public class accountController : ApiController
     {
         /// <summary>
@@ -103,7 +103,7 @@ namespace SmartRental.Controllers.API
         [HttpGet]
         public  IHttpActionResult Code(string PhoneNum)
         {
-            IClientProfile profile = DefaultProfile.GetProfile("cn-hangzhou", "LTAI4GKmekoxPjwRHHFtqsT1", "nvWCJdN8VvjC5TjPXiXIxqHTHVVGXA");
+            IClientProfile profile = DefaultProfile.GetProfile("cn-hangzhou", "LTAI4Fyfzdko6DNEH7maa3F5", "SzZYJns0lXpUbncZhd3YaoIZ0qEMGO");
             DefaultAcsClient client = new DefaultAcsClient(profile);
             CommonRequest request = new CommonRequest();
             request.Method = MethodType.POST;
@@ -112,8 +112,8 @@ namespace SmartRental.Controllers.API
             request.Action = "SendSms";
             // request.Protocol = ProtocolType.HTTP;
             request.AddQueryParameters("PhoneNumbers", PhoneNum);
-            request.AddQueryParameters("SignName", "美食美客网");
-            request.AddQueryParameters("TemplateCode", "SMS_193242675");
+            request.AddQueryParameters("SignName", "intmain");
+            request.AddQueryParameters("TemplateCode", "SMS_189524091");
             string vc = "";
             Random rNum = new Random();//随机生成类
             int num1 = rNum.Next(0, 9);//返回指定范围内的随机数
@@ -143,9 +143,11 @@ namespace SmartRental.Controllers.API
             }
             
         }
-        public string Options()
+        [HttpGet]
+        public IHttpActionResult information(int UserId)
         {
-            return null;
+            var user = PersonalCenterService.getPersonal(UserId);
+            return Ok(user);
         }
     }
 }
