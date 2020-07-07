@@ -23,86 +23,67 @@
         margin-top: 10px;
         margin-bottom: 20px;
     }
+    table td {
+        width: 80px;
+    }
 </style>
-@using (Html.BeginForm("MainEdit", "GHotelHome", System.Web.Mvc.FormMethod.Post, new { id = "regFrm", name = "regFrm" }))
-{
 
+    <form action="/GHotelHome/MainEdit" method="post" enctype="multipart/form-data" id="regFrm" name="regFrm">
     <div style="margin:0 auto">
         <div style="width:600px;float:left;margin-left:30px">
-            <p>@Html.Hidden("HotelID", hotelrmes.HotelID)@Html.Hidden("HotelPhotoID", hotelrmes.HotelPhotoID)
+            <p>
+                @Html.Hidden("HotelID", hotelrmes.HotelID)@Html.Hidden("HotelPhotoID", hotelrmes.HotelPhotoID)
                 <label style="width:100px">姓名:</label>
-                <input type="text" name="HotelBoss" id="HotelBoss" value="@hotelrmes.HotelBoss" style="width:300px" placeholder="请输入你的姓名">@Html.ValidationMessage("HotelBoss")
+                <input type="text" name="HotelBoss" id="HotelBoss" value="@hotelrmes.HotelBoss" style="width:300px;height:40px" placeholder="请输入你的姓名">@Html.ValidationMessage("HotelBoss")
             </p>
             <p>
                 <label style="width:100px">酒店电话：</label>
 
-                <input type="text" name="HotelPhone" style="width:300px" value="@hotelrmes.HotelPhone" id="HotelPhone" placeholder="请输入酒店电话">@Html.ValidationMessage("HotelPhone")
+                <input type="text" name="HotelPhone" style="width:300px;height:40px" value="@hotelrmes.HotelPhone" id="HotelPhone" placeholder="请输入酒店电话">@Html.ValidationMessage("HotelPhone")
             </p>
             <p>
-                <label style="width:100px">酒店上市时间:</label>
-                <input type="text" style="width:300px" id="HotelOpentime"  value="@hotelrmes.HotelOpentime.Value.ToShortDateString()" name="HotelOpentime">
+                <label style="width: 100px">酒店上市时间:</label>
+                <input type="text" style="width:300px;height:40px" id="HotelOpentime" value="@hotelrmes.HotelOpentime.Value.ToShortDateString()" name="HotelOpentime">
                 @Html.ValidationMessage("HotelOpentime")
             </p>
-            <p>
-                <label style="width:100px;">酒店详细地址:</label>
-                <textarea placeholder="请输入地址" name="AddressDetails" value="@hotelrmes.AddressDetails" id="AddressDetails" style="margin: 0px 0.7px 0px 0px; width: 300px; height: 50px;">@hotelrmes.AddressDetails</textarea>
-                @Html.ValidationMessage("AddressDetails")
-            </p>
+
             <p>
                 <label style="width:100px">酒店简介:</label>
                 <textarea placeholder="请输入简介信息" name="HotelIntro" id="HotelIntro" style="margin: 0px 0.7px 0px 0px; width: 300px; height: 50px;">@hotelrmes.HotelIntro</textarea>@Html.ValidationMessage("HotelIntro")
             </p>
             <p>
                 <label style="width:100px">酒店规则:</label>
-                <textarea placeholder="请输入酒店规则" name="HotelRule" id="HotelRule"  style="margin: 0px 0.7px 0px 0px; width: 300px; height: 50px;">@hotelrmes.HotelRule</textarea>@Html.ValidationMessage("HotelRule")
+                <textarea placeholder="请输入酒店规则" name="HotelRule" id="HotelRule" style="margin: 0px 0.7px 0px 0px; width: 300px; height: 50px;">@hotelrmes.HotelRule</textarea>@Html.ValidationMessage("HotelRule")
             </p>
             <p>
 
                 <label style="width:100px">酒店设施:</label>
-                <fieldset id="newsletter_topics" style="margin-left:120px; margin-top:-30px">
-
-                    <input type="checkbox" style="background-color:transparent;height:0px;width:0px;" name="HotelFacility" value="热水">
-                    <input type="checkbox" name="HotelFacility" value="热水">热水
-
-
-                    <input type="checkbox" name="HotelFacility" value="空调">空调
-
-
-                    <input type="checkbox" name="HotelFacility" value="WIFI">WIFI
-
-
-                    <input type="checkbox" name="HotelFacility" value="电脑">电脑
-
-
-                    <input type="checkbox" name="HotelFacility" value="吹风机">吹风机
-
-
-                    <input type="checkbox" name="HotelFacility" value="电视">电视
-
-                    <br />
-                    <input type="checkbox" name="HotelFacility" value="电热水壶">电热水壶
-
-
-                    <input type="checkbox" name="HotelFacility" value="免费停车">免费停车
-
-
-                    <input type="checkbox" name="HotelFacility" value="电梯">电梯
-
-                    <input type="checkbox" name="HotelFacility" value="泳池">泳池
-                    <input type="checkbox" name="HotelFacility" value="行李寄存">行李寄存
-
-                    <input type="checkbox" name="HotelFacility" value="洗衣服务">洗衣服务
-                    <br /> <span style="color:cadetblue">原来选择设施：</span><input type="text" name="HotelFacility" id="HotelFacility" style="width:300px;border:none;color:burlywood" disabled="disabled" placeholder="未选择设施" value="@hotelrmes.HotelFacility">
+                <fieldset id="newsletter_topics" style="margin-left:100px; margin-top:-30px">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="checkbox" style="background-color:transparent;height:0px;width:0px;" name="HotelFacility" value="热水">
+                                <input type="checkbox" name="HotelFacility" value="热水">热水
+                            </td>
+                            <td> <input type="checkbox" name="HotelFacility" value="空调">空调</td>
+                            <td>  <input type="checkbox" name="HotelFacility" value="WIFI">WIFI</td>
+                            <td> <input type="checkbox" name="HotelFacility" value="电脑">电脑</td>
+                        </tr>
+                        <tr><td> <input type="checkbox" name="HotelFacility" value="吹风机">吹风机</td><td>  <input type="checkbox" name="HotelFacility" value="电视">电视</td><td> <input type="checkbox" name="HotelFacility" value="电热水壶">电热水壶</td><td> <input type="checkbox" name="HotelFacility" value="免费停车">免费停车</td></tr>
+                        <tr><td> <input type="checkbox" name="HotelFacility" value="电梯">电梯</td><td> <input type="checkbox" name="HotelFacility" value="泳池">泳池</td><td> <input type="checkbox" name="HotelFacility" value="行李寄存">行李寄存</td><td> <input type="checkbox" name="HotelFacility" value="洗衣服务">洗衣服务</td></tr>
+                    </table>
+                  
                 </fieldset>
+                <span style="color:cadetblue">原来选择设施：</span><input type="text" name="HotelFacility" id="HotelFacility" style="width:300px;border:none;color:burlywood" disabled="disabled" placeholder="未选择设施" value="@hotelrmes.HotelFacility">
             </p>
         </div>
 
 
 
-        <div style="width:600px;float:right;">
+        <div style="width:600px;float:right;margin-left:10px">
             <p>
-                <label style="width:100px">酒店名称：</label>
-                <input type="text" name="HotelName" style="width:300px" id="HotelName"value="@hotelrmes.HotelName" placeholder="请输入酒店名称">@Html.ValidationMessage("HotelName")
+                <label style="width:100px;">酒店名称：</label>
+                <input type="text" name="HotelName" style="width:300px;height:40px" id="HotelName" value="@hotelrmes.HotelName" placeholder="请输入酒店名称">@Html.ValidationMessage("HotelName")
             </p>
             <p>
                 <label style="width:100px">酒店类型：</label>
@@ -133,13 +114,19 @@
                 </select> @Html.ValidationMessage("city")
             </p>
             <p>
+                <label style="width:100px;">酒店详细地址:</label>
+                <textarea placeholder="请输入地址" name="AddressDetails" value="@hotelrmes.AddressDetails" id="AddressDetails" style="margin: 0px 0.7px 0px 0px; width: 300px; height: 30px;">@hotelrmes.AddressDetails</textarea>
+                @Html.ValidationMessage("AddressDetails")
+            </p>
+            <p>
                 <label style="width:100px;">酒店图片：</label>@Html.ValidationMessage("file")
-                <input type="file" name="file" id="file" multiple="multiple" onchange="xmTanUploadImg(this)" />
-                 <span style="color:brown">未选择为不更换图片</span>
+                <input type="file" name="file" id="file" multiple="multiple" style='display:none' onchange="xmTanUploadImg(this)" />
+                <button id="uptea" type="button" class="btn btn-primary">上传</button>
+                <span style="color:brown">未选择为不更换图片</span>
 
 
                 <!--图片显示位置-->
-                <div id="showimg" style="height:200px;width:320px; background-color:beige">
+                <div id="showimg" style="height:200px;width:400px; background-color:white">
 
 
 
@@ -178,11 +165,11 @@
 
     </div>
     <div style="text-align:center;margin:0 auto">
-        <input type="submit" value="确认修改" style="height:30px;width:100px;background-color:aqua;border:none;font-weight:900; margin-top:500px;margin-left:-200px" onclick="Upload()">  <a href="~/GHotelHome/MainIndex" style="font-size:14px;margin-left:10px;color:blue">返回</a>
+        <input type="submit" value="确认修改" style="height:30px;width:100px;background-color:aqua;border:none;font-weight:900; margin-top:550px;margin-left:-200px" onclick="Upload()" class="btn-circle">  <a href="~/GHotelHome/MainIndex" style="font-size:14px;margin-left:10px;color:blue">返回</a>
 
     </div>
 
-}
+</form>
 <style>
     /*  input.error {
         border: 1px solid red;
@@ -201,24 +188,10 @@
     }
 </style>
 <script type="text/javascript">
+    $("#uptea").click(function () {
+        $("#file").click();
+    });
 
-
-    function Upload() {
-        var param = new FormData(($("#regFrm")[0]));
-        $.ajax({
-            url: "/common/Upload.ashx",
-            data: param,
-            type: "post",
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                alert(data);
-                document.getElementById("showimg").innerText = null;
-            }
-
-
-        })
-    }
 
 
     function xmTanUploadImg(obj) {
@@ -281,12 +254,12 @@
                     required: true,
 
                 },
-                HotelOpentime: { required: true, date: true},
+                HotelOpentime: { required: true, date: true },
                 city: { required: true },
                 AddressDetails: { required: true },
                 HotelIntro: { required: true },
                 HotelRule: { required: true },
-              
+
                 "HotelFacility": {
                     required: true,
                     minlength: 2
@@ -305,13 +278,13 @@
                 },
                 HotelOpentime: {
                     required: "请填写日期",
-                    date:"日期格式不对"
+                    date: "日期格式不对"
                 },
                 city: { required: "请选择城市" },
                 AddressDetails: { required: "请填写详细地址" },
                 HotelIntro: { required: "请填写酒店信息" },
                 HotelRule: { required: "请输入酒店规则" },
-              
+
                 "HotelFacility": {
                     required: "请选择酒店设施",
                     minlength: "最少选择二个"

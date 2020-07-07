@@ -18,7 +18,6 @@ namespace SmartRental.Models
         public SmartRentalSystemEntities()
             : base("name=SmartRentalSystemEntities")
         {
-
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -47,5 +46,6 @@ namespace SmartRental.Models
         public virtual DbSet<view_HotelDatemonthmoney> view_HotelDatemonthmoney { get; set; }
         public virtual DbSet<view_HotelDateWeekmoney> view_HotelDateWeekmoney { get; set; }
         public virtual DbSet<view_HotelDateYearmoney> view_HotelDateYearmoney { get; set; }
+        public virtual DbSet<view_OrderHotelPhotos> view_OrderHotelPhotos { get; set; }
     }
 }

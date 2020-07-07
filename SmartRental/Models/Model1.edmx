@@ -264,6 +264,31 @@
           <Property Name="HotelID" Type="int" />
           <Property Name="summoney" Type="money" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“SmartSystem.dbo.view_OrderHotelPhotos”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="view_OrderHotelPhotos">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="Hotelphoto1" Type="nvarchar" MaxLength="150" />
+          <Property Name="HotelName" Type="nvarchar" MaxLength="50" />
+          <Property Name="HotelPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Ordertime" Type="datetime" />
+          <Property Name="ArrivalDate" Type="datetime" />
+          <Property Name="LeaveTime" Type="datetime" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClientId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ordercount" Type="int" />
+          <Property Name="ActualPrice" Type="money" />
+          <Property Name="PayablePrice" Type="money" />
+          <Property Name="OrderNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClientPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderState" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="AddressDetails" Type="nvarchar" MaxLength="50" />
+          <Property Name="HotelCity" Type="nvarchar" MaxLength="150" />
+        </EntityType>
         <Association Name="FK_HotelManag_HotelPhoto">
           <End Role="HotelPhoto" Type="Self.HotelPhoto" Multiplicity="0..1" />
           <End Role="HotelManag" Type="Self.HotelManag" Multiplicity="*" />
@@ -508,6 +533,28 @@
     [view_HotelDateYearmoney].[HotelID] AS [HotelID], 
     [view_HotelDateYearmoney].[summoney] AS [summoney]
     FROM [dbo].[view_HotelDateYearmoney] AS [view_HotelDateYearmoney]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_OrderHotelPhotos" EntityType="Self.view_OrderHotelPhotos" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_OrderHotelPhotos].[Hotelphoto1] AS [Hotelphoto1], 
+    [view_OrderHotelPhotos].[HotelName] AS [HotelName], 
+    [view_OrderHotelPhotos].[HotelPhone] AS [HotelPhone], 
+    [view_OrderHotelPhotos].[UserID] AS [UserID], 
+    [view_OrderHotelPhotos].[Ordertime] AS [Ordertime], 
+    [view_OrderHotelPhotos].[ArrivalDate] AS [ArrivalDate], 
+    [view_OrderHotelPhotos].[LeaveTime] AS [LeaveTime], 
+    [view_OrderHotelPhotos].[ClientName] AS [ClientName], 
+    [view_OrderHotelPhotos].[ClientId] AS [ClientId], 
+    [view_OrderHotelPhotos].[Ordercount] AS [Ordercount], 
+    [view_OrderHotelPhotos].[ActualPrice] AS [ActualPrice], 
+    [view_OrderHotelPhotos].[PayablePrice] AS [PayablePrice], 
+    [view_OrderHotelPhotos].[OrderNumber] AS [OrderNumber], 
+    [view_OrderHotelPhotos].[ClientPhone] AS [ClientPhone], 
+    [view_OrderHotelPhotos].[OrderState] AS [OrderState], 
+    [view_OrderHotelPhotos].[OrderID] AS [OrderID], 
+    [view_OrderHotelPhotos].[AddressDetails] AS [AddressDetails], 
+    [view_OrderHotelPhotos].[HotelCity] AS [HotelCity]
+    FROM [dbo].[view_OrderHotelPhotos] AS [view_OrderHotelPhotos]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_HotelManag_HotelPhoto" Association="Self.FK_HotelManag_HotelPhoto">
             <End Role="HotelPhoto" EntitySet="HotelPhoto" />
@@ -974,6 +1021,7 @@
           <EntitySet Name="view_HotelDatemonthmoney" EntityType="SmartSystemModel.view_HotelDatemonthmoney" />
           <EntitySet Name="view_HotelDateWeekmoney" EntityType="SmartSystemModel.view_HotelDateWeekmoney" />
           <EntitySet Name="view_HotelDateYearmoney" EntityType="SmartSystemModel.view_HotelDateYearmoney" />
+          <EntitySet Name="view_OrderHotelPhotos" EntityType="SmartSystemModel.view_OrderHotelPhotos" />
         </EntityContainer>
         <EntityType Name="view_Datedaymoney">
           <Key>
@@ -1061,6 +1109,29 @@
           <Property Name="datemoneytime" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="HotelID" Type="Int32" />
           <Property Name="summoney" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="view_OrderHotelPhotos">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="Hotelphoto1" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="HotelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HotelPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Ordertime" Type="DateTime" Precision="3" />
+          <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
+          <Property Name="LeaveTime" Type="DateTime" Precision="3" />
+          <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ordercount" Type="Int32" />
+          <Property Name="ActualPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PayablePrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OrderNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="AddressDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HotelCity" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1325,6 +1396,30 @@
                 <ScalarProperty Name="HotelID" ColumnName="HotelID" />
                 <ScalarProperty Name="datemoneytime" ColumnName="datemoneytime" />
                 <ScalarProperty Name="guid" ColumnName="guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_OrderHotelPhotos">
+            <EntityTypeMapping TypeName="SmartSystemModel.view_OrderHotelPhotos">
+              <MappingFragment StoreEntitySet="view_OrderHotelPhotos">
+                <ScalarProperty Name="HotelCity" ColumnName="HotelCity" />
+                <ScalarProperty Name="AddressDetails" ColumnName="AddressDetails" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderState" ColumnName="OrderState" />
+                <ScalarProperty Name="ClientPhone" ColumnName="ClientPhone" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="PayablePrice" ColumnName="PayablePrice" />
+                <ScalarProperty Name="ActualPrice" ColumnName="ActualPrice" />
+                <ScalarProperty Name="Ordercount" ColumnName="Ordercount" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="LeaveTime" ColumnName="LeaveTime" />
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="Ordertime" ColumnName="Ordertime" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="HotelPhone" ColumnName="HotelPhone" />
+                <ScalarProperty Name="HotelName" ColumnName="HotelName" />
+                <ScalarProperty Name="Hotelphoto1" ColumnName="Hotelphoto1" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

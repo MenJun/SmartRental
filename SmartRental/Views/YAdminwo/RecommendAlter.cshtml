@@ -14,9 +14,8 @@
     <form action="/YAdminwo/RecommendAlter" method="post">
         <div style="width:1200px">
             <input id="HotelName" name="HotelName" type="text" placeholder="请输入酒店名称" /><input type="submit" value="搜索" /><a href="/YAdminwo/Recommend" style="float:right;font-size:18px">返回〉</a>
-            @*<input type="hidden" name="OldHotelrecommen" id="OldHotelrecommen" value="@jj" />
-            <input type="hidden" name="HotelNames" id="HotelNames" value="@bb" />*@
-            
+            <input type="hidden" name="OldHotelrecommen" id="OldHotelrecommen" value="@jj" />
+            <input type="hidden" name="HotelNames" id="HotelNames" value="@bb" />
         </div>
     </form>
 
@@ -50,6 +49,7 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
+        
         function Pass(id,hh,jj) {
             jQuery.ajax({
                 url: '/YAdminwo/RecommendAlter',
