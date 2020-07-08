@@ -20,9 +20,10 @@ namespace SmartRental.DAL.MapperAdmin
         }
          public static bool UpdataAudit(HotelManag hotel)
         {
-            HotelManag hotelManag = db.HotelManag.Where(t => t.HotelID == hotel.HotelID).FirstOrDefault();
-            hotelManag.HotelRatify = hotel.HotelRatify;
-            db.Entry(hotelManag).State = EntityState.Modified;
+     
+           var re= db.HotelManag.Find(hotel.HotelID);
+            re.HotelRatify = hotel.HotelRatify;
+         
             return  db.SaveChanges() > 0;
         }
     }

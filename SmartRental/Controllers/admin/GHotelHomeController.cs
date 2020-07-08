@@ -275,7 +275,7 @@ namespace SmartRental.Controllers.admin
                 var hotmana = db.HotelManag.Find(manag.HotelID);
                 hotmana.HotelName = manag.HotelName;
                 hotmana.HotelCity = manag.HotelCity;
-                hotmana.AddressDetails = manag.HotelCity;
+                hotmana.AddressDetails = manag.AddressDetails;
                 hotmana.HotelType = manag.HotelType;
                 hotmana.HotelIntro = manag.HotelIntro;
                 hotmana.HotelBoss = manag.HotelBoss;
@@ -288,7 +288,7 @@ namespace SmartRental.Controllers.admin
              }
 
 
-                return Content("<script>alert('修改成功');location.href = '/GHotelHome/MainIndex;</script>");
+                return Content("<script>alert('修改成功');location.href = '/GHotelHome/MainIndex';</script>");
             
            }
 
@@ -380,9 +380,9 @@ namespace SmartRental.Controllers.admin
                 //return Content("<script>alert('添加成功');location.href='/GHotelHome/Index'</script>");
             }
 
-            return Content("<script>alert('添加成功');location.href = '/GHotelHome/Index;</script>"); 
+            return Content("<script>alert('添加成功');location.href = '/GHotelHome/Index';</script>"); 
             }
-            return Content("<script>alert('添加失败');location.href = '/GHotelHome/Index;</script>");
+            return Content("<script>alert('添加失败');location.href = '/GHotelHome/Index';</script>");
         }
 
         /// <summary>
