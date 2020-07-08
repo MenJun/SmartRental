@@ -640,6 +640,7 @@
     <Content Include="Views\YAdminwo\Recommend.cshtml" />
     <Content Include="Views\Hotel\MainIndex.cshtml" />
     <Content Include="Views\Hotel\Cha.cshtml" />
+    <Content Include="Views\YAdminwo\Permissionurl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

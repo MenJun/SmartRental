@@ -28,20 +28,24 @@
     <div style="margin:0 auto">
         <div style="width:600px;float:left;margin-left:30px">
             <p>
+                <label style="width:100px">蜗牛账号:</label>
+                <input type="text" name="userphone" id="userphone" style="width:300px;height:40px" placeholder="输入蜗牛客户网页账号">@Html.ValidationMessage("userphone")
+            </p>
+            <p>
                 <label style="width:100px">姓名:</label>
                 <input type="text" name="HotelBoss" id="HotelBoss" style="width:300px;height:40px" placeholder="请输入你的姓名">@Html.ValidationMessage("HotelBoss")
             </p>
             <p>
                 <label style="width:100px">酒店电话：</label>
 
-                <input type="text"name="HotelPhone" style="width:300px;height:40px" id="HotelPhone" placeholder="请输入酒店电话">@Html.ValidationMessage("HotelPhone")
+                <input type="text" name="HotelPhone" style="width:300px;height:40px" id="HotelPhone" placeholder="请输入酒店电话">@Html.ValidationMessage("HotelPhone")
             </p>
             <p>
                 <label style="width:100px">酒店上市时间:</label>
                 <input type="date" style="width:300px;height:40px" id="HotelOpentime" name="HotelOpentime">
                 @Html.ValidationMessage("HotelOpentime")
             </p>
-         
+
             <p>
                 <label style="width:100px">酒店简介:</label>
                 <textarea placeholder="请输入简介信息" name="HotelIntro" id="HotelIntro" style="margin: 0px 0.7px 0px 0px; width: 300px; height: 50px;"></textarea>@Html.ValidationMessage("HotelIntro")
@@ -207,6 +211,9 @@
                   
 
                 },
+                userphone:{
+                    required: true,
+                  },
                 HotelPhone: { required: true, },
                 HotelType: {
                     required: true,
@@ -234,6 +241,7 @@
                 HotelType: {
                     required: "请选择类型"
                 },
+                userphone: { required: "不能为空,填写蜗牛客户网账号" },
                 HotelOpentime: { required: "请填写日期" },
                 city: { required: "请选择城市" },
                 AddressDetails: { required: "请填写详细地址" },

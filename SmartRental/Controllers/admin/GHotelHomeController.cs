@@ -32,9 +32,14 @@ namespace SmartRental.Controllers.admin
             return View();
         }
         [HttpPost]
-        public ActionResult Main(HotelManag manag, string city, string province, string[] HotelFacility)
+        public ActionResult Main(HotelManag manag, string city, string province, string[] HotelFacility,string userphone)
         {
-         
+            
+            SmartRentalSystemEntities db = new SmartRentalSystemEntities();
+            var usrmph=db.UserMessage.Where(u => u.UserPhone == userphone).FirstOrDefault();
+            if (usrmph != null) {
+                UserMessage usms = new UserMessage();
+                usms.UserID = usrmph.UserID;
             if (city.Substring(0, 1)=="市"|| city.Substring(0, 1) == "县")
             {
                 manag.HotelCity = province;
@@ -83,12 +88,16 @@ namespace SmartRental.Controllers.admin
                 }
             }
 
-            if (BLL.ServiceAdmin.GHotelManageService.AddHotelManager(manag, imgname))
+            if (BLL.ServiceAdmin.GHotelManageService.AddHotelManager(manag, imgname,usms))
             {
                 return Content("<script>alert('提交成功')</script>");
             }
             return Content("<script>alert('提交失败')</script>");
-
+            }
+            else
+            {
+                return Content("<script>alert('提交账号不存在')</script>");
+            }
 
 
         }
@@ -98,7 +107,7 @@ namespace SmartRental.Controllers.admin
         /// <returns></returns>
         public ActionResult MainIndex()
         {
-            var hotelID =int.Parse( Session["HotelID"].ToString());//Session["HotelID"] 酒店ID
+            var hotelID = 10;//int.Parse( Session["HotelID"].ToString());//Session["HotelID"] 酒店ID
             using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
             {
                

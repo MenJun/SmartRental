@@ -402,14 +402,13 @@ namespace SmartRental.Controllers.admin
                 return RedirectToAction("Recommend");
             }
         }
-
         public ActionResult Permission()
         {
             var usermessage = db.UserMessage.ToList();
             return View(usermessage);
         }
         [HttpPost]
-        public ActionResult Permission(int UserID, string UserGrade)
+        public ActionResult Permission(int UserID, string UserGrade, string UserPhone)
         {
             if (UserGrade == null)
             {
@@ -422,20 +421,51 @@ namespace SmartRental.Controllers.admin
                 {
                     userMessage.User_status = true;
                 }
-                var user=db.UserMessage.Find(UserID);
+                var user = db.UserMessage.Find(UserID);
                 user.User_status = userMessage.User_status;
-               
+
                 db.SaveChanges();
                 return RedirectToAction("Permission");
+                //return Content("<script>alert('jj');location.href='Permission'<script>");
             }
             else
             {
                 UserMessage userMessage = db.UserMessage.Where(t => t.UserID == UserID).FirstOrDefault();
-                userMessage.UserGrade = UserGrade;
-                var user = db.UserMessage.Find(UserID);
-                user.UserGrade = userMessage.UserGrade;
-                db.SaveChanges();
-                return RedirectToAction("Permission");
+                if (userMessage.UserGrade == "用户" && (UserGrade == "管理员" || UserGrade == "超级管理员"))
+                {
+                    user_roles user_Roles = new user_roles();
+                    user_Roles.UserPhone = UserPhone;
+                    user_Roles.user_roles1 = UserGrade;
+                    db.user_roles.Add(user_Roles);
+                    userMessage.UserGrade = UserGrade;
+                    db.SaveChanges();
+                    return RedirectToAction("Permission");
+                }
+                else if ((userMessage.UserGrade == "管理员" || userMessage.UserGrade == "超级管理员" )&& UserGrade == "用户")
+                {
+                    user_roles user_Roles = db.user_roles.Where(t => t.UserPhone == UserPhone).FirstOrDefault();
+                    db.user_roles.Remove(user_Roles);
+                    userMessage.UserGrade = UserGrade;
+                    db.SaveChanges();
+                    return RedirectToAction("Permission");
+                }
+                else if ((userMessage.UserGrade == "管理员" || userMessage.UserGrade == "超级管理员") && (UserGrade == "管理员" || UserGrade == "超级管理员"))
+                {
+                    user_roles user_Roles = db.user_roles.Where(t => t.UserPhone == UserPhone).FirstOrDefault();
+                    user_Roles.user_roles1 = UserGrade;
+                    userMessage.UserGrade = UserGrade;
+                    db.SaveChanges();
+                    return RedirectToAction("Permission");
+                }
+                else
+                {
+                    userMessage.UserGrade = UserGrade;
+                    db.SaveChanges();
+                    return RedirectToAction("Permission");
+                }
+
+                //var user = db.UserMessage.Find(UserID);
+                //user.UserGrade = userMessage.UserGrade;
             }
         }
     }

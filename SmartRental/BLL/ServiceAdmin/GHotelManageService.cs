@@ -14,7 +14,14 @@ namespace SmartRental.BLL.ServiceAdmin
         /// <param name="manag"></param>
         /// <param name="photo"></param>
         /// <returns></returns>
-        public static bool AddHotelManager(HotelManag manag, string[] photo)
+        /// 
+        /// 
+        public static bool AddHotelManager(HotelManag manag, string[] photo,UserMessage usms)
+        {
+
+            return DAL.MapperAdmin.GHotelManagerMan.AddHotelManager(manag, photo,usms) > 0;
+        }
+          public static bool AddHotelManager(HotelManag manag, string[] photo)
         {
 
             return DAL.MapperAdmin.GHotelManagerMan.AddHotelManager(manag, photo) > 0;

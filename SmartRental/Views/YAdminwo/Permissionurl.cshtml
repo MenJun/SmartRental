@@ -7,14 +7,59 @@
 <style type="text/css">
     table.imagetable {
         font-family: verdana,arial,sans-serif;
-        font-size: 11px;
+        font-size: 14px;
         color: #333333;
         border-width: 1px;
         border-color: #999999;
         border-collapse: collapse;
     }
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
+        text-align: center;
+        color: black;
+    }
+        /*table thead th {
+                background-color: rgb(128, 102, 160);
+                color: #fff;
+                border-bottom-width: 0;
+            }*/
 
-        table.imagetable th {
+        table td, table th {
+            border: 1px solid #cad9ea;
+            color: #666;
+            height: 10px;
+        }
+
+    #mytable thead th {
+        background-color: #8c9ca7;
+        width: 100px;
+    }
+
+    #mytable tr:nth-child(even):hover #aaa {
+        background: #aedfdf;
+    }
+
+    #mytable tr:nth-child(odd):hover #aaa {
+        background-color: #a8d1ac;
+    }
+
+    #mytable tr:nth-child(odd) {
+        background-color: #a8d1ac;
+    }
+
+        #mytable tr:nth-child(odd):hover {
+            background-color: white;
+        }
+
+    #mytable tr:nth-child(even) {
+        background: #aedfdf;
+    }
+
+        #mytable tr:nth-child(even):hover {
+            background: white;
+        }
+      /*  table.imagetable th {
             background: #b5cfd2 url('cell-blue.jpg');
             border-width: 1px;
             padding: 8px;
@@ -28,11 +73,11 @@
             padding: 8px;
             border-style: solid;
             border-color: #999999;
-        }
+        }*/
 </style>
 <h2>权限管理</h2>
-@*<form>
-        <input type="text" id="username" name="username" />
+     @*<form action="/YAdminwo/Permissionurl">
+        <input type="text" id="username" name="username"  placeholder="请输入用户账号查询"/>
         <input type="submit" value="搜索" />
     </form>*@
 
@@ -80,9 +125,9 @@
                     <td>
                         @if (item.UserGrade == "用户")
                         {
-                            <select id="aaa" style="border:0;outline:none;font-size:15px;background-color:transparent" name="OrderState" onchange="Operate(@item.UserID,this.options[this.options.selectedIndex].value,@item.UserPhone)">
-                                <option>请选择</option>
-                                <option value="用户" disabled="disabled" style="background-color:#EEEEEE">用户</option>
+                            <select id="aaa" name="OrderState" onchange="Operate(@item.UserID,this.options[this.options.selectedIndex].value,@item.UserPhone)">
+                               
+                                <option value="用户" disabled="disabled" style="background-color:#EEEEEE" selected="selected">用户</option>
                                 <option value="管理员">管理员</option>
                                 <option value="超级管理员">超级管理员</option>
                             </select>
@@ -95,10 +140,10 @@
                             }
                             else
                             {
-                                <select id="aaa" style="border:0;outline:none;font-size:15px;background-color:transparent" name="OrderState" onchange="Operate(@item.UserID,this.options[this.options.selectedIndex].value,@item.UserPhone)">
-                                    <option>请选择</option>
+                                <select id="aaa" name="OrderState" onchange="Operate(@item.UserID,this.options[this.options.selectedIndex].value,@item.UserPhone)">
+                                  
                                     <option value="用户">用户</option>
-                                    <option value="管理员" disabled="disabled" style="background-color:#EEEEEE">管理员</option>
+                                    <option value="管理员" disabled="disabled" style="background-color:#EEEEEE" selected="selected">管理员</option>
                                     <option value="超级管理员">超级管理员</option>
                                 </select>
                             }
@@ -111,11 +156,11 @@
                             }
                             else
                             {
-                                <select id="aaa" style="border:0;outline:none;font-size:15px;background-color:transparent" name="OrderState" onchange="Operate(@item.UserID,this.options[this.options.selectedIndex].value,@item.UserPhone)">
-                                    <option>请选择</option>
+                                <select id="aaa"  name="OrderState" onchange="Operate(@item.UserID,this.options[this.options.selectedIndex].value,@item.UserPhone)">
+                                  
                                     <option value="用户">用户</option>
                                     <option value="管理员">管理员</option>
-                                    <option value="超级管理员" disabled="disabled" style="background-color:#EEEEEE">超级管理员</option>
+                                    <option value="超级管理员" disabled="disabled" style="background-color:#EEEEEE" selected="selected">超级管理员</option>
                                 </select>
                             }
                         }
@@ -129,11 +174,11 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
-        function Pass(id, kk) {
+        function Pass(id,kk) {
 
-            if (confirm('确定' + kk + '吗？')) {
+            if (confirm('确定'+kk+'吗？')) {
                 jQuery.ajax({
-                    url: '/YAdminwo/Permission',
+                    url: '/YAdminwo/Permissionurl',
                     type: "post",
                     data: { "UserID": id },
                     success: function (data) {
@@ -142,10 +187,10 @@
                 })
             }
         }
-        function Operate(id, e, phone) {
+        function Operate(id, e,phone) {
             if (e == "用户") {
                 jQuery.ajax({
-                    url: '/YAdminwo/Permission',
+                    url: '/YAdminwo/Permissionurl',
                     type: "post",
                     data: { "UserID": id, "UserGrade": e, "UserPhone": phone },
                     success: function (data) {
@@ -153,9 +198,9 @@
                     }
                 })
             } else {
-                if (confirm('确定要升级为' + e + '吗？')) {
+                if (confirm('确定要升级为'+e+'吗？')) {
                     jQuery.ajax({
-                        url: '/YAdminwo/Permission',
+                        url: '/YAdminwo/Permissionurl',
                         type: "post",
                         data: { "UserID": id, "UserGrade": e, "UserPhone": phone },
                         success: function (data) {
@@ -165,17 +210,17 @@
                 }
             }
         }
-            //function Select() {
-            //    var username = document.getElementById("username").value;
-            //    jQuery.ajax({
-            //            url: '/YAdminwo/Permission',
-            //            type: "get",
-            //            data: { "username": username },
-            //            success: function (data) {
-            //                history.go(0)
-            //            }
-            //        })
-            //}
+        //function Select() {
+        //    var username = document.getElementById("username").value;
+        //    jQuery.ajax({
+        //            url: '/YAdminwo/Permission',
+        //            type: "get",
+        //            data: { "username": username },
+        //            success: function (data) {
+        //                history.go(0)
+        //            }
+        //        })
+        //}
     </script>
 }
 
