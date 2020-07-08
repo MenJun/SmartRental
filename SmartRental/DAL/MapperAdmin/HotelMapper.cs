@@ -16,7 +16,7 @@ namespace SmartRental.DAL.MapperAdmin
         /// <returns></returns>
         public static List<HotelManag> GetHotel()
         {
-            return db.HotelManag.ToList();
+            return db.HotelManag.OrderByDescending(d=>d.Hoteltration_time).ToList();
         }
          public static bool UpdataAudit(HotelManag hotel)
         {
@@ -25,6 +25,13 @@ namespace SmartRental.DAL.MapperAdmin
             re.HotelRatify = hotel.HotelRatify;
          
             return  db.SaveChanges() > 0;
+        }
+        public static List<HotelManag>  SelectHotel(string hotelname)
+        {
+
+            var re = db.HotelManag.OrderByDescending(d => d.Hoteltration_time).Where(s=>s.HotelName.Contains(hotelname)).ToList();
+          
+            return re;
         }
     }
 }

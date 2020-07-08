@@ -12,49 +12,63 @@ namespace SmartRental.Controllers.admin
     {
 
         //管理员订单界面
-        public ActionResult AdminOrder(int pageindex = 1, int pagesize = 10)
+        public ActionResult AdminOrder(int pageindex = 1, int pagesize = 8)
         {
-        
-            if (Session["order"] != null && Session["order"].ToString() != "")
+            int pagecount = 1;
+            var student  = BLL.ServiceAdmin.YAdminManageServise.GetStudentByPaging(pageindex, pagesize, out  pagecount);
+            if ((Session["order"] != null && Session["order"].ToString() != "" && Session["se"]!= "所有订单"&& Session["se"]!=null))
             {
                 Session["order"] = 45;
+                student = BLL.ServiceAdmin.YAdminManageServise.GetStudentByPaging1(pageindex, pagesize, out  pagecount, Session["se"].ToString(), Session["ts"].ToString()); 
             }
             else
             {
+
                 Session["order"] = null;
             }
-            int countss = 5;
-            var student = BLL.ServiceAdmin.YAdminManageServise.GetStudentByPaging(pageindex, pagesize, out int pagecount);
+            //int countss = 5;          
             ViewBag.pageindex = pageindex;
             ViewBag.pagecount = pagecount;
             ViewBag.pagesize = pagesize;
-            if (pagesize % 5 == 0)
-            {
-                ViewBag.countss = pagesize;
-            }
-            else
-            {
-                ViewBag.countss = countss;
-            }
+            //if (pagesize % 5 == 0)
+            //{
+            //    ViewBag.countss = pagesize;
+            //}
+            //else
+            //{
+            //    ViewBag.countss = countss;
+            //}
             //db.Order.Include(t => t.HotelManag).Include(p => p.RoomMessage).ToList()
             return View(student);
 
         }
         [HttpPost]
-        public ActionResult AdminOrder(int? OrderID, string OrderState, string ab, string text1, int pageindex = 1, int pagesize = 10)
+        public ActionResult AdminOrder(int? OrderID, string OrderState, string ab, string text1, int pageindex = 1, int pagesize = 8)
         {
 
+            Session["order"] = 45;
+         
             SmartRentalSystemEntities db = new SmartRentalSystemEntities();
             var sss = ab; var bbb = text1;
-            Session["order"] = 45;
-            if(ab!=null&&ab!="") { 
-            Session["se"] = ab; Session["ts"] = text1;
-         }
+            if (ab != null && ab != "")
+            {
+                Session["se"] = ab; Session["ts"] = text1;
+            }
             if (sss == null && bbb == null)
             {
-                Order order = db.Order.Where(t => t.OrderID == OrderID).FirstOrDefault();
+                var order = db.Order.Include("RoomMessage").Where(t => t.OrderID == OrderID).FirstOrDefault();
                 order.OrderState = OrderState;
-                var or = db.Order.Find(OrderID);
+                var or = db.Order.Find(OrderID); var roms = db.RoomMessage.Find(order.RoomID);
+                if (OrderState == "已退款" && roms.RoomCount < roms.RoomRemain)
+                {
+
+                    roms.RoomCount = roms.RoomCount + order.Ordercount;
+                    if (roms.RoomCount > roms.RoomRemain)
+                    {
+                        roms.RoomCount = roms.RoomRemain;//保证能售房间数量和店长修改的房间数量一样；
+                    }
+                    db.SaveChanges();
+                }
                 or.OrderState = OrderState;
                 db.SaveChanges();
             }
@@ -64,20 +78,20 @@ namespace SmartRental.Controllers.admin
             }
             else
             {
-                int countss = 5;
+                //int countss = 5;
                 var student = BLL.ServiceAdmin.YAdminManageServise.GetStudentByPaging1(pageindex, pagesize, out int pagecount, sss, bbb);
                 //Session["order"] = 1;
                 ViewBag.pageindex = pageindex;
                 ViewBag.pagecount = pagecount;
                 ViewBag.pagesize = pagesize;
-                if (pagesize % 5 == 0)
-                {
-                    ViewBag.countss = pagesize;
-                }
-                else
-                {
-                    ViewBag.countss = countss;
-                }
+                //if (pagesize % 5 == 0)
+                //{
+                //    ViewBag.countss = pagesize;
+                //}
+                //else
+                //{
+                //    ViewBag.countss = countss;
+                //}
                 return View(student);
 
             }

@@ -26,5 +26,11 @@ namespace SmartRental.BLL.ServiceAdmin
                 return false;
             }
         }
+        internal  static List<HotelManag> SelectHotel(string hotelname)
+        {
+
+            return HotelMapper.SelectHotel(hotelname);
+        }
+        
     }
 }

@@ -592,16 +592,19 @@ namespace SmartRental.Controllers.admin
         public ActionResult HotelOrder(int pageindex=1,int pagesize=8)
         {
             var HotelIDss = int.Parse(Session["HotelID"].ToString());/*Session["HotelID"];*///获取酒店HotelID
-            if ((Session["order"] != null&& Session["order"].ToString()!=""))
+            int pagecount = 1;
+            var student = BLL.ServiceAdmin.GHotelManageService.GetStudentByPaging(pageindex, pagesize, out pagecount,HotelIDss);
+            if ((Session["order"] != null && Session["order"].ToString() != "" && Session["se"] != "所有订单" && Session["se"] != null))
             {
                 Session["order"] = 45;
+                student = BLL.ServiceAdmin.GHotelManageService.GetStudentByPaging1(pageindex, pagesize, out pagecount, Session["se"].ToString(), Session["ts"].ToString(),HotelIDss);
             }
             else
             {
-                Session["order"] =null;
+
+                Session["order"] = null;
             }
-            //int countss = 5;
-            var student = BLL.ServiceAdmin.GHotelManageService.GetStudentByPaging(pageindex, pagesize, out int pagecount,(int)HotelIDss);
+            //int countss = 5;          
             ViewBag.pageindex = pageindex;
             ViewBag.pagecount = pagecount;
             ViewBag.pagesize = pagesize;

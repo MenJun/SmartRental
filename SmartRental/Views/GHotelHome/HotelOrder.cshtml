@@ -9,11 +9,12 @@
 
     <style>
 
-            table {
-                border-collapse: collapse;
-                margin: 0 auto;
-                text-align: center;
-            }
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            text-align: center;
+            color: black;
+        }
                 /*table thead th {
                 background-color: rgb(128, 102, 160);
                 color: #fff;
@@ -48,17 +49,18 @@
             #mytable tr:nth-child(even):hover {
                 background: white;
             }
+        #df {
+            pointer-events: none;
+        }
 
+        #dfd {
+            pointer-events: none;
             /*#mytable {
             padding: 0;
             margin: 0;
             border-collapse: collapse;
         }
-        #df {
-            pointer-events: none;
-        }
-        #dfd {
-            pointer-events: none;
+      
         }
         td {
             border: 1px solid #C1DAD7;
@@ -67,13 +69,8 @@
             padding: 6px 6px 6px 12px;
             color: #4f6b72;
         }*/
-
-
-
-
-
-
-        #ab select {
+           
+            #ab{
             cursor: pointer;
             padding: 5px;
             width: 10%;
@@ -94,7 +91,7 @@
         <select id="ab" name="ab" class="select2-results__option--highlighted">
             @if (Session["order"] != null && @Session["se"] != null)
             {
-                <option value="@Session[" se"]" selected="selected">@Session["se"]</option>
+                <option value="@Session["se"]" selected="selected">@Session["se"]</option>
             }
             else
             {

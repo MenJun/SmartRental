@@ -19,20 +19,32 @@ namespace SmartRental.Controllers.admin
         }
 
         [HttpPost]
-        public ActionResult Index(string HotelID, string Ratify)
+        public ActionResult Index(string HotelID, string Ratify, string hotelname)
         {
+            if (hotelname != null && hotelname != "")
+            {
+              var hotelmes=HotelService.SelectHotel(hotelname);
+                return View(hotelmes);
+            }
+            else
+            {
             HotelManag manag1 = new HotelManag();
             manag1.HotelID = int.Parse(HotelID);
             manag1.HotelRatify = bool.Parse(Ratify);
             if (HotelService.SetHotel(manag1))
             {
-                //return Json ( new { Code = "200",success = "成功" },JsonRequestBehavior.AllowGet );
-                return Content("<script>window.location.href = '/Hotel/Index '</script>");
+                    //return Json ( new { Code = "200",success = "成功" },JsonRequestBehavior.AllowGet );
+                    var hotel = HotelService.Hotel();
+                    return View(hotel);
+                   
             }
+
             else
             {
                 return Json(new { Code = "404", success = "失败" },JsonRequestBehavior.AllowGet);
             }
+            }
+          
            
         }
         public ActionResult MainIndex(int hotelID)
@@ -76,5 +88,10 @@ namespace SmartRental.Controllers.admin
 
 
         }
+        //public ActionResult Cha(int hotelID)
+        //{
+
+        //}
+        
     }
 }
