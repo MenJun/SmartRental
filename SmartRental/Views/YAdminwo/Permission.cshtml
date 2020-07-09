@@ -5,39 +5,47 @@
     var usermessages = Model as List<SmartRental.Models.UserMessage>;
 }
 <style type="text/css">
-    table.imagetable {
-        font-family: verdana,arial,sans-serif;
-        font-size: 11px;
-        color: #333333;
-        border-width: 1px;
-        border-color: #999999;
+    #mytable {
         border-collapse: collapse;
+        margin: 0 auto;
+        text-align: center;
     }
 
-        table.imagetable th {
-            background: #b5cfd2 url('cell-blue.jpg');
-            border-width: 1px;
-            padding: 8px;
-            border-style: solid;
-            border-color: #999999;
+        #mytable td, #mytable th {
+            border: 1px solid #cad9ea;
+            color: #666;
+            height: 30px;
         }
 
-        table.imagetable td {
-            background: #dcddc0 url('cell-grey.jpg');
-            border-width: 1px;
-            padding: 8px;
-            border-style: solid;
-            border-color: #999999;
+        #mytable thead th {
+            background-color: #CCE8EB;
+            width: 100px;
+        }
+
+        #mytable th {
+            text-align: center;
+        }
+
+        #mytable tr:nth-child(odd) {
+            background: #fff;
+        }
+
+        #mytable tr:nth-child(even) {
+            background: #F5FAFA;
         }
 </style>
 <h2>权限管理</h2>
-@*<form>
-        <input type="text" id="username" name="username" />
-        <input type="submit" value="搜索" />
-    </form>*@
+<form action="/YAdminwo/Permission" method="post" style="float:left;">
+    <input type="text" id="username" name="username" style="height:30px;" placeholder="电话查询" />
+    <input type="submit" value="搜索" sstyle="margin-left:30px;" class="btn btn-primary" />
+</form>
+<form action="/YAdminwo/Permission" style="margin-left:250px;">
+    <input type="submit" value="重置" class="btn btn-primary" />
+</form>
+@*<input value="备份" type="button" onclick="bei()" class="btn btn-primary" /><input value="还原" type="button" class="btn btn-primary" />*@
 
 <div>
-    <table class="table table-bordered table-hover table-striped imagetable" id="mytable" style="background-image:url('~/images/HotelPhoto/09b58f6b-455e-476e-8356-b3a7df1f16781-5.jpg')">
+    <table class="table table-bordered table-hover table-striped imagetable" id="mytable" style="background-image:url('~/images/HotelPhoto/09b58f6b-455e-476e-8356-b3a7df1f16781-5.jpg');margin-top:10px;">
         <thead>
             <tr>
                 <th>用户名</th>
@@ -74,17 +82,17 @@
                         }
                         else
                         {
-                            <input style="border:none;background-color:red;outline:none;color:black" onclick="Pass(@item.UserID,this.value)" type="button" value="解封" />
+                            <input style="border:none;background-color:red;outline:none;color:black;border-radius:30%;" onclick="Pass(@item.UserID,this.value)" type="button" value="解封" />
                         }
                     </td>
                     <td>
                         @if (item.UserGrade == "用户")
                         {
                             <select id="aaa" style="border:0;outline:none;font-size:15px;background-color:transparent" name="OrderState" onchange="Operate(@item.UserID,this.options[this.options.selectedIndex].value,@item.UserPhone)">
-                                <option>请选择</option>
-                                <option value="用户" disabled="disabled" style="background-color:#EEEEEE">用户</option>
-                                <option value="管理员">管理员</option>
-                                <option value="超级管理员">超级管理员</option>
+
+                                <option value="用户" selected="selected" style="background-color:#EEEEEE">用户</option>
+                                <option value="管理员">管理</option>
+                                <option value="超级管理员">超管</option>
                             </select>
                         }
                         else if (item.UserGrade == "管理员")
@@ -96,10 +104,11 @@
                             else
                             {
                                 <select id="aaa" style="border:0;outline:none;font-size:15px;background-color:transparent" name="OrderState" onchange="Operate(@item.UserID,this.options[this.options.selectedIndex].value,@item.UserPhone)">
-                                    <option>请选择</option>
+
+
+                                    <option value="管理员" style="background-color:#EEEEEE" selected="selected"> 管理</option>
                                     <option value="用户">用户</option>
-                                    <option value="管理员" disabled="disabled" style="background-color:#EEEEEE">管理员</option>
-                                    <option value="超级管理员">超级管理员</option>
+                                    <option value="超级管理员">超管</option>
                                 </select>
                             }
                         }
@@ -112,10 +121,10 @@
                             else
                             {
                                 <select id="aaa" style="border:0;outline:none;font-size:15px;background-color:transparent" name="OrderState" onchange="Operate(@item.UserID,this.options[this.options.selectedIndex].value,@item.UserPhone)">
-                                    <option>请选择</option>
+                                    <option value="超级管理员" selected="selected" style="background-color:#EEEEEE">超管</option>
                                     <option value="用户">用户</option>
-                                    <option value="管理员">管理员</option>
-                                    <option value="超级管理员" disabled="disabled" style="background-color:#EEEEEE">超级管理员</option>
+                                    <option value="管理员">管理</option>
+
                                 </select>
                             }
                         }
@@ -142,6 +151,23 @@
                 })
             }
         }
+
+        //function bei() {
+
+        //    if (confirm('确定备份所有数据吗？')) {
+        //        jQuery.ajax({
+        //            url: '/YAdminwo/BakReductSql',
+        //            type: "get",
+        //            data: {
+        //                "cmdText":"backup database SmartSystem to disk='E:\\xiangmu\\wo\\SmartRental\\common'",
+        //                isBak: true
+        //            },
+        //            success: function (data) {
+        //                history.go(0)
+        //            }
+        //        })
+        //    }
+        //}
         function Operate(id, e, phone) {
             if (e == "用户") {
                 jQuery.ajax({
@@ -165,17 +191,17 @@
                 }
             }
         }
-            //function Select() {
-            //    var username = document.getElementById("username").value;
-            //    jQuery.ajax({
-            //            url: '/YAdminwo/Permission',
-            //            type: "get",
-            //            data: { "username": username },
-            //            success: function (data) {
-            //                history.go(0)
-            //            }
-            //        })
-            //}
+                    //function Select() {
+                    //    var username = document.getElementById("username").value;
+                    //    jQuery.ajax({
+                    //            url: '/YAdminwo/Permission',
+                    //            type: "get",
+                    //            data: { "username": username },
+                    //            success: function (data) {
+                    //                history.go(0)
+                    //            }
+                    //        })
+                    //}
     </script>
 }
 

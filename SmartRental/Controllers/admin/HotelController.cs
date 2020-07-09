@@ -56,15 +56,15 @@ namespace SmartRental.Controllers.admin
                 var hotelrmes = db.HotelManag.Where(s => s.HotelID == hotelID).FirstOrDefault();
                 var hotelph = db.HotelPhoto.Where(s => s.HotelPhotoID == hotelrmes.HotelPhotoID).FirstOrDefault();
                 var sf = hotelrmes.HotelFacility;
-                var fct = sf.Split(',').Count();
+                var fct = sf.Split('+').Count();
                 string bb = "";
                 for (int i = 1; i < fct; i++)
                 {
                     if (i < fct - 1)
-                        bb = bb + sf.Split(',')[i] + "+";
+                        bb = bb + sf.Split('+')[i] + "+";
                     else
                     {
-                        bb = bb + sf.Split(',')[i];
+                        bb = bb + sf.Split('+')[i];
                     }
                 }
                 hotelrmes.HotelFacility = bb;

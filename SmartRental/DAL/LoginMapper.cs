@@ -19,6 +19,7 @@ namespace SmartRental.DAL
             var user = db.UserMessage.Where(t => t.UserPhone == userPhone).FirstOrDefault();
             return user;
         }
+       
         /// <summary>
         /// 权限查询
         /// </summary>

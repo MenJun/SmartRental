@@ -34,7 +34,7 @@
             <p>
                 @Html.Hidden("HotelID", hotelrmes.HotelID)@Html.Hidden("HotelPhotoID", hotelrmes.HotelPhotoID)
                 <label style="width:100px">姓名:</label>
-                <input type="text" name="HotelBoss" id="HotelBoss" value="@hotelrmes.HotelBoss" style="width:300px;height:40px" disabled="disabled" placeholder="请输入你的姓名">@Html.ValidationMessage("HotelBoss")
+                <input type="text" name="HotelBoss" id="HotelBoss" value="@hotelrmes.HotelBoss" style="width:300px;height:40px" readonly="readonly" placeholder="请输入你的姓名">@Html.ValidationMessage("HotelBoss")
             </p>
             <p>
                 <label style="width:100px">酒店电话：</label>
@@ -43,7 +43,7 @@
             </p>
             <p>
                 <label style="width: 100px">酒店上市时间:</label>
-                <input type="text" style="width:300px;height:40px" id="HotelOpentime" disabled="disabled" value="@hotelrmes.HotelOpentime.Value.ToShortDateString()" name="HotelOpentime">
+                <input type="text" style="width:300px;height:40px" readonly="readonly" value="@hotelrmes.HotelOpentime.Value.ToShortDateString()" name="HotelOpentime">
                 @Html.ValidationMessage("HotelOpentime")
             </p>
 
@@ -74,7 +74,7 @@
                     </table>
                   
                 </fieldset>
-                <span style="color:cadetblue">原来选择设施：</span><input type="text" name="HotelFacility" id="HotelFacility" style="width:300px;border:none;color:burlywood" disabled="disabled" placeholder="未选择设施" value="@hotelrmes.HotelFacility">
+                <span style="color:cadetblue">原来选择设施：</span><span name="HotelFacility" id="HotelFacility" style="width:300px;border:none;color:burlywood"  >@hotelrmes.HotelFacility</span> 
             </p>
         </div>
 
@@ -83,7 +83,7 @@
         <div style="width:600px;float:right;margin-left:10px">
             <p>
                 <label style="width:100px;">酒店名称：</label>
-                <input type="text" name="HotelName" style="width:300px;height:40px" id="HotelName" disabled="disabled" value="@hotelrmes.HotelName" placeholder="请输入酒店名称">@Html.ValidationMessage("HotelName")
+                <input type="text" name="HotelName" style="width:300px;height:40px" id="HotelName" readonly="readonly" value="@hotelrmes.HotelName" placeholder="请输入酒店名称">@Html.ValidationMessage("HotelName")
             </p>
             <p>
                 <label style="width:100px">酒店类型：</label>

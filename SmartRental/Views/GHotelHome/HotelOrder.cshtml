@@ -8,20 +8,45 @@
 
 
     <style>
+        #mytable {
+            border-collapse: collapse;
+            margin: 0 auto;
+            text-align: center;
+        }
 
-        table {
+            #mytable td, #mytable th {
+                border: 1px solid #cad9ea;
+                color: #666;
+                height: 30px;
+            }
+
+            #mytable thead th {
+                background-color: #CCE8EB;
+                width: 100px;
+            }
+
+            #mytable tr:nth-child(odd) {
+                background: #fff;
+            }
+
+            #mytable tr:nth-child(even) {
+                background: #F5FAFA;
+            }
+ 
+
+        /*table {
             border-collapse: collapse;
             margin: 0 auto;
             text-align: center;
             color: black;
-        }
+        }*/
                 /*table thead th {
                 background-color: rgb(128, 102, 160);
                 color: #fff;
                 border-bottom-width: 0;
             }*/
 
-                table td, table th {
+                /*table td, table th {
                     border: 1px solid #cad9ea;
                     color: #666;
                     height: 10px;
@@ -48,29 +73,17 @@
         }
             #mytable tr:nth-child(even):hover {
                 background: white;
-            }
+            }*/
         #df {
             pointer-events: none;
         }
 
         #dfd {
             pointer-events: none;
-            /*#mytable {
-            padding: 0;
-            margin: 0;
-            border-collapse: collapse;
-        }
-      
-        }
-        td {
-            border: 1px solid #C1DAD7;
-            background: #fff;
-            font-size: 11px;
-            padding: 6px 6px 6px 12px;
-            color: #4f6b72;
-        }*/
            
-            #ab{
+        }
+
+        #ab {
             cursor: pointer;
             padding: 5px;
             width: 10%;
@@ -79,15 +92,18 @@
             background-image: none;
             -webkit-appearance: none;
             -moz-appearance: none;
+            font-size:14px;
         }
 
-                
+        #mytable th {
+            text-align: center;
+        }    
     </style>
     
-    <h3 style="margin-top:-30px">订单表</h3>
+    <h2 style="margin-top:-30px;margin-left:550px">酒店订单详情</h2>
     <form action="/GHotelHome/HotelOrder" method="post">
 
-        <label>类型</label>
+        <label style="font-size:16px">类型</label>
         <select id="ab" name="ab" class="select2-results__option--highlighted">
             @if (Session["order"] != null && @Session["se"] != null)
             {
@@ -108,7 +124,7 @@
         </select>&nbsp;&nbsp;
         @if (Session["order"] != null)
         {
-            <input type="text" id="text1" name="text1" style="height:20px;" value="@Session["ts"]" />
+            <input type="text" id="text1" name="text1" style="height:30px;" value="@Session["ts"]" />
         }
         else
         {
@@ -118,7 +134,7 @@
 
         <input type="submit" @*onclick="bbc($('#ab').options[this.options.selectedIndex].value), $('#text1').val()"*@ value="搜索" class="btn btn-primary" />
 
-        <table xss=removed class="table table-striped table-bordered table-hover" id="mytable">
+        <table xss=removed class="table table-striped table-bordered table-hover" style="margin-top:10px" id="mytable">
             <thead>
                 <tr>
                     <th>订单编号</th>
@@ -167,7 +183,7 @@
 
 
 
-                                @if (item.OrderState.ToString() == "退款")
+                                @if (item.OrderState.ToString()== "退款")
                                 {
                                     <option value="待处理" selected="selected">待处理</option>
                                     <option value="已退款">同意退款</option>

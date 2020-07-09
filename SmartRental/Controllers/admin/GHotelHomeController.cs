@@ -56,7 +56,7 @@ namespace SmartRental.Controllers.admin
 
                 //可以自己写Insert语句(添加数据)
 
-                fi = fi + "," + item.ToString();//这样写方便调试看
+                fi = fi + "+" + item.ToString();//这样写方便调试看
             }
             manag.HotelFacility = fi;
 
@@ -90,13 +90,13 @@ namespace SmartRental.Controllers.admin
 
             if (BLL.ServiceAdmin.GHotelManageService.AddHotelManager(manag, imgname,usms))
             {
-                return Content("<script>alert('提交成功')</script>");
+                return Content("<script>alert('提交成功');location.href = '/Login/Index';</script>");
             }
-            return Content("<script>alert('提交失败')</script>");
+            return Content("<script>alert('提交失败');location.href = '/Login/Index';</script>");
             }
             else
             {
-                return Content("<script>alert('提交账号不存在')</script>");
+                return Content("<script>alert('提交账号不存在');location.href = '/GHotelHome/Main';</script>");
             }
 
 
@@ -107,22 +107,22 @@ namespace SmartRental.Controllers.admin
         /// <returns></returns>
         public ActionResult MainIndex()
         {
-            var hotelID = 10;//int.Parse( Session["HotelID"].ToString());//Session["HotelID"] 酒店ID
+            var hotelID = int.Parse( Session["HotelID"].ToString());//Session["HotelID"] 酒店ID
             using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
             {
                
                 var hotelrmes = db.HotelManag.Where(s => s.HotelID == hotelID).FirstOrDefault();
                 var hotelph= db.HotelPhoto.Where(s => s.HotelPhotoID == hotelrmes.HotelPhotoID).FirstOrDefault();
                 var sf = hotelrmes.HotelFacility;
-               var fct=sf.Split(',').Count();
+               var fct=sf.Split('+').Count();
                 string bb = "";
                 for (int i = 1; i < fct; i++)
                 {
                     if(i<fct-1)
-                    bb =bb+sf.Split(',')[i]+"+";
+                    bb =bb+sf.Split('+')[i]+"+";
                     else
                     {
-                        bb =bb+sf.Split(',')[i];
+                        bb =bb+sf.Split('+')[i];
                     }
                 }
                 hotelrmes.HotelFacility = bb;
@@ -159,15 +159,15 @@ namespace SmartRental.Controllers.admin
                 var hotelrmes = db.HotelManag.Where(s => s.HotelID == id).FirstOrDefault();
                 var hotelph = db.HotelPhoto.Where(s => s.HotelPhotoID == hotelrmes.HotelPhotoID).FirstOrDefault();
                 var sf = hotelrmes.HotelFacility;
-                var fct = sf.Split(',').Count();
+                var fct = sf.Split('+').Count();
                 string bb = "";
                 for (int i = 1; i < fct; i++)
                 {
                     if (i < fct - 1)
-                        bb = bb + sf.Split(',')[i] + "+";
+                        bb = bb + sf.Split('+')[i] + "+";
                     else
                     {
-                        bb = bb + sf.Split(',')[i];
+                        bb = bb + sf.Split('+')[i];
                     }
                 }
                 hotelrmes.HotelFacility = bb;
@@ -208,7 +208,7 @@ namespace SmartRental.Controllers.admin
             {
                 //可以自己写Insert语句(添加数据)
 
-                fi = fi + "," + item.ToString();//这样写方便调时看
+                fi = fi + "+" + item.ToString();//这样写方便调时看
             }
             manag.HotelFacility = fi;
             System.Web.HttpFileCollection file = System.Web.HttpContext.Current.Request.Files;
@@ -324,7 +324,7 @@ namespace SmartRental.Controllers.admin
             {
                 //可以自己写Insert语句(添加数据)
 
-                fi = fi + "," + item.ToString();//这样写方便调时看
+                fi = fi + "+" + item.ToString();//这样写方便调时看
             }
             roomMessage.RoomFacility = fi;
 
@@ -492,7 +492,7 @@ namespace SmartRental.Controllers.admin
         {
             //可以自己写Insert语句(添加数据)
 
-            fi = fi + "," + item.ToString();//这样写方便调时看
+            fi = fi + "+" + item.ToString();//这样写方便调时看
         }
         roomMessage.RoomFacility = fi;
 

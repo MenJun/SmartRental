@@ -41,6 +41,12 @@ namespace SmartRental.Controllers
             }
             else if (int.Parse(decryptionResult.ToString()) == -1) // 普通管理员
             {
+                SmartRentalSystemEntities db = new SmartRentalSystemEntities();
+              
+                if (BLL.LoginService.DecryptionHotelID(userMessage.UserPhone) == null)
+                {
+                     return Json(new { succeed = 200, roestr = "/GHotelHome/Main" }, JsonRequestBehavior.AllowGet);
+                }
                 Session["GeneralManager"] = userMessage.UserPhone;
                 Session["HotelID"] = BLL.LoginService.DecryptionHotelID(userMessage.UserPhone);
                 return Json(new { succeed = 200, roestr = "/GHotelHome/MainIndex" }, JsonRequestBehavior.AllowGet);

@@ -83,66 +83,79 @@
                                     <th>酒店老板</th>
                                     <th>酒店电话</th>
                                     <th>酒店注册时间</th>
+                                    <th>酒店状态</th>
                                     <th>操作</th>
-                                   
+
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
                                     
-                                    <tr role="row">
-                                        <td>@item.HotelName</td>
-                                        <td>@item.HotelCity</td>
-                                        <td>@item.HotelType</td>
-                                        <td>@item.HotelBoss</td>
-                                        @*<td>@item.HotelPhone</td>*@
-                                        <td>@item.Hoteltration_time</td>
-                                        @if (item.HotelRatify == null)
+                                <tr role="row">
+                                    <td>@item.HotelName</td>
+                                    <td>@item.HotelCity</td>
+                                    <td>@item.HotelType</td>
+                                    <td>@item.HotelBoss</td>
+                                    <td>@item.HotelPhone</td>
+                                   
+                                    <td>@item.Hoteltration_time</td>
+                                    @if (item.HotelRatify == null)
+                                    {
+                                        <td>
+                                            审核中
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        if (item.HotelRatify == true)
                                         {
                                             <td>
-                                                审核中
+                                                已通过
                                             </td>
                                         }
                                         else
                                         {
-                                            if (item.HotelRatify == true)
-                                            {
-                                                <td>
-                                                    已通过
-                                                </td>
-                                            }
-                                            else
-                                            {
-                                                <td>
-                                                    已拒绝
-                                                </td>
-                                            }
+                                            <td>
+                                                已拒绝
+                                            </td>
                                         }
+                                    }
 
-                                        <td>
-                                            
-                                            @if (item.HotelRatify == true)
-                                            {
-                                                <button class="btn btn-default btn-sm" id="NO" onclick="refuse(@item.HotelID) ">
-                                                    <i class="fa fa-pencil"></i>
-                                                    拒绝
-                                                </button>
-                                            }
-                                            else
-                                            {
-                                             <button class="btn btn-default btn-sm" id="Yse" onclick="Pass(@item.HotelID)">
+                                <td>
+
+                                    @if (item.HotelRatify == true)
+                                    {
+                                        <button class="btn btn-default btn-sm" id="NO" onclick="refuse(@item.HotelID) ">
+                                            <i class="fa fa-pencil"></i>
+                                            拒绝
+                                        </button>
+                                    }
+                                    else if (item.HotelRatify == false)
+                                    {
+                                        <button class="btn btn-default btn-sm" id="Yse" onclick="Pass(@item.HotelID)">
                                             <i class="fa fa-pencil"></i>
                                             通过
-                                          </button>
-                                            }
-                                            <button class="btn btn-default btn-sm" id="Select" onclick="Select(@item.HotelID)">
-                                                <i class="fa fa-pencil"></i>
-                                                查看详情
-                                            </button>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-default btn-sm" id="Yse" onclick="Pass(@item.HotelID)">
+                                            <i class="fa fa-pencil"></i>
+                                            通过
+                                        </button>
+                                        <button class="btn btn-default btn-sm" id="NO" onclick="refuse(@item.HotelID) ">
+                                            <i class="fa fa-pencil"></i>
+                                            拒绝
+                                        </button>
+                                    }
+                                    <button class="btn btn-default btn-sm" id="Select" onclick="Select(@item.HotelID)">
+                                        <i class="fa fa-pencil"></i>
+                                        查看详情
+                                    </button>
 
-                                        </td>
-                                    </tr>
+                                </td>
+                                </tr>
                                 }
                             </tbody>
                         </table>
