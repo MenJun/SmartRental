@@ -47,30 +47,25 @@
                 <div class="row">
                     <div class="hpanel">
                         <div id="error_div" class="text-left"></div>
-                        <form id="form_productCategory" name="form_productCategory" action="" method="POST">
-                            <div class="form-group col-lg-6">
-                                <label>查询标题</label>
-                                <input type="text" id="name" name="name" class="form-control" maxlength="50" placeholder="输入要查询标题" />
-                            </div>
-                            <div class="form-group col-lg-6">
-                                <label>内容</label>
-                                <input type="text" id="description" name="description" class="form-control" maxlength="50" placeholder="输入要查询标题的内容" />
-                            </div>
-                            <div class="text-right m-t-xs">
-                                <button id="search" class="btn btn-success" style="margin-right: 5px;margin-top: 5px" type="button">
-                                    <strong>查询</strong>
-                                </button>
-                                <button id="reset" class="btn btn-success" style="margin-right: 5px;margin-top: 5px"  margin-right: 20px;" type="reset">
-                                    <strong>重置</strong>
-                                </button>
-                                <button id="add" class="btn btn-success" style="margin-right: 5px;margin-top: 5px" type="button">
-                                    <strong>添加查询的标题</strong>
-                                </button>
-                                <button id="delBtn" class="btn btn-success" style="margin-right: 5px;margin-top: 5px" type="button">
-                                    <strong>删除查询的标题</strong>
-                                </button>
-                            </div>
-                        </form>
+                        <div id="form_productCategory" name="form_productCategory">
+                            <form action="/Hotel/Index" method="post">
+                                <div class="form-group col-lg-6">
+                                    <label>查询标题</label>
+                                    <input type="text" id="hotelname" name="hotelname" class="form-control" maxlength="50" placeholder="输入要查询酒店名" />
+                                </div>
+
+                                <div class="text-right m-t-xs">
+                                    <button id="search" class="btn btn-success" style="margin-right: 45px;margin-top: 25px" type="submit">
+                                        <strong>查询</strong>
+                                    </button>
+
+                                    <a id="cong" class="btn btn-success" style="margin-right: 105px;margin-top: 25px" href="/Hotel/Index">
+                                        <strong>重置</strong>
+                                    </a>
+
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,62 +83,79 @@
                                     <th>酒店老板</th>
                                     <th>酒店电话</th>
                                     <th>酒店注册时间</th>
-                                    <th>注册状态</th>
+                                    <th>酒店状态</th>
                                     <th>操作</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
                                     
-                                    <tr role="row">
-                                        <td>@item.HotelName</td>
-                                        <td>@item.HotelCity</td>
-                                        <td>@item.HotelType</td>
-                                        <td>@item.HotelBoss</td>
-                                        @*<td>@item.HotelPhone</td>*@
-                                        <td>@item.Hoteltration_time</td>
-                                        @if (item.HotelRatify == null)
+                                <tr role="row">
+                                    <td>@item.HotelName</td>
+                                    <td>@item.HotelCity</td>
+                                    <td>@item.HotelType</td>
+                                    <td>@item.HotelBoss</td>
+                                    <td>@item.HotelPhone</td>
+                                   
+                                    <td>@item.Hoteltration_time</td>
+                                    @if (item.HotelRatify == null)
+                                    {
+                                        <td>
+                                            审核中
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        if (item.HotelRatify == true)
                                         {
                                             <td>
-                                                审核中
+                                                已通过
                                             </td>
                                         }
                                         else
                                         {
-                                            if (item.HotelRatify == true)
-                                            {
-                                                <td>
-                                                    已通过
-                                                </td>
-                                            }
-                                            else
-                                            {
-                                                <td>
-                                                    已拒绝
-                                                </td>
-                                            }
+                                            <td>
+                                                已拒绝
+                                            </td>
                                         }
+                                    }
 
-                                        <td>
-                                            <button class="btn btn-default btn-sm" id="Yse" onclick="Pass(@item.HotelID)">
-                                                <i class="fa fa-pencil"></i>
-                                                通过
-                                            </button>
-                                            @if (item.HotelRatify != true)
-                                            {
-                                                <button class="btn btn-default btn-sm" id="NO" onclick="refuse(@item.HotelID) ">
-                                                    <i class="fa fa-pencil"></i>
-                                                    拒绝
-                                                </button>
-                                            }
-                                            <button class="btn btn-default btn-sm" id="Select" onclick="Select(@item.HotelID)">
-                                                <i class="fa fa-pencil"></i>
-                                                查看详情
-                                            </button>
+                                <td>
 
-                                        </td>
-                                    </tr>
+                                    @if (item.HotelRatify == true)
+                                    {
+                                        <button class="btn btn-default btn-sm" id="NO" onclick="refuse(@item.HotelID) ">
+                                            <i class="fa fa-pencil"></i>
+                                            拒绝
+                                        </button>
+                                    }
+                                    else if (item.HotelRatify == false)
+                                    {
+                                        <button class="btn btn-default btn-sm" id="Yse" onclick="Pass(@item.HotelID)">
+                                            <i class="fa fa-pencil"></i>
+                                            通过
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-default btn-sm" id="Yse" onclick="Pass(@item.HotelID)">
+                                            <i class="fa fa-pencil"></i>
+                                            通过
+                                        </button>
+                                        <button class="btn btn-default btn-sm" id="NO" onclick="refuse(@item.HotelID) ">
+                                            <i class="fa fa-pencil"></i>
+                                            拒绝
+                                        </button>
+                                    }
+                                    <button class="btn btn-default btn-sm" id="Select" onclick="Select(@item.HotelID)">
+                                        <i class="fa fa-pencil"></i>
+                                        查看详情
+                                    </button>
+
+                                </td>
+                                </tr>
                                 }
                             </tbody>
                         </table>
@@ -160,8 +172,7 @@
 </form>
 
 
-@section Scripts
-    {
+<script src="~/Scripts/jquery-3.4.1.js"></script>
     <script>
        
             
@@ -199,6 +210,6 @@
             location.href = "/Hotel/MainIndex?hotelID="+ID;
         }
     </script>
-}
+
 
 

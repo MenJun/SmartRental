@@ -5,167 +5,237 @@
 @{
     var order = Model as List<SmartRental.Models.Order>;
 }
-<style>
-    #mytable {
-        padding: 0;
-        margin: 0;
-        border-collapse: collapse;
-    }
-    #df {
-        pointer-events: none;
-    }
-    #dfd {
-        pointer-events: none;
-    }
-    td {
-        border: 1px solid #C1DAD7;
-        background: #fff;
-        font-size: 11px;
-        padding: 6px 6px 6px 12px;
-        color: #4f6b72;
-    }
-</style>
-<form action="/GHotelHome/HotelOrder" method="post">
-    <h2>订单表</h2>
-    <label>类型</label>
-    <select id="ab" name="ab">
-        @if (Session["order"] != null && @Session["se"] != null)
+
+
+    <style>
+        #mytable {
+            border-collapse: collapse;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+            #mytable td, #mytable th {
+                border: 1px solid #cad9ea;
+                color: #666;
+                height: 30px;
+            }
+
+            #mytable thead th {
+                background-color: #CCE8EB;
+                width: 100px;
+            }
+
+            #mytable tr:nth-child(odd) {
+                background: #fff;
+            }
+
+            #mytable tr:nth-child(even) {
+                background: #F5FAFA;
+            }
+ 
+
+        /*table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            text-align: center;
+            color: black;
+        }*/
+                /*table thead th {
+                background-color: rgb(128, 102, 160);
+                color: #fff;
+                border-bottom-width: 0;
+            }*/
+
+                /*table td, table th {
+                    border: 1px solid #cad9ea;
+                    color: #666;
+                    height: 10px;
+                }
+
+        #mytable thead th {
+            background-color: #8c9ca7;
+            width: 100px;
+        }
+        #mytable tr:nth-child(even):hover #aaa {
+            background: #aedfdf;
+        }
+        #mytable tr:nth-child(odd):hover #aaa {
+            background-color: #a8d1ac;
+        }
+        #mytable tr:nth-child(odd) {
+            background-color: #a8d1ac;
+        }
+        #mytable tr:nth-child(odd):hover {
+            background-color:white;
+        }
+        #mytable tr:nth-child(even) {
+            background: #aedfdf;
+        }
+            #mytable tr:nth-child(even):hover {
+                background: white;
+            }*/
+        #df {
+            pointer-events: none;
+        }
+
+        #dfd {
+            pointer-events: none;
+           
+        }
+
+        #ab {
+            cursor: pointer;
+            padding: 5px;
+            width: 10%;
+            text-align: center;
+            background: transparent;
+            background-image: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            font-size:14px;
+        }
+
+        #mytable th {
+            text-align: center;
+        }    
+    </style>
+    
+    <h2 style="margin-top:-30px;margin-left:550px">酒店订单详情</h2>
+    <form action="/GHotelHome/HotelOrder" method="post">
+
+        <label style="font-size:16px">类型</label>
+        <select id="ab" name="ab" class="select2-results__option--highlighted">
+            @if (Session["order"] != null && @Session["se"] != null)
+            {
+                <option value="@Session["se"]" selected="selected">@Session["se"]</option>
+            }
+            else
+            {
+                <option value="所有订单" selected="selected">请选择</option>
+            }
+
+            <option value="所有订单">所有订单</option>
+            <option value="订单编号">订单编号</option>
+            <option value="订单状态">订单状态</option>
+            @*<option value="入住日期">入住日期</option>*@
+            <option value="入住电话">入住电话</option>
+            <option value="房间名">房间名</option>
+
+        </select>&nbsp;&nbsp;
+        @if (Session["order"] != null)
         {
-            <option value="@Session[" se"]" selected="selected">@Session["se"]</option>
+            <input type="text" id="text1" name="text1" style="height:30px;" value="@Session["ts"]" />
         }
         else
         {
-            <option value="请选择" selected="selected">-请选择-</option>
+
+            <input type="text" id="text1" style="height:30px;" name="text1" />
         }
 
-        <option value="所有订单">所有订单</option>
-        <option value="订单编号">订单编号</option>
-        <option value="订单状态">订单状态</option>
-        <option value="入住日期">入住日期</option>
-        <option value="酒店">酒店</option>
+        <input type="submit" @*onclick="bbc($('#ab').options[this.options.selectedIndex].value), $('#text1').val()"*@ value="搜索" class="btn btn-primary" />
 
-        <option value="入住电话">入住电话</option>
-        <option value="房间">房间</option>
-
-    </select>
-    @if (Session["order"] != null)
-    {
-        <input type="text" id="text1" name="text1" value="@Session["ts"] " />
-    }
-    else
-    {
-
-        <input type="text" id="text1" name="text1" />
-    }
-
-    <input type="submit" @*onclick="bbc($('#ab').options[this.options.selectedIndex].value), $('#text1').val()"*@ value="搜索" />
-
-    <table class="table table-bordered table-hover table-striped" id="mytable">
-        <thead>
-            <tr>
-                <td>订单编号</td>
-                <td>下单时间</td>
-                <td>入住时间</td>
-                <td>离店时间</td>
-                <td>应付金额</td>
-                <td>实付金额</td>
-                <td>入住人电话</td>
-                <td>入住人姓名</td>
-                <td>订单状态</td>
-                <td>入住人身份证</td>
-                <td>酒店</td>
-                <td>房间</td>
-                <td>订单状态</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in order)
-            {
+        <table xss=removed class="table table-striped table-bordered table-hover" style="margin-top:10px" id="mytable">
+            <thead>
                 <tr>
-                    <td>@item.OrderNumber</td>
-                    <td>@item.Ordertime</td>
-                    <td>@item.ArrivalDate</td>
-                    <td>@item.LeaveTime</td>
-                    <td>
-                        @if (item.PayablePrice != null)
-                        {
-                            <span>  @String.Format("{0:F}", item.PayablePrice) </span>
-                        }
-                        else
-                        {
-                            <span>未填写</span>
-                        }
-                    </td>
-                    <td>@item.ActualPrice</td>
-                    <td>@item.ClientPhone</td>
-                    <td>@item.ClientName</td>
-                    <td>@item.OrderState</td>
-                    <td>
-                        @*@item.ClientId*@
-                        @if (item.ClientId != null)
-                        {
-                            <span>  @item.ClientId) </span>
-                        }
-                        else
-                        {
-                            <span>未填写</span>
-                        }
-                    </td>
-                    <td>@item.HotelManag.HotelName</td>
-                    <td>@item.RoomMessage.RoomName</td>
-                    <td>
-                        <select id="aaa" style="border:0;outline:none;font-size:15px" name="OrderState" onchange="Pass(@item.OrderID,this.options[this.options.selectedIndex].value)">
-
-
-
-                            @if (item.OrderState.ToString() == "退款")
-                            {
-                                <option value="待处理" selected="selected">待处理</option>
-                                <option value="已退款">同意退款</option>
-                                <option value="拒绝退款">拒绝退款</option>
-                            }
-
-                            @if (item.OrderState.ToString() == "拒绝退款")
-                            {
-                                <option value="拒绝退款" selected="selected">拒绝退款</option>
-                                <option value="已退款">同意退款</option>
-                            }
-                            @if (item.OrderState.ToString() == "已支付")
-                            {
-                                <option value="已支付" selected="selected">交易中</option>
-                                <option value="已退款">退款</option>
-                            }
-                            @if (item.OrderState.ToString() == "成功交易")
-                            {
-                                <option value="已支付" selected="selected">成功交易</option>
-
-                            }
-                            @if (item.OrderState.ToString() == "已退款")
-                            {
-                                <option value="已退款" selected="selected">已退款</option>
-
-                            }
-                        </select>
-                    </td>
+                    <th>订单编号</th>
+                    <th>下单时间</th>
+                    <th>入住时间</th>
+                    <th>离店时间</th>
+                    <th>房间</th>
+                    <th>房间数量</th>
+                    <th>入住人电话</th>
+                    <th>入住人姓名</th>
+                    <th>订单状态</th>
+                    <th>入住人身份证</th>
+                    <th>实付金额</th>
+                    <th>订单管理</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in order)
+                {
+                    <tr>
+                        <td>@item.OrderNumber</td>
+                        <td>@item.Ordertime</td>
+                        <td>@item.ArrivalDate</td>
+                        <td>@item.LeaveTime</td>
+                        <td>@item.RoomMessage.RoomName</td>
+                        <td>@item.Ordercount</td>
 
-    @{
-        var pageindex = (int)ViewBag.pageindex;
-        var pagecount = (int)ViewBag.pagecount;
-        var pagesize = (int)ViewBag.pagesize;
-        var countss = (int)ViewBag.countss;
-    }
- 
-   
+                        <td>@item.ClientPhone</td>
+                        <td>@item.ClientName</td>
+                        <td>@item.OrderState</td>
+
+                        <td>
+                            @*@item.ClientId*@
+                            @if (item.ClientId != null)
+                            {
+                                <span>  @item.ClientId) </span>
+                            }
+                            else
+                            {
+                                <span>未填写</span>
+                            }
+                        </td>
+                        <td>@item.ActualPrice</td>
+                        <td>
+                            <select id="aaa" style="border:0;outline:none;font-size:15px" name="OrderState" onchange="Pass(@item.OrderID,this.options[this.options.selectedIndex].value)">
+
+
+
+                                @if (item.OrderState.ToString()== "退款")
+                                {
+                                    <option value="待处理" selected="selected">待处理</option>
+                                    <option value="已退款">同意退款</option>
+                                    <option value="拒绝退款">拒绝退款</option>
+                                }
+
+                                @if (item.OrderState.ToString() == "拒绝退款")
+                                {
+                                    <option value="拒绝退款" selected="selected">拒绝退款</option>
+                                    <option value="已退款">同意退款</option>
+                                }
+                                @if (item.OrderState.ToString() == "已支付")
+                                {
+                                    <option value="已支付" selected="selected">交易中</option>
+                                    <option value="已退款">退款</option>
+                                }
+                                @if (item.OrderState.ToString() == "成功交易")
+                                {
+                                    <option value="已支付" selected="selected">成功交易</option>
+
+                                }
+                                @if (item.OrderState.ToString() == "已退款")
+                                {
+                                    <option value="已退款" selected="selected">已退款</option>
+
+                                }
+                                @if (item.OrderState.ToString() == "待支付")
+                                {
+                                 <option value="待支付" selected="selected">未支付</option>
+
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @{
+            var pageindex = (int)ViewBag.pageindex;
+            var pagecount = (int)ViewBag.pagecount;
+            var pagesize = (int)ViewBag.pagesize;
+
+        }
+
+
 
         <span>第 @pageindex 页</span>
         <span>总 @pagecount 页</span>
         @if (pageindex <= 1)
         {
-            @Html.ActionLink("上一页", "HotelOrder", null, new { disabled = "disabled",id="df", @class = "btn btn-primary" })
+            @Html.ActionLink("上一页", "HotelOrder", null, new { disabled = "disabled", id = "df", @class = "btn btn-primary" })
         }
         else
         {
@@ -181,7 +251,7 @@
 
             @Html.ActionLink("下一页", "HotelOrder", new { pageindex = (pageindex + 1), pagesize = pagesize }, new { @class = "btn btn-primary" })
         }
-        <select name="counts" id="counts">
+        @*<select name="counts" id="counts">
             @for (int i = 5; i <= 20; i += 5)
             {
                 if (@i == countss)
@@ -193,16 +263,16 @@
                     <option value=@i>@i</option>
                 }
             }
-        </select>
-    
-</form>
-@section scripts{
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript">
-        $("#counts").change(function () {
+        </select>*@
+
+    </form>
+    @section scripts{
+        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript">
+        @*$("#counts").change(function () {
             window.location.href ="/GHotelHome/HotelOrder?pageindex=@pageindex&&pagesize="+$("#counts").val();
-        })
+        })*@
         function Pass(id,hh) {
             jQuery.ajax({
                 url: '/GHotelHome/HotelOrder?pageindex=@pageindex&&pagesize='+$("#counts").val(),
@@ -213,6 +283,6 @@
                 }
             })
         }
-    </script>
-}
+        </script>
+    }
 

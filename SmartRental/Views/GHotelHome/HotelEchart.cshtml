@@ -2,28 +2,23 @@
     int dateday = (int)DateTime.Now.Year;
 }
 @* 时间销量柱状图 *@<div style="width:200px;height:25px">
-                 <p>
-                     <select id="timebao" style="width:60px">
-                         <option value="时销量" selected="selected">时销量</option>
-                         <option value="年销量">年销量</option>
-                     </select>
-                     <select id="yearbao"hidden="hidden">
-                         <option value="@dateday" selected="selected">@dateday</option>
-                         <option value="@(dateday-1)">@(dateday-1)</option>
-                         <option value="@(dateday-2)">@(dateday-2)</option>
-                         <option value="@(dateday-3)">@(dateday-3)</option>
-                         <option value="@(dateday-4)">@(dateday-4)</option>
-                         <option value="@(dateday-5)">@(dateday-5)</option>
-                         <option value="@(dateday-6)">@(dateday-6)</option>
-                         <option value="@(dateday-7)">@(dateday-7)</option>
-                         <option value="@(dateday-8)">@(dateday-8)</option>
-                         <option value="@(dateday-9)">@(dateday-9)</option>
-                         <option value="@(dateday-10)">@(dateday-10)</option>
-                     </select>
-
-                     <input style="width:130px" type="date" id="bt">
-
-                 </p>
+    <select id="timebao" style="width:60px">
+        <option value="时销量" selected="selected">时销量</option>
+        <option value="年销量">年销量</option>
+    </select>  <input style="width:130px" type="date" id="bt">
+    <select id="yearbao" hidden="hidden">
+        <option value="@dateday" selected="selected">@dateday</option>
+        <option value="@(dateday-1)">@(dateday-1)</option>
+        <option value="@(dateday-2)">@(dateday-2)</option>
+        <option value="@(dateday-3)">@(dateday-3)</option>
+        <option value="@(dateday-4)">@(dateday-4)</option>
+        <option value="@(dateday-5)">@(dateday-5)</option>
+        <option value="@(dateday-6)">@(dateday-6)</option>
+        <option value="@(dateday-7)">@(dateday-7)</option>
+        <option value="@(dateday-8)">@(dateday-8)</option>
+        <option value="@(dateday-9)">@(dateday-9)</option>
+        <option value="@(dateday-10)">@(dateday-10)</option>
+    </select>
 
 </div>
 <div id="Pie" style="width: 1300px; height:280px"></div>

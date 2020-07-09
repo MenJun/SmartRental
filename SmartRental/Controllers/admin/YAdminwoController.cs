@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows;
 using SmartRental.Models;
 namespace SmartRental.Controllers.admin
 {
@@ -12,49 +15,63 @@ namespace SmartRental.Controllers.admin
     {
 
         //管理员订单界面
-        public ActionResult AdminOrder(int pageindex = 1, int pagesize = 10)
+        public ActionResult AdminOrder(int pageindex = 1, int pagesize = 8)
         {
-        
-            if (Session["order"] != null && Session["order"].ToString() != "")
+            int pagecount = 1;
+            var student  = BLL.ServiceAdmin.YAdminManageServise.GetStudentByPaging(pageindex, pagesize, out  pagecount);
+            if ((Session["order"] != null && Session["order"].ToString() != "" && Session["se"]!= "所有订单"&& Session["se"]!=null))
             {
                 Session["order"] = 45;
+                student = BLL.ServiceAdmin.YAdminManageServise.GetStudentByPaging1(pageindex, pagesize, out  pagecount, Session["se"].ToString(), Session["ts"].ToString()); 
             }
             else
             {
+
                 Session["order"] = null;
             }
-            int countss = 5;
-            var student = BLL.ServiceAdmin.YAdminManageServise.GetStudentByPaging(pageindex, pagesize, out int pagecount);
+            //int countss = 5;          
             ViewBag.pageindex = pageindex;
             ViewBag.pagecount = pagecount;
             ViewBag.pagesize = pagesize;
-            if (pagesize % 5 == 0)
-            {
-                ViewBag.countss = pagesize;
-            }
-            else
-            {
-                ViewBag.countss = countss;
-            }
+            //if (pagesize % 5 == 0)
+            //{
+            //    ViewBag.countss = pagesize;
+            //}
+            //else
+            //{
+            //    ViewBag.countss = countss;
+            //}
             //db.Order.Include(t => t.HotelManag).Include(p => p.RoomMessage).ToList()
             return View(student);
 
         }
         [HttpPost]
-        public ActionResult AdminOrder(int? OrderID, string OrderState, string ab, string text1, int pageindex = 1, int pagesize = 10)
+        public ActionResult AdminOrder(int? OrderID, string OrderState, string ab, string text1, int pageindex = 1, int pagesize = 8)
         {
 
+            Session["order"] = 45;
+         
             SmartRentalSystemEntities db = new SmartRentalSystemEntities();
             var sss = ab; var bbb = text1;
-            Session["order"] = 45;
-            if(ab!=null&&ab!="") { 
-            Session["se"] = ab; Session["ts"] = text1;
-         }
+            if (ab != null && ab != "")
+            {
+                Session["se"] = ab; Session["ts"] = text1;
+            }
             if (sss == null && bbb == null)
             {
-                Order order = db.Order.Where(t => t.OrderID == OrderID).FirstOrDefault();
+                var order = db.Order.Include("RoomMessage").Where(t => t.OrderID == OrderID).FirstOrDefault();
                 order.OrderState = OrderState;
-                var or = db.Order.Find(OrderID);
+                var or = db.Order.Find(OrderID); var roms = db.RoomMessage.Find(order.RoomID);
+                if (OrderState == "已退款" && roms.RoomCount < roms.RoomRemain)
+                {
+
+                    roms.RoomCount = roms.RoomCount + order.Ordercount;
+                    if (roms.RoomCount > roms.RoomRemain)
+                    {
+                        roms.RoomCount = roms.RoomRemain;//保证能售房间数量和店长修改的房间数量一样；
+                    }
+                    db.SaveChanges();
+                }
                 or.OrderState = OrderState;
                 db.SaveChanges();
             }
@@ -64,20 +81,20 @@ namespace SmartRental.Controllers.admin
             }
             else
             {
-                int countss = 5;
+                //int countss = 5;
                 var student = BLL.ServiceAdmin.YAdminManageServise.GetStudentByPaging1(pageindex, pagesize, out int pagecount, sss, bbb);
                 //Session["order"] = 1;
                 ViewBag.pageindex = pageindex;
                 ViewBag.pagecount = pagecount;
                 ViewBag.pagesize = pagesize;
-                if (pagesize % 5 == 0)
-                {
-                    ViewBag.countss = pagesize;
-                }
-                else
-                {
-                    ViewBag.countss = countss;
-                }
+                //if (pagesize % 5 == 0)
+                //{
+                //    ViewBag.countss = pagesize;
+                //}
+                //else
+                //{
+                //    ViewBag.countss = countss;
+                //}
                 return View(student);
 
             }
@@ -388,15 +405,20 @@ namespace SmartRental.Controllers.admin
                 return RedirectToAction("Recommend");
             }
         }
-
         public ActionResult Permission()
         {
             var usermessage = db.UserMessage.ToList();
             return View(usermessage);
         }
         [HttpPost]
-        public ActionResult Permission(int UserID, string UserGrade)
+        public ActionResult Permission(int? UserID, string UserGrade, string UserPhone,string username)
         {
+            if (username != null )
+            {             
+                var bs = db.UserMessage.Where(s => s.UserPhone.Contains(username)).ToList();
+                return View(bs);
+            }
+
             if (UserGrade == null)
             {
                 UserMessage userMessage = db.UserMessage.Where(t => t.UserID == UserID).FirstOrDefault();
@@ -408,21 +430,103 @@ namespace SmartRental.Controllers.admin
                 {
                     userMessage.User_status = true;
                 }
-                var user=db.UserMessage.Find(UserID);
+                var user = db.UserMessage.Find(UserID);
                 user.User_status = userMessage.User_status;
-               
+
                 db.SaveChanges();
                 return RedirectToAction("Permission");
+                //return Content("<script>alert('jj');location.href='Permission'<script>");
             }
             else
             {
                 UserMessage userMessage = db.UserMessage.Where(t => t.UserID == UserID).FirstOrDefault();
-                userMessage.UserGrade = UserGrade;
-                var user = db.UserMessage.Find(UserID);
-                user.UserGrade = userMessage.UserGrade;
-                db.SaveChanges();
-                return RedirectToAction("Permission");
+                if (userMessage.UserGrade == "用户" && (UserGrade == "管理员" || UserGrade == "超级管理员"))
+                {
+                    user_roles user_Roles = new user_roles();
+                    user_Roles.UserPhone = UserPhone;
+                    user_Roles.user_roles1 = UserGrade;
+                    db.user_roles.Add(user_Roles);
+                    userMessage.UserGrade = UserGrade;
+                    db.SaveChanges();
+                    return RedirectToAction("Permission");
+                }
+                else if ((userMessage.UserGrade == "管理员" || userMessage.UserGrade == "超级管理员" )&& UserGrade == "用户")
+                {
+                    user_roles user_Roles = db.user_roles.Where(t => t.UserPhone == UserPhone).FirstOrDefault();
+                    db.user_roles.Remove(user_Roles);
+                    userMessage.UserGrade = UserGrade;
+                    db.SaveChanges();
+                    return RedirectToAction("Permission");
+                }
+                else if ((userMessage.UserGrade == "管理员" || userMessage.UserGrade == "超级管理员") && (UserGrade == "管理员" || UserGrade == "超级管理员"))
+                {
+                    user_roles user_Roles = db.user_roles.Where(t => t.UserPhone == UserPhone).FirstOrDefault();
+                    user_Roles.user_roles1 = UserGrade;
+                    userMessage.UserGrade = UserGrade;
+                    db.SaveChanges();
+                    return RedirectToAction("Permission");
+                }
+                else
+                {
+                    userMessage.UserGrade = UserGrade;
+                    db.SaveChanges();
+                    return RedirectToAction("Permission");
+                }
+
+                //var user = db.UserMessage.Find(UserID);
+                //user.UserGrade = userMessage.UserGrade;
             }
+        }
+        /// <summary>
+                /// 对数据库的备份和恢复操作，Sql语句实现
+                /// </summary>
+                /// <param name="cmdText">实现备份或恢复的Sql语句</param>
+                /// <param name="isBak">该操作是否为备份操作，是为true否，为false</param>
+        
+        public ActionResult BakReductSql(string cmdText, bool isBak)
+        {
+            SqlCommand cmdBakRst = new SqlCommand();
+            SqlConnection conn = new SqlConnection("Data Source=47.115.31.38;Initial Catalog=SmartSystem;uid=lgm;pwd=qw7878.00;");
+            try
+            {
+                conn.Open();
+                cmdBakRst.Connection = conn;
+                cmdBakRst.CommandType = CommandType.Text;
+                if (!isBak)     //如果是恢复操作
+                {
+                    string setOffline = "Alter database ExamDB Set Offline With rollback immediate ";
+                    string setOnline = " Alter database ExamDB Set Online With Rollback immediate";
+                    cmdBakRst.CommandText = setOffline + cmdText + setOnline;
+                }
+                else
+                {
+                    cmdBakRst.CommandText = cmdText;
+                }
+                cmdBakRst.ExecuteNonQuery();
+                if (!isBak)
+                {
+                    MessageBox.Show("恭喜你，数据成功恢复为所选文档的状态！", "系统消息");
+                }
+                else
+                {
+                    MessageBox.Show("恭喜，你已经成功备份当前数据！", "系统消息");
+                }
+            }
+            catch (SqlException sexc)
+            {
+                MessageBox.Show("失败，可能是对数据库操作失败，原因：" + sexc, "数据库错误消息");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("对不起，操作失败，可能原因：" + ex, "系统消息");
+            }
+            finally
+            {
+                cmdBakRst.Dispose();
+                conn.Close();
+                conn.Dispose();
+            }
+            return View();
         }
     }
 }

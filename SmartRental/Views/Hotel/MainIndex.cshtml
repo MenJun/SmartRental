@@ -4,19 +4,20 @@
     var roomph = ViewBag.HotelPhotoname;
 }
 <style>
-    li {
+    #ulidMain li {
         list-style: none;
-        margin-top: 8px;
+        margin-top: 3px;
+        margin-left: -40px;
     }
 </style>
-<h4 style="margin-top:-20px">酒店信息</h4>
+
 @using (Html.BeginForm())
 {
-    <div style="height:22px;border-bottom:1px solid;line-height:22px;text-align:center;">
-        @Html.Label("HotelName", hotelrmes.HotelName, new { style = "font-weight:900;font-size:18px" })
+    <div style="height:22px;border-bottom:1px solid black ;line-height:22px;text-align:center;">
+        @Html.Label("HotelName", hotelrmes.HotelName, new { style = "font-weight:900;font-size:18px" })<a style="float:right;font-size:18px;margin-top:-20px;margin-right:20px; " class="btn btn-primary" href="/Hotel/Index?id=@hotelrmes.HotelID">返回〉</a>
     </div>
     <div style="height:180px;">
-        <span style="font-size:14px">酒店图片</span>
+        <h4 style="font-size:14px;margin-left:170px">酒店图片</h4>
         <div style="height:150px;width:865px; margin:0 auto">
             @if (roomph.Hotelphoto1 != null)
             {
@@ -47,22 +48,30 @@
                 <img src="@roomph.Hotelphoto7" style="height:150px;width:120px;" />
             }
         </div>
-        <hr style="width:1075px;margin-left:210px;background-color:black;height:0.5px" />
+
     </div>
-    <div style="height:300px;width:1000px;margin-left:170px;font-weight:500;margin-top:15px">
-        <ul>
-            <li>姓名:  @Html.Label("HotelBoss", hotelrmes.HotelBoss, new { style = "margin-left:10px;" })<a style="float:right;margin-right:-100px;font-size:16px;" href="/Hotel/Index">返回〉</a></li>
+    <div style="height:300px;width:1090px;margin-left:170px;font-weight:500;margin-top:15px">
+        <h4>基本信息</h4>
+        <hr style="width:1080px;margin-top:-10px;margin-left:-2px;background-color:black;height:1px" />
+        <ul style="margin-top:-10px" id="ulidMain">
+            <li>姓名:  @Html.Label("HotelBoss", hotelrmes.HotelBoss, new { style = "margin-left:10px;" })</li>
             <li>电话:  @Html.Label("HotelPhone", hotelrmes.HotelPhone, new { style = "margin-left:10px;" })</li>
 
             <li>酒店城区:  @Html.Label("HotelCity", hotelrmes.HotelCity, new { style = "margin-left:10px;" })</li>
             <li>详细地址:  @Html.Label("AddressDetails", hotelrmes.AddressDetails, new { style = "margin-left:10px;" })</li>
             <li>酒店类型:  @Html.Label("HotelType", hotelrmes.HotelType, new { style = "margin-left:10px;" }) </li>
             <li>上市时间:   @Html.Label("HotelOpentime", hotelrmes.HotelOpentime.Value.ToLongDateString().ToString(), new { style = "margin-left:10px;" })</li>
-            <li>酒店简介:  @Html.Label("HotelIntro", hotelrmes.HotelIntro)</li>
-            <li>酒店规则:   @Html.Label("HotelRule", hotelrmes.HotelRule, new { style = "margin-left:10px;" })</li>
             <li>酒店设施:   @Html.Label("HotelFacility", hotelrmes.HotelFacility, new { style = "margin-left:10px;" })</li>
-
         </ul>
+        <h4>酒店简介:</h4>
+        <hr style="width:1080px;margin-top:-10px;margin-left:-2px;background-color:black;height:0.5px" />
+
+
+        @Html.Label("HotelIntro", hotelrmes.HotelIntro, new { style = "margin-top:-10px;" })
+        <h4>酒店规则:</h4>
+
+        <hr style="width:1080px;margin-top:-10px;margin-left:-2px;background-color:black;height:0.5px" />
+        @Html.Label("HotelRule", hotelrmes.HotelRule, new { style = "margin-top:-10px;" })
 
     </div>
 

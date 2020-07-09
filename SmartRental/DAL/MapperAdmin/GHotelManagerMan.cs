@@ -42,7 +42,47 @@ namespace SmartRental.DAL.MapperAdmin
                 db.SaveChanges();
                 int photoID = bb.HotelPhotoID;
                 manager.HotelPhotoID = photoID;
+                manager.Hotelrecommen = 10000;
                 db.HotelManag.Add(manager);
+                return db.SaveChanges();
+            }
+        }
+
+
+        public static int AddHotelManager(HotelManag manager, string[] photo,UserMessage usms)
+        {
+            using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
+            {
+                HotelPhoto hotel = new HotelPhoto();
+                for (int i = 0; i < photo.Length; i++)
+                {
+
+                    if (i == 0)
+                        hotel.Hotelphoto1 = photo[i].ToString();
+                    if (i == 1)
+                        hotel.Hotelphoto2 = photo[i].ToString();
+                    if (i == 2)
+                        hotel.Hotelphoto3 = photo[i].ToString();
+                    if (i == 3)
+                        hotel.Hotelphoto4 = photo[i].ToString();
+                    if (i == 4)
+                        hotel.Hotelphoto5 = photo[i].ToString();
+                    if (i == 5)
+                        hotel.Hotelphoto6 = photo[i].ToString();
+                    if (i == 6)
+                        hotel.Hotelphoto7 = photo[i].ToString();
+
+                }
+                var bb = db.HotelPhoto.Add(hotel);
+                db.SaveChanges();
+                int photoID = bb.HotelPhotoID;
+                manager.HotelPhotoID = photoID;
+                manager.Hotelrecommen = 10000;
+                db.SaveChanges();
+                var hh=db.HotelManag.Add(manager);
+                var usermess = db.UserMessage.Find(usms.UserID);
+                usermess.HotelID = hh.HotelID;
+
                 return db.SaveChanges();
             }
         }
@@ -107,7 +147,7 @@ namespace SmartRental.DAL.MapperAdmin
                 var orders = db.Order.Include("HotelManag").Include("RoomMessage").Where(s => s.HotelID == HotelID) ;
 
                 pagecount = (int)Math.Ceiling(orders.Count() * 1.0 / pagesize);
-                return orders.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                return orders.OrderByDescending(s => s.ArrivalDate).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
             }
         }
         public static List<Order> Select1(int pageindex, int pagesize, out int pagecount, string a, string b, int HotelID)
@@ -121,42 +161,39 @@ namespace SmartRental.DAL.MapperAdmin
                 {
                     var students = orders.Where(t => t.OrderNumber.ToString().Contains(b)).ToList();
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
-                    return students.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                    return students.OrderByDescending(s => s.ArrivalDate).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
                 }
                 else if (a == "订单状态")
                 {
                     var students = orders.Where(t => t.OrderState.Contains(b)).ToList();
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
-                    return students.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                    return students.OrderByDescending(s => s.ArrivalDate).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
                 }
-                else if (a == "酒店")
-                {
-                    var students = orders.Where(t => t.HotelManag.HotelName.Contains(b)).ToList();
-                    pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
-                    return students.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
-                }
-               
-                else if (a == "入住日期")
-                {
-                    var students = orders.Where(t => t.ArrivalDate.ToString().Contains(b)).ToList();
-                    pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
-                    return students.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
-                }
+                            
+                //else if (a == "入住日期")
+                //{
+                //    var ti= (DateTime)b.t;
+                //    var students = orders.Where(t => t.ArrivalDate>=(DateTime)(b)).ToList();
+                //    pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
+                //    return students.OrderByDescending(s => s.ArrivalDate).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                //}
                 else if (a == "入住电话")
                 {
                     var students = orders.Where(t => t.ClientPhone.Contains(b)).ToList();
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
-                    return students.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                    return students.OrderByDescending(s => s.ArrivalDate).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
                 }
-                else if (a == "房间")
+                else if (a == "房间名")
                 {
-                    var students = orders.Where(t => t.RoomMessage.RoomType.RoomType1.Contains(b)).ToList();
+               
+                    var students = orders.Where(t => t.RoomMessage.RoomName.Contains(b)).ToList();
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
-                    return students.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                 
+                    return students.OrderByDescending(s => s.ArrivalDate).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
                 }
 
-                pagecount = (int)Math.Ceiling(orders.Count() * 1.0 / pagesize);
-                return orders.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                pagecount = (int)Math.Ceiling(orders.Count() * 1.0 / pagesize);//获取总数量
+                return orders.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();//分页数据
             }
         }
 

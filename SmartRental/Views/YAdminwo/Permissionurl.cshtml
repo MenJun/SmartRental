@@ -1,0 +1,226 @@
+﻿@{
+    ViewBag.Title = "Permission";
+}
+@{
+    var usermessages = Model as List<SmartRental.Models.UserMessage>;
+}
+<style type="text/css">
+    table.imagetable {
+        font-family: verdana,arial,sans-serif;
+        font-size: 14px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #999999;
+        border-collapse: collapse;
+    }
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
+        text-align: center;
+        color: black;
+    }
+        /*table thead th {
+                background-color: rgb(128, 102, 160);
+                color: #fff;
+                border-bottom-width: 0;
+            }*/
+
+        table td, table th {
+            border: 1px solid #cad9ea;
+            color: #666;
+            height: 10px;
+        }
+
+    #mytable thead th {
+        background-color: #8c9ca7;
+        width: 100px;
+    }
+
+    #mytable tr:nth-child(even):hover #aaa {
+        background: #aedfdf;
+    }
+
+    #mytable tr:nth-child(odd):hover #aaa {
+        background-color: #a8d1ac;
+    }
+
+    #mytable tr:nth-child(odd) {
+        background-color: #a8d1ac;
+    }
+
+        #mytable tr:nth-child(odd):hover {
+            background-color: white;
+        }
+
+    #mytable tr:nth-child(even) {
+        background: #aedfdf;
+    }
+
+        #mytable tr:nth-child(even):hover {
+            background: white;
+        }
+      /*  table.imagetable th {
+            background: #b5cfd2 url('cell-blue.jpg');
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #999999;
+        }
+
+        table.imagetable td {
+            background: #dcddc0 url('cell-grey.jpg');
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #999999;
+        }*/
+</style>
+<h2>权限管理</h2>
+     @*<form action="/YAdminwo/Permissionurl">
+        <input type="text" id="username" name="username"  placeholder="请输入用户账号查询"/>
+        <input type="submit" value="搜索" />
+    </form>*@
+
+<div>
+    <table class="table table-bordered table-hover table-striped imagetable" id="mytable" style="background-image:url('~/images/HotelPhoto/09b58f6b-455e-476e-8356-b3a7df1f16781-5.jpg')">
+        <thead>
+            <tr>
+                <th>用户名</th>
+                <th>用户电话</th>
+                <th>用户状态</th>
+                <th>用户权限</th>
+                <th>注册时间</th>
+                <th>状态操作</th>
+                <th>权限操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in usermessages)
+            {
+                <tr>
+                    <td>
+                        @if (item.UserName != null)
+                        {
+                            <span>@item.UserName</span>
+                        }
+                        else
+                        {
+                            <span>未填写</span>
+                        }
+                    </td>
+                    <td>@item.UserPhone</td>
+                    <td>@(item.User_status==true?"正常":"已冻结")</td>
+                    <td>@item.UserGrade</td>
+                    <td>@string.Format("{0:f}", item.Registration_time) </td>
+                    <td>
+                        @if (item.User_status == true)
+                        {
+                            <input style="border-radius:50%;border:none;background-color:royalblue;outline:none;color:black" onclick="Pass(@item.UserID, this.value)" type="button" value="冻结" />
+                        }
+                        else
+                        {
+                            <input style="border:none;background-color:red;outline:none;color:black" onclick="Pass(@item.UserID,this.value)" type="button" value="解封" />
+                        }
+                    </td>
+                    <td>
+                        @if (item.UserGrade == "用户")
+                        {
+                            <select id="aaa" name="OrderState" onchange="Operate(@item.UserID,this.options[this.options.selectedIndex].value,@item.UserPhone)">
+                               
+                                <option value="用户" disabled="disabled" style="background-color:#EEEEEE" selected="selected">用户</option>
+                                <option value="管理员">管理员</option>
+                                <option value="超级管理员">超级管理员</option>
+                            </select>
+                        }
+                        else if (item.UserGrade == "管理员")
+                        {
+                            if (item.UserPhone == "leo")
+                            {
+                                <span>无法修改</span>
+                            }
+                            else
+                            {
+                                <select id="aaa" name="OrderState" onchange="Operate(@item.UserID,this.options[this.options.selectedIndex].value,@item.UserPhone)">
+                                  
+                                    <option value="用户">用户</option>
+                                    <option value="管理员" disabled="disabled" style="background-color:#EEEEEE" selected="selected">管理员</option>
+                                    <option value="超级管理员">超级管理员</option>
+                                </select>
+                            }
+                        }
+                        else if (item.UserGrade == "超级管理员")
+                        {
+                            if (item.UserPhone == "admin")
+                            {
+                                <span>无法修改</span>
+                            }
+                            else
+                            {
+                                <select id="aaa"  name="OrderState" onchange="Operate(@item.UserID,this.options[this.options.selectedIndex].value,@item.UserPhone)">
+                                  
+                                    <option value="用户">用户</option>
+                                    <option value="管理员">管理员</option>
+                                    <option value="超级管理员" disabled="disabled" style="background-color:#EEEEEE" selected="selected">超级管理员</option>
+                                </select>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        function Pass(id,kk) {
+
+            if (confirm('确定'+kk+'吗？')) {
+                jQuery.ajax({
+                    url: '/YAdminwo/Permissionurl',
+                    type: "post",
+                    data: { "UserID": id },
+                    success: function (data) {
+                        history.go(0)
+                    }
+                })
+            }
+        }
+        function Operate(id, e,phone) {
+            if (e == "用户") {
+                jQuery.ajax({
+                    url: '/YAdminwo/Permissionurl',
+                    type: "post",
+                    data: { "UserID": id, "UserGrade": e, "UserPhone": phone },
+                    success: function (data) {
+                        history.go(0)
+                    }
+                })
+            } else {
+                if (confirm('确定要升级为'+e+'吗？')) {
+                    jQuery.ajax({
+                        url: '/YAdminwo/Permissionurl',
+                        type: "post",
+                        data: { "UserID": id, "UserGrade": e, "UserPhone": phone },
+                        success: function (data) {
+                            history.go(0)
+                        }
+                    })
+                }
+            }
+        }
+        //function Select() {
+        //    var username = document.getElementById("username").value;
+        //    jQuery.ajax({
+        //            url: '/YAdminwo/Permission',
+        //            type: "get",
+        //            data: { "username": username },
+        //            success: function (data) {
+        //                history.go(0)
+        //            }
+        //        })
+        //}
+    </script>
+}
+

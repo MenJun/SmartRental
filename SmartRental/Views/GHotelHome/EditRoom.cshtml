@@ -24,27 +24,30 @@
         margin-top: 10px;
         margin-bottom: 20px;
     }
+    table td {
+        width: 80px;
+    }
 </style>
-@using (Html.BeginForm("EditRoom", "GHotelHome", System.Web.Mvc.FormMethod.Post, new { id = "regFrm", name = "regFrm" }))
+@using (Html.BeginForm("EditRoom", "GHotelHome", System.Web.Mvc.FormMethod.Post, new { id = "regFrm", name = "regFrm", enctype = "multipart/form-data" }))
 {
 
     <div style="margin:0 auto">
-        <div style="width:600px;float:left;margin-left:30px">
+        <div style="width:600px;float:left;margin-left:50px">
             @Html.Hidden("RoomID",roomMessage.RoomID) @Html.Hidden("RoomPhotoID", roomMessage.RoomPhotoID)
             <p>
                 @*@Html.TextBox("RoomName", null, new { @class = "form-control", placeholder = "姓名" })*@
                 <label style="width:100px">房间名称:</label>
-                <input type="text" name="RoomName" id="RoomName" style="width:300px" placeholder="请输入房间名称请输入房间名称" value="@roomMessage.RoomName">@Html.ValidationMessage("RoomName")
+                <input type="text" name="RoomName" id="RoomName" style="width:300px;height:40px" placeholder="请输入房间名称请输入房间名称" value="@roomMessage.RoomName">@Html.ValidationMessage("RoomName")
             </p>
             <p>
-                <label style="width:100px">房间布局：</label>
+                <label style="width:100px;top:10px">房间布局：</label>
 
-                <input type="text" name="RoomLayout" style="width:300px" id="RoomLayout" placeholder="请输入房间布局" value="@roomMessage.RoomLayout">@Html.ValidationMessage("RoomLayout")
+                <input type="text" name="RoomLayout" style="width:300px;height:40px" id="RoomLayout" placeholder="请输入房间布局" value="@roomMessage.RoomLayout">@Html.ValidationMessage("RoomLayout")
             </p>
             <p>
-                <label style="width:100px">房间数量:</label>
-                <input type="text" style="width:300px" id="RoomCount" name="RoomCount" value="@roomMessage.RoomCount">
-                @Html.ValidationMessage("RoomCount")
+                <label style="width:100px;top:10px">房间数量:</label>
+                <input type="text" style="width:300px;height:40px" id="RoomRemain" name="RoomRemain" value="@roomMessage.RoomRemain">
+                @Html.ValidationMessage("RoomRemain")
             </p>
             <p>
                 <label style="width:100px;">是否有早餐:</label>
@@ -53,7 +56,7 @@
                 @Html.ValidationMessage("Boolbreakfast")
             </p>
             <p>
-                <label style="width:100px">房型:</label>
+                <label style="width:100px;margin-top:10px">房型:</label>
                 <select name="RoomTypeID" id="RoomTypeID" style="height:35px;width:300px">
                     @foreach (var item in ViewBag.RoomType)
                     {
@@ -70,31 +73,23 @@
             </p>
             <p>
 
-                <label style="width:100px">房间设施:</label>
-                <fieldset id="newsletter_topics" style="margin-left:120px; margin-top:-30px">
+                <label style="width:100px;margin-top:20px">房间设施:</label>
+                <fieldset id="newsletter_topics" style="margin-left:100px; margin-top:-30px">
+                    <table>
+                        <tr><td>  <input type="checkbox" style="background-color:transparent;height:0px;width:0px;" name="RoomFacility" value="热水"><input type="checkbox" name="RoomFacility" value="热水">热水</td><td><input type="checkbox" name="RoomFacility" value="空调">空调</td><td><input type="checkbox" name="RoomFacility" value="WIFI">WIFI</td><td> <input type="checkbox" name="RoomFacility" value="电脑">电脑</td></tr>
+                        <tr><td><input type="checkbox" name="RoomFacility" value="沙发">沙发</td><td><input type="checkbox" name="RoomFacility" value="吹风机">吹风机</td><td> <input type="checkbox" name="RoomFacility" value="电视">电视</td><td>  <input type="checkbox" name="RoomFacility" value="电热水壶">电热水壶</td></tr>
+                        <tr><td> <input type="checkbox" name="RoomFacility" value="麻将桌">麻将桌</td><td><input type="checkbox" name="RoomFacility" value="拖鞋">拖鞋</td><td> </td><td>  </td></tr>
+                    </table>
 
-                    <input type="checkbox" style="background-color:transparent;height:0px;width:0px;" name="RoomFacility" value="热水">
-                    <input type="checkbox" name="RoomFacility" value="热水">热水
-                    <input type="checkbox" name="RoomFacility" value="空调">空调
-                    <input type="checkbox" name="RoomFacility" value="WIFI">WIFI
-                    <input type="checkbox" name="RoomFacility" value="电脑">电脑
-                    <input type="checkbox" name="RoomFacility" value="沙发">沙发
-                    <br />
-                    <input type="checkbox" name="RoomFacility" value="吹风机">吹风机
-                    <input type="checkbox" name="RoomFacility" value="电视">电视
-                    <input type="checkbox" name="RoomFacility" value="电热水壶">电热水壶
-                    <input type="checkbox" name="RoomFacility" value="麻将桌">麻将桌
-                    <input type="checkbox" name="RoomFacility" value="拖鞋">拖鞋
+                </fieldset> <span style="color:cadetblue">原来选择设施：</span><span name="RoomFacility" id="RoomFacility" style="width:300px;border:none;color:burlywood">@roomMessage.RoomFacility</span>
 
-                    <br /> <span style="color:cadetblue">原来选择设施：</span><input type="text" name="RoomFacility" id="RoomFacility" style="width:300px;border:none;color:burlywood" disabled="disabled" placeholder="未选择设施" value="@roomMessage.RoomFacility">
-                </fieldset>
 
             </p>
         </div>
 
 
 
-        <div style="width:600px;float:right;">
+        <div style="width:600px;float:right;margin-left:10px">
             <p>
                 <label style="width:100px">床型：</label>
                 <select name="MattresID" id="MattresID" style="height:35px;width:300px">
@@ -113,19 +108,19 @@
             </p>
             <p>
                 <label style="width:100px">房间原价：</label>
-                <input type="text" name="PrimeCost" id="PrimeCost" style="width:300px" placeholder="请输入房间原价" value="@roomMessage.PrimeCost"> @Html.ValidationMessage("PrimeCost")
+                <input type="text" name="PrimeCost" id="PrimeCost" style="width:300px;height:40px" placeholder="请输入房间原价" value="@roomMessage.PrimeCost"> @Html.ValidationMessage("PrimeCost")
             </p>
             <p>
                 <label style="width:100px">房间实价：</label>
-                <input type="text" name="RoomPrice" id="RoomPrice" style="width:300px" placeholder="请输入房间实价" value="@roomMessage.PrimeCost"> @Html.ValidationMessage("RoomPrice")
+                <input type="text" name="RoomPrice" id="RoomPrice" style="width:300px;height:40px" placeholder="请输入房间实价" value="@roomMessage.RoomPrice"> @Html.ValidationMessage("RoomPrice")
             </p>
             <p>
                 <label style="width:100px;">房间图片：</label>@Html.ValidationMessage("file")
-                <input type="file" name="file" id="file" multiple="multiple" onchange="xmTanUploadImg(this)" value="" /><span style="color:brown">未选择为不更换图片</span>
+                <input type="file" style='display:none' name="file" id="file" multiple="multiple" onchange="xmTanUploadImg(this)" value="" /><button id="uptea" type="button" class="btn btn-primary">上传</button><span style="color:brown">未选择为不更换图片</span>
 
 
                 <!--图片显示位置-->
-                <div id="showimg" style="height:200px;width:320px; background-color:beige">
+                <div id="showimg" style="height:200px;width:400px; background-color:white">
 
 
 
@@ -135,27 +130,27 @@
                     }
                     @if (roomph.PhotoName2 != null)
                     {
-                        <img src="@roomph.PhotoName2" style="height:100px;width:80px;float:left;" />
+                <img src="@roomph.PhotoName2" style="height:100px;width:80px;float:left;" />
                     }
                     @if (roomph.PhotoName3 != null)
                     {
-                        <img src="@roomph.PhotoName3" style="height:100px;width:80px;float:left;" />
+                <img src="@roomph.PhotoName3" style="height:100px;width:80px;float:left;" />
                     }
                     @if (roomph.PhotoName4 != null)
                     {
-                        <img src="@roomph.PhotoName4" style="height:100px;width:80px;float:left;" />
+                <img src="@roomph.PhotoName4" style="height:100px;width:80px;float:left;" />
                     }
                     @if (roomph.PhotoName5!= null)
                     {
-                        <img src="@roomph.PhotoName5" style="height:100px;width:80px;float:left;" />
+                <img src="@roomph.PhotoName5" style="height:100px;width:80px;float:left;" />
                     }
                     @if (roomph.PhotoName6 != null)
                     {
-                        <img src="@roomph.PhotoName6" style="height:100px;width:80px;float:left;" />
+                        <img src="@roomph.PhotoName6" style = "height:100px;width:80px;float:left;" />
                     }
                     @if (roomph.PhotoName7 != null)
                     {
-                        <img src="@roomph.PhotoName7" style="height:100px;width:80px;float:left;" />
+                <img src="@roomph.PhotoName7" style="height:100px;width:80px;float:left;" />
                     }
                 </div>
             </p>
@@ -188,23 +183,11 @@
     }
 </style>
 <script type="text/javascript">
+    $("#uptea").click(function () {
+        $("#file").click();
+    });
 
-
-    function Upload() {
-        var param = new FormData(($("#regFrm")[0]));
-        $.ajax({
-            url: "/common/Upload.ashx",
-            data: param,
-            type: "post",
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                alert(data)
-            }
-
-
-        })
-    }
+    
 
 
     function xmTanUploadImg(obj) {
@@ -247,7 +230,7 @@
             }
         } else {
 
-            alert("每次只能上传7张图片");
+            alert("每个房间最多只能上传7张图片");
         }
 
     }
@@ -264,7 +247,7 @@
 
                 },
                 MattresID: { required: true, },
-                RoomCount: {
+                RoomRemain: {
                     required: true,
                     max: 100,
                     min: 1,
@@ -284,8 +267,8 @@
 
 
                 },
-                RoomCount: {
-                    reqiored: "数了量不能为空",
+                RoomRemain: {
+                    required: "数了量不能为空",
                     max: "房间数量不能超过100",
                     min: "房间数量不能低于1"
                 },

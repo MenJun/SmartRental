@@ -7,10 +7,49 @@
 }
 <style>
     #mytable {
-        padding: 0;
-        margin: 0;
         border-collapse: collapse;
+        margin: 0 auto;
+        text-align: center;
     }
+
+        #mytable td, #mytable th {
+            border: 1px solid #cad9ea;
+            color: #666;
+            height: 30px;
+        }
+        #mytable th {
+            text-align: center;
+        }
+        #mytable thead th {
+            background-color: #CCE8EB;
+            width: 100px;
+        }
+
+        #mytable tr:nth-child(odd) {
+            background: #fff;
+        }
+
+        #mytable tr:nth-child(even) {
+            background: #F5FAFA;
+        }
+    /*#mytable {
+            padding: 0;
+            margin: 0;
+            border-collapse: collapse;
+        }
+        #df {
+            pointer-events: none;
+        }
+        #dfd {
+            pointer-events: none;
+        }*/
+    td {
+        border: 1px solid #C1DAD7;
+        font-size: 10px;
+        padding: 6px 6px 6px 12px;
+        color: #4f6b72;
+    }
+
     #df {
         pointer-events: none;
     }
@@ -18,65 +57,69 @@
     #dfd {
         pointer-events: none;
     }
-    td {
-        border: 1px solid #C1DAD7;
-        background: #fff;
-        font-size: 11px;
-        padding: 6px 6px 6px 12px;
-        color: #4f6b72;
+
+    #ab {
+        cursor: pointer;
+        padding: 5px;
+        width: 10%;
+        text-align: center;
+        background: transparent;
+        background-image: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
     }
 </style>
+<h2 style="margin-top:-30px;margin-left:550px">蜗牛订单详情</h2>
 <form action="/YAdminwo/AdminOrder" method="post">
-    <h2>订单表</h2>
-    <label>类型</label>
-    <select id="ab" name="ab">
-        @if (Session["order"] != null&& @Session["se"]!=null)
+   
+    <label style="font-size:16px">类型</label>
+
+    <select id="ab" name="ab" class="select2-results__option--highlighted">
+        @if (Session["order"] != null && @Session["se"] != null)
         {
             <option value="@Session["se"]" selected="selected">@Session["se"]</option>
         }
         else
         {
-            <option value="请选择" selected="selected">-请选择-</option>
+            <option value="所有订单" selected="selected">请选择</option>
         }
 
         <option value="所有订单">所有订单</option>
-
         <option value="订单编号">订单编号</option>
-        <option value="下单账号">下单账号</option>
         <option value="订单状态">订单状态</option>
-        <option value="入住日期">入住日期</option>
-        <option value="酒店">酒店</option>
+        @*<option value="入住日期">入住日期</option>*@
         <option value="入住电话">入住电话</option>
-        <option value="房间">房间</option>
-    </select>
+        <option value="房间名">房间名</option>
+        <option value="酒店">酒店</option>
+    </select>&nbsp;&nbsp;
     @if (Session["order"] != null)
     {
-        <input type="text" id="text1" name="text1" value="@Session["ts"] " />
+        <input type="text" id="text1" name="text1" style="height:30px;" value="@Session["ts"]" />
     }
     else
     {
 
-        <input type="text" id="text1" name="text1" />
+        <input type="text" id="text1" style="height:30px;" name="text1" />
     }
-    <input type="submit" @*onclick="bbc($('#ab').options[this.options.selectedIndex].value), $('#text1').val()"*@ value="搜索" />
+    <input type="submit" @*onclick="bbc($('#ab').options[this.options.selectedIndex].value), $('#text1').val()"*@ value="搜索" class="btn btn-primary" />
 
-    <table class="table table-bordered table-hover table-striped" id="mytable">
+    <table class="table table-bordered table-hover table-striped" style="margin-top:10px" id="mytable">
         <thead>
             <tr>
-                <td>订单编号</td>
-                <td>下单账号</td>
-                <td>下单时间</td>
-                <td>入住时间</td>
-                <td>离店时间</td>
-                <td>应付金额</td>
-                <td>实付金额</td>
-                <td>入住人电话</td>
-                <td>入住人姓名</td>
-                <td>订单状态</td>
-                <td>入住人身份证</td>
-                <td>酒店</td>
-                <td>房间</td>
-                <td>订单状态</td>
+                <th>订单编号</th>
+                <th>下单账号</th>
+                <th>下单时间</th>
+                <th>入住时间</th>
+                <th>离店时间</th>
+                <th>应付金额</th>
+                <th>实付金额</th>
+                <th>入住人电话</th>
+                <th>入住人姓名</th>
+                <th>订单状态</th>
+                <th>入住人身份证</th>
+                <th>酒店</th>
+                <th>房间</th>
+                <th>订单管理</th>
             </tr>
         </thead>
         <tbody>
@@ -146,6 +189,9 @@
                             {
                                 <option value="已退款" selected="selected">已退款</option>
 
+                            }                    @if (item.OrderState.ToString() == "待支付")
+                            {
+                                <option value="待支付" selected="selected">未支付</option>
                             }
                         </select>
                     </td>
@@ -158,7 +204,7 @@
         var pageindex = (int)ViewBag.pageindex;
         var pagecount = (int)ViewBag.pagecount;
         var pagesize = (int)ViewBag.pagesize;
-        var countss = (int)ViewBag.countss;
+        //var countss = (int)ViewBag.countss;
     }
 
 
@@ -184,19 +230,19 @@
 
         @Html.ActionLink("下一页", "AdminOrder", new { pageindex = (pageindex + 1), pagesize = pagesize }, new { @class = "btn btn-primary" })
     }
-    <select name="counts" id="counts">
-        @for (int i = 5; i <= 20; i += 5)
-        {
-            if (@i == countss)
+    @*<select name="counts" id="counts">
+            @for (int i = 5; i <= 20; i += 5)
             {
-                <option value=@i selected="selected">@i</option>
+                if (@i == countss)
+                {
+                    <option value=@i selected="selected">@i</option>
+                }
+                else
+                {
+                    <option value=@i>@i</option>
+                }
             }
-            else
-            {
-                <option value=@i>@i</option>
-            }
-        }
-    </select>
+        </select>*@
 
 </form>
 
@@ -205,9 +251,9 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
-        $("#counts").change(function () {
+        @*$("#counts").change(function () {
             window.location.href ="/YAdminwo/AdminOrder?pageindex=@pageindex&&pagesize="+$("#counts").val();
-        })
+        })*@
         function Pass(id,hh) {
             jQuery.ajax({
                 url: '/YAdminwo/AdminOrder?pageindex=@pageindex&&pagesize='+$("#counts").val(),
