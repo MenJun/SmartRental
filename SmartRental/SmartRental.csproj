@@ -315,10 +315,12 @@
     <Compile Include="Controllers\admin\HotelController.cs" />
     <Compile Include="Controllers\admin\YAdminwoController.cs" />
     <Compile Include="Controllers\API\accountController.cs" />
+    <Compile Include="Controllers\API\EvaluateController.cs" />
     <Compile Include="Controllers\API\HotelController.cs" />
     <Compile Include="Controllers\API\HotelDetailsController.cs" />
     <Compile Include="Controllers\API\PaymentController.cs" />
     <Compile Include="Controllers\API\PersonalCenterController.cs" />
+    <Compile Include="Controllers\API\SearchController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomesController.cs" />
@@ -337,6 +339,7 @@
     </Compile>
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Helpers\TrickLock.cs" />
+    <Compile Include="Helpers\VerifyCode.cs" />
     <Compile Include="Models\HotelManag.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -413,6 +416,12 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\view_HotelDateYearmoney.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_OrderHotelPhotos.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_UserBrHishory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -640,6 +649,7 @@
     <Content Include="Views\YAdminwo\RecommendAlter.cshtml" />
     <Content Include="Views\YAdminwo\Recommend.cshtml" />
     <Content Include="Views\Hotel\MainIndex.cshtml" />
+    <Content Include="Views\Default\IdentifyingCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -57,6 +57,17 @@ namespace SmartRental.Controllers.API
         }
 
         [HttpGet]
+        public IHttpActionResult HotelselectName(string selectName)
+        {
+            using (SmartRentalSystemEntities db =new SmartRentalSystemEntities())
+            {
+                var Hotel = db.HotelManag.Where(t => t.HotelName == selectName).ToList().FirstOrDefault();
+                return Ok(Hotel);
+            }
+            
+        }
+
+        [HttpGet]
         public IHttpActionResult select()
         {
             string ip = "118.250.120.180";

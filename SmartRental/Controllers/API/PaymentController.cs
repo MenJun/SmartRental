@@ -13,6 +13,9 @@ using SmartRental.BLL.ServiceAPI;
 using SmartRental.DAL.MapperAPI;
 using System.IO;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using Aop.Api.Response;
+using SmartRental.Models;
 
 namespace SmartRental.Controllers.API
 {
@@ -38,8 +41,7 @@ namespace SmartRental.Controllers.API
         AlipayTradePrecreateRequest request = new AlipayTradePrecreateRequest();//创建API对应的request类,请求返回二维码
         AlipayTradePagePayRequest requestPagePay = new AlipayTradePagePayRequest();//请求返回支付宝支付网页
         AlipayTradePagePayModel model = new AlipayTradePagePayModel();
-
-        [System.Web.Http.HttpPost]
+          [System.Web.Http.HttpPost]
         public IHttpActionResult Payment(dynamic data)
         {
             var avl = "";
@@ -69,7 +71,7 @@ namespace SmartRental.Controllers.API
             model.StoreId = "William001";
               model.ProductCode = "FAST_INSTANT_TRADE_PAY";
             requestPagePay.SetBizModel(model);
-            requestPagePay.SetReturnUrl("http://localhost:8081/OrderDetails");
+            requestPagePay.SetReturnUrl("http://localhost:8081/#/OrderDetailss");
             var response = client.SdkExecute(requestPagePay);//Execute(request);
             if (!response.IsError)
             {
@@ -142,6 +144,49 @@ namespace SmartRental.Controllers.API
 
             string url = "https://restapi.amap.com/v3/ip?ip=106.17.192.121&output=xml&key=1779729a3e64011a6993f6cda397764d";
             return Ok();
+        }
+
+        [System.Web.Http.HttpPost]
+        public IHttpActionResult kkk(dynamic data)
+        {
+
+            IAopClient client = new DefaultAopClient(URL, APPID, APP_PRIVATE_KEY, FORMAT, "2.0", "RSA2", ALIPAY_PUBLIC_KEY, CHARSET, false);
+            // 商户订单号，和交易号不能同时为空
+            string out_trade_no = "20200709104925";
+
+            // 支付宝交易号，和商户订单号不能同时为空
+            string trade_no = "2020070922001450210500981173";
+
+            // 退款金额，不能大于订单总金额
+            string refund_amount = "110.00";
+
+            // 退款原因
+            string refund_reason = "我就是想退款";
+
+            // 退款单号，同一笔多次退款需要保证唯一，部分退款该参数必填。
+            string out_request_no = "16541";
+
+            AlipayTradeRefundModel model = new AlipayTradeRefundModel();
+            model.OutTradeNo = data.data.OutTradeNo;
+            model.TradeNo = data.data.TradeNo;
+            model.RefundAmount = data.data.RefundAmount;
+            model.RefundReason = data.data.RefundReason;
+            model.OutRequestNo = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
+            request.SetBizModel(model);
+
+            AlipayTradeRefundResponse response = null;
+        
+            response = client.SdkExecute(request);
+            using (SmartRentalSystemEntities db =new SmartRentalSystemEntities())
+            {
+                var ode = db.Order.Where(t => t.OrderNumber == model.OutTradeNo).ToList().FirstOrDefault();
+                ode.OrderState = "退款";
+                db.SaveChanges();
+            }
+            //Execute(request);
+            return Ok(response.Body);
         }
 
      

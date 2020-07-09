@@ -1,0 +1,51 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>IdentifyingCode</title>
+    @*<script src="~/Scripts/jquery-3.1.1.min.js"></script>*@
+</head>
+<body>
+    <div>
+        <img src="/Default/CreateVerifyCode?id=1" id="verifycode" alt="验证码获取失败" title="验证码" style="border:1px solid black;" onclick="this.src=this.src+1" />
+        <input type="text" value="" id="inputcode" />
+        <br />
+        <input type="button" value="提交" id="ok" />
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script>
+    $(function () {
+        $("#ok").click(function (e) {
+            debugger
+            var thecode = $("#inputcode").val();
+            $.ajax({
+                url: "/Default/CheckVerifyCode",
+                type: "Get",
+                data: { thecode: thecode },
+                success: function (data) {
+                    if (data == "ok") {
+                        alert("验证码输入正确。");
+                    } else {
+                        alert("验证码输入错误。");
+                    }
+                },
+                error: function () { }
+            })
+        })
+
+        $("#verifycode").click(function (e) {
+            debugger
+            //TODO:这里，可在客户端作一个简单过滤，防止客户端恶意请求服务器。当然，最好的操作方式是在服务器端也做这个操作
+            this.src = "/Default/CreateVerifyCode/" + Math.floor(Math.random() * 10000);
+        })
+    })
+
+        </script>
+    </div>
+</body>
+</html>
