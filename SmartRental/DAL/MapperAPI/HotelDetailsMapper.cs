@@ -18,7 +18,7 @@ namespace SmartRental.DAL.MapperAPI
             using (SmartRentalSystemEntities db =new SmartRentalSystemEntities())
             {
               
-              var aa= db.RoomMessage.Include("RoomType").Include("RoomPhoto").Where(t => t.HotelID == id).ToList();
+              var aa= db.RoomMessage.Include("RoomType").Include("RoomPhoto").Where(t => t.HotelID == id &&t.Roomstate!=false).ToList();
                 return aa;
             }
             

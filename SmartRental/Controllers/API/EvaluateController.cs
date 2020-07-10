@@ -48,7 +48,8 @@ namespace SmartRental.Controllers.API
         {
             using (SmartRentalSystemEntities db =new SmartRentalSystemEntities())
             {
-                var liu = db.View_UserBrHishory.Where(t => t.UserID == userId).Take(3).ToList();
+                var liu = db.View_UserBrHishory.OrderByDescending(s=>s.BrowseID).Where(t => t.UserID == userId).Take(3).ToList();
+                db.SaveChanges();
                 if (liu.Count == 0)
                 {
                     return Ok(0);

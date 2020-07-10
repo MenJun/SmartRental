@@ -416,7 +416,7 @@ namespace SmartRental.Controllers.admin
           
             int pageSize = int.Parse(Request["limit"] ?? "10");
             int pageIndex = int.Parse(Request["page"] ?? "1");
-            var roommessagelist = db.RoomMessage.Include(n=>n.RoomType).Include(s=>s.Mattres).Where(f => f.HotelID == HotelNameID).OrderBy(s => s.RoomID).Skip(pageSize * (pageIndex - 1)).Take(pageSize).Select(n => new { Mattres = n.Mattres.MattresType, RoomType = n.RoomType.RoomType1, RoomName=n.RoomName, RoomFacility = n.RoomFacility, RoomLayout = n.RoomLayout, RoomRemain = n.RoomRemain, Boolbreakfast = n.Boolbreakfast==true?"是":"否", PrimeCost = n.PrimeCost, RoomPrice = n.RoomPrice, RoomID = n.RoomID });
+            var roommessagelist = db.RoomMessage.Include(n=>n.RoomType).Include(s=>s.Mattres).Where(f => f.HotelID == HotelNameID&&f.Roomstate!=false).OrderBy(s => s.RoomID).Skip(pageSize * (pageIndex - 1)).Take(pageSize).Select(n => new { Mattres = n.Mattres.MattresType, RoomType = n.RoomType.RoomType1, RoomName=n.RoomName, RoomFacility = n.RoomFacility, RoomLayout = n.RoomLayout, RoomRemain = n.RoomRemain, Boolbreakfast = n.Boolbreakfast==true?"是":"否", PrimeCost = n.PrimeCost, RoomPrice = n.RoomPrice, RoomID = n.RoomID });
             //总共多少数据
             var allCount = db.RoomMessage.Where(f => f.HotelID == HotelNameID).Count();
             //把totle和rows:[{},{}]一起返回
@@ -443,7 +443,7 @@ namespace SmartRental.Controllers.admin
                     var hoteldipri = dbContext.RoomMessage.Where(d => d.HotelID == s.HotelID && d.RoomPrice > s.RoomPrice).OrderBy(r => r.RoomPrice).FirstOrDefault();
                     htole.HotelDiscount = hoteldipri.RoomPrice;
                 }
-                dbContext.RoomMessage.Remove(s);
+                s.Roomstate = false;
             dbContext.SaveChanges(); 
                 return Content("ok:删除成功");
             }else

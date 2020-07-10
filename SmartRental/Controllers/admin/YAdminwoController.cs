@@ -371,7 +371,7 @@ namespace SmartRental.Controllers.admin
         private SmartRentalSystemEntities db = new SmartRentalSystemEntities();
         public ActionResult Recommend()
         {
-            var hotel = db.HotelManag.OrderBy(t => t.Hotelrecommen).ToList();
+            var hotel = db.HotelManag.Include("HotelPhoto").OrderBy(t => t.Hotelrecommen).ToList();
             return View(hotel);
         }
         public ActionResult RecommendAlter(int Id)
@@ -379,7 +379,7 @@ namespace SmartRental.Controllers.admin
             ViewBag.hh = db.HotelManag.Find(Id).Hotelrecommen;
             ViewBag.kk = db.HotelManag.Find(Id).HotelName;
             //var hotel = db.HotelManag.ToList(Id);
-            var hotel = db.HotelManag.ToList();
+            var hotel = db.HotelManag.Include("HotelPhoto").ToList();
             return View(hotel);
         }
         [HttpPost]
@@ -390,7 +390,7 @@ namespace SmartRental.Controllers.admin
             {
                 ViewBag.hh = OldHotelrecommen;
                 ViewBag.kk = HotelNames;
-                var hotels = db.HotelManag.Where(t => t.HotelName.Contains(HotelName)).ToList();
+                var hotels = db.HotelManag.Include("HotelPhoto").Where(t => t.HotelName.Contains(HotelName)).ToList();
                 return View(hotels);
             }
             else
