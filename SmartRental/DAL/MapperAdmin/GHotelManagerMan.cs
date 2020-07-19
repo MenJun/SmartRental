@@ -161,13 +161,13 @@ namespace SmartRental.DAL.MapperAdmin
                 {
                     var students = orders.Where(t => t.OrderNumber.ToString().Contains(b)).ToList();
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
-                    return students.OrderByDescending(s => s.ArrivalDate).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                    return students.OrderByDescending(s => s.Ordertime).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
                 }
                 else if (a == "订单状态")
                 {
                     var students = orders.Where(t => t.OrderState.Contains(b)).ToList();
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
-                    return students.OrderByDescending(s => s.ArrivalDate).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                    return students.OrderByDescending(s => s.Ordertime).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
                 }
                             
                 //else if (a == "入住日期")
@@ -181,7 +181,7 @@ namespace SmartRental.DAL.MapperAdmin
                 {
                     var students = orders.Where(t => t.ClientPhone.Contains(b)).ToList();
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
-                    return students.OrderByDescending(s => s.ArrivalDate).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                    return students.OrderByDescending(s => s.Ordertime).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
                 }
                 else if (a == "房间名")
                 {
@@ -189,16 +189,52 @@ namespace SmartRental.DAL.MapperAdmin
                     var students = orders.Where(t => t.RoomMessage.RoomName.Contains(b)).ToList();
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
                  
-                    return students.OrderByDescending(s => s.ArrivalDate).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                    return students.OrderByDescending(s => s.Ordertime).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
                 }
 
                 pagecount = (int)Math.Ceiling(orders.Count() * 1.0 / pagesize);//获取总数量
-                return orders.OrderBy(s => s.OrderID).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();//分页数据
+                return orders.OrderByDescending(s => s.Ordertime).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();//分页数据
             }
         }
 
-       
-            
-        
+
+
+        public static List<Order> Selectorderdate(int pageindex, int pagesize, out int pagecount, string b, int HotelID)
+        {
+            using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
+            {
+                var orders = db.Order.Include("HotelManag").Include("RoomMessage").Where(s => s.HotelID == HotelID);
+
+
+                if (b == "今日订单")
+                {
+                    var d = DateTime.Now.Date;
+                    var f = DateTime.Now.Date.AddDays(-1);
+                    var students = orders.Where(t => t.Ordertime<=d&&t.Ordertime>f).ToList();
+                    pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
+                    return students.OrderByDescending(s => s.Ordertime).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                }
+                else if (b == "今日到店")
+                {
+                    var d = DateTime.Now.Date;
+                    var f = DateTime.Now.Date.AddDays(-1);
+                    var students = orders.Where(t => t.ArrivalDate <= d && t.ArrivalDate > f).ToList();
+                    pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
+                    return students.OrderByDescending(s => s.Ordertime).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                }
+
+                
+                else if (b == "待办事项")
+                {
+                    var students = orders.Where(t => t.OrderState=="退款").ToList();
+                    pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
+                    return students.OrderByDescending(s => s.Ordertime).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
+                }
+              
+
+                pagecount = (int)Math.Ceiling(orders.Count() * 1.0 / pagesize);//获取总数量
+                return orders.OrderBy(s => s.Ordertime).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();//分页数据
+            }
+        }
     }
 }

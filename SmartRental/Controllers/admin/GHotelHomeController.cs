@@ -630,10 +630,10 @@ namespace SmartRental.Controllers.admin
           
         }
         [HttpPost]
-        public ActionResult HotelOrder(int? OrderID, string OrderState, string ab, string text1, int pageindex = 1, int pagesize = 8)
+        public ActionResult HotelOrder( string OrderState, string ab, string text1, int pageindex = 1, int pagesize = 8)
         {
             Session["order"] =45;
-            var HotelIDss = int.Parse(Session["HotelID"].ToString());/*Session["HotelID"];*///获取酒店HotelID
+            var HotelIDss =  int.Parse(Session["HotelID"].ToString());/*Session["HotelID"];*///获取酒店HotelID
             SmartRentalSystemEntities db = new SmartRentalSystemEntities();
             var sss = ab; var bbb = text1;
             if (ab != null && ab != "" )
@@ -642,21 +642,20 @@ namespace SmartRental.Controllers.admin
             }
             if (sss == null && bbb == null)
             {
-                var order = db.Order.Include("RoomMessage").Where(t => t.OrderID == OrderID).FirstOrDefault();
-                order.OrderState = OrderState;
-               var or=db.Order.Find(OrderID);     var roms = db.RoomMessage.Find(order.RoomID);
-                if(OrderState== "已退款"&& roms.RoomCount<roms.RoomRemain)
-                {
-               
-                    roms.RoomCount = roms.RoomCount + order.Ordercount;
-                    if (roms.RoomCount > roms.RoomRemain)
-                    {
-                        roms.RoomCount = roms.RoomRemain;//保证能售房间数量和店长修改的房间数量一样；
-                    }
-                    db.SaveChanges();
-                }
-                or.OrderState = OrderState;
-                db.SaveChanges();
+                var student = BLL.ServiceAdmin.GHotelManageService.Selectorderdate(pageindex, pagesize, out int pagecount, OrderState, HotelIDss);
+                //Session["order"] = 1;
+                ViewBag.pageindex = pageindex;
+                ViewBag.pagecount = pagecount;
+                ViewBag.pagesize = pagesize;
+                //if (pagesize % 5 == 0)
+                //{
+                //    ViewBag.countss = pagesize;
+                //}
+                //else
+                //{
+                //    ViewBag.countss = countss;
+                //}
+                return View(student);
             }
             else if (sss == "所有订单")
             {
@@ -681,8 +680,37 @@ namespace SmartRental.Controllers.admin
                 return View(student);
 
             }
-            return RedirectToAction("HotelOrder");
+       
         }
+
+        public ActionResult HotelOrderdtld(int id)
+        {
+            SmartRentalSystemEntities db = new SmartRentalSystemEntities();
+            var orderdtld = db.view_OrderHotelPhotos.Find(id);
+            return View(orderdtld);
+        }
+        [HttpPost]
+        public ActionResult HotelOrderdtld(int id,string OrderState)
+        {
+            SmartRentalSystemEntities db = new SmartRentalSystemEntities();
+            var order = db.Order.Include("RoomMessage").Where(t => t.OrderID == id).FirstOrDefault();
+            order.OrderState = OrderState;
+            var or = db.Order.Find(id); var roms = db.RoomMessage.Find(order.RoomID);
+            if (OrderState == "已退款" && roms.RoomCount < roms.RoomRemain)
+            {
+
+                roms.RoomCount = roms.RoomCount + order.Ordercount;
+                if (roms.RoomCount > roms.RoomRemain)
+                {
+                    roms.RoomCount = roms.RoomRemain;//保证能售房间数量和店长修改的房间数量一样；
+                }
+                db.SaveChanges();
+            }
+            or.OrderState = OrderState;
+            db.SaveChanges();
+            return Content("<script>alert('修改成功');location.href = '/GHotelHome/HotelOrder';</script>");
+        }
+
         /// <summary>
         /// 酒店报表
         /// </summary>

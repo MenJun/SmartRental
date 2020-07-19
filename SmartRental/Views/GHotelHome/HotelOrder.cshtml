@@ -7,251 +7,173 @@
 }
 
 
-    <style>
-        #mytable {
-            border-collapse: collapse;
-            margin: 0 auto;
-            text-align: center;
+<style>
+    #mytable {
+        margin: 0 auto;
+        text-align: center;
+    }
+
+        #mytable td, #mytable th {
+            color: #666;
+            height: 25px;
+            line-height: 25px;
         }
 
-            #mytable td, #mytable th {
-                border: 1px solid #cad9ea;
-                color: #666;
-                height: 30px;
-            }
+        #mytable thead th {
+            background-color: #CCE8EB;
+            width: 100px;
+        }
 
-            #mytable thead th {
-                background-color: #CCE8EB;
-                width: 100px;
-            }
-
-            #mytable tr:nth-child(odd) {
+        /* #mytable tr:nth-child(odd) {
                 background: #fff;
             }
 
             #mytable tr:nth-child(even) {
                 background: #F5FAFA;
-            }
- 
-
-        /*table {
-            border-collapse: collapse;
-            margin: 0 auto;
-            text-align: center;
-            color: black;
-        }*/
-                /*table thead th {
-                background-color: rgb(128, 102, 160);
-                color: #fff;
-                border-bottom-width: 0;
             }*/
-
-                /*table td, table th {
-                    border: 1px solid #cad9ea;
-                    color: #666;
-                    height: 10px;
-                }
-
-        #mytable thead th {
-            background-color: #8c9ca7;
-            width: 100px;
-        }
-        #mytable tr:nth-child(even):hover #aaa {
-            background: #aedfdf;
-        }
-        #mytable tr:nth-child(odd):hover #aaa {
-            background-color: #a8d1ac;
-        }
-        #mytable tr:nth-child(odd) {
-            background-color: #a8d1ac;
-        }
-        #mytable tr:nth-child(odd):hover {
-            background-color:white;
-        }
-        #mytable tr:nth-child(even) {
-            background: #aedfdf;
-        }
-            #mytable tr:nth-child(even):hover {
-                background: white;
-            }*/
-        #df {
-            pointer-events: none;
+        #mytable tbody td {
+            height: 25px;
+            line-height: 25px;
         }
 
-        #dfd {
-            pointer-events: none;
-           
-        }
 
-        #ab {
-            cursor: pointer;
-            padding: 5px;
-            width: 10%;
-            text-align: center;
-            background: transparent;
-            background-image: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            font-size:14px;
-        }
+    #df {
+        pointer-events: none;
+    }
 
-        #mytable th {
-            text-align: center;
-        }    
-    </style>
-    
-    <h2 style="margin-top:-30px;margin-left:550px">酒店订单详情</h2>
-    <form action="/GHotelHome/HotelOrder" method="post">
+    #dfd {
+        pointer-events: none;
+    }
 
-        <label style="font-size:16px">类型</label>
-        <select id="ab" name="ab" class="select2-results__option--highlighted">
-            @if (Session["order"] != null && @Session["se"] != null)
-            {
-                <option value="@Session["se"]" selected="selected">@Session["se"]</option>
-            }
-            else
-            {
-                <option value="所有订单" selected="selected">请选择</option>
-            }
+    #ab {
+        cursor: pointer;
+        padding: 5px;
+        width: 10%;
+        text-align: center;
+        background: transparent;
+        background-image: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        font-size: 14px;
+    }
 
-            <option value="所有订单">所有订单</option>
-            <option value="订单编号">订单编号</option>
-            <option value="订单状态">订单状态</option>
-            @*<option value="入住日期">入住日期</option>*@
-            <option value="入住电话">入住电话</option>
-            <option value="房间名">房间名</option>
+    #mytable th {
+        text-align: center;
+    }
+</style>
 
-        </select>&nbsp;&nbsp;
-        @if (Session["order"] != null)
+<h2 style="margin-top:-30px;margin-left:550px;font-weight:900">酒店订单详情</h2>
+<form action="/GHotelHome/HotelOrder" method="post">
+
+    <label style="font-size:16px;">类型</label>
+    <select id="ab" name="ab" class="select2-results__option--highlighted">
+        @if (Session["order"] != null && @Session["se"] != null)
         {
-            <input type="text" id="text1" name="text1" style="height:30px;" value="@Session["ts"]" />
+            <option value="@Session["se"]" selected="selected">@Session["se"]</option>
         }
         else
         {
-
-            <input type="text" id="text1" style="height:30px;" name="text1" />
+            <option value="所有订单" selected="selected">请选择</option>
         }
 
-        <input type="submit" @*onclick="bbc($('#ab').options[this.options.selectedIndex].value), $('#text1').val()"*@ value="搜索" class="btn btn-primary" />
+        <option value="所有订单">所有订单</option>
+        <option value="订单编号">订单编号</option>
+        <option value="订单状态">订单状态</option>
+        <option value="房间名">房型</option>
 
-        <table xss=removed class="table table-striped table-bordered table-hover" style="margin-top:10px" id="mytable">
-            <thead>
+    </select>&nbsp;&nbsp;
+    @if (Session["order"] != null)
+    {
+        <input type="text" id="text1" name="text1" style="height:30px;" value="@Session["ts"]" />
+    }
+    else
+    {
+
+        <input type="text" id="text1" style="height:30px;" name="text1" />
+    }
+
+    <input type="submit" value="搜索" class="btn btn-primary" />
+</form>
+<form action="/GHotelHome/HotelOrder" method="post">
+    <input type="submit" style="float:right;margin-right:10px;margin-top:-30px;" name="OrderState" value="今日订单" class="btn btn-primary" />
+</form>
+<form action="/GHotelHome/HotelOrder" method="post">
+    <input type="submit" style="float:right;margin-right:10px;margin-top:-30px;" name="OrderState" value="今日到店" class="btn btn-primary" />
+</form>
+<form action="/GHotelHome/HotelOrder" method="post">
+  
+    <input type="submit" style="float:right;margin-right:10px;margin-top:-30px;" name="OrderState" value="待办事项" class="btn btn-primary" />
+</form>
+    <table xss=removed class="table table-striped table-bordered table-hover" style="margin-top:5px" id="mytable">
+        <thead>
+            <tr>
+                <th>订单编号</th>
+                <th>房型</th>
+                <th>入住/离店</th>
+                <th>房间数量</th>
+                <th>客户姓名</th>
+                <th style="width:80px">订单时间</th>
+                <th>订单状态</th>
+                <th>实付金额</th>
+                <th>订单管理</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in order)
+            {
                 <tr>
-                    <th>订单编号</th>
-                    <th>下单时间</th>
-                    <th>入住时间</th>
-                    <th>离店时间</th>
-                    <th>房间</th>
-                    <th>房间数量</th>
-                    <th>入住人电话</th>
-                    <th>入住人姓名</th>
-                    <th>订单状态</th>
-                    <th>入住人身份证</th>
-                    <th>实付金额</th>
-                    <th>订单管理</th>
+                    <td>@item.OrderNumber</td>
+                    <td>@item.RoomMessage.RoomName</td>
+
+                    <td>
+                        入 @item.ArrivalDate.Value.ToShortDateString()<br />
+                        离 @item.LeaveTime.Value.ToShortDateString()
+                    </td>
+
+                    <td>@item.Ordercount 间</td>
+                    <td>@item.ClientName</td>
+                    <td>@item.Ordertime</td>
+                    <td>@item.OrderState</td>
+
+                    <td>@item.ActualPrice</td>
+                    <td>
+                        <a href="/GHotelHome/HotelOrderdtld?id=@item.OrderID">查看详情</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in order)
-                {
-                    <tr>
-                        <td>@item.OrderNumber</td>
-                        <td>@item.Ordertime</td>
-                        <td>@item.ArrivalDate</td>
-                        <td>@item.LeaveTime</td>
-                        <td>@item.RoomMessage.RoomName</td>
-                        <td>@item.Ordercount</td>
+            }
+        </tbody>
+    </table>
 
-                        <td>@item.ClientPhone</td>
-                        <td>@item.ClientName</td>
-                        <td>@item.OrderState</td>
+    @{
+        var pageindex = (int)ViewBag.pageindex;
+        var pagecount = (int)ViewBag.pagecount;
+        var pagesize = (int)ViewBag.pagesize;
 
-                        <td>
-                            @*@item.ClientId*@
-                            @if (item.ClientId != null)
-                            {
-                                <span>  @item.ClientId) </span>
-                            }
-                            else
-                            {
-                                <span>未填写</span>
-                            }
-                        </td>
-                        <td>@item.ActualPrice</td>
-                        <td>
-                            <select id="aaa" style="border:0;outline:none;font-size:15px" name="OrderState" onchange="Pass(@item.OrderID,this.options[this.options.selectedIndex].value)">
+    }
 
 
 
-                                @if (item.OrderState.ToString()== "退款")
-                                {
-                                    <option value="待处理" selected="selected">待处理</option>
-                                    <option value="已退款">同意退款</option>
-                                    <option value="已支付">拒绝退款</option>
-                                }
+    <span>第 @pageindex 页</span>
+    <span>总 @pagecount 页</span>
+    @if (pageindex <= 1)
+    {
+        @Html.ActionLink("上一页", "HotelOrder", null, new { disabled = "disabled", id = "df", @class = "btn btn-primary" })
+    }
+    else
+    {
 
-                                @if (item.OrderState.ToString() == "拒绝退款")
-                                {
-                                    <option value="拒绝退款" selected="selected">拒绝退款</option>
-                                    <option value="已退款">同意退款</option>
-                                }
-                                @if (item.OrderState.ToString() == "已支付")
-                                {
-                                    <option value="已支付" selected="selected">交易中</option>
-                                    <option value="已退款">退款</option>
-                                }
-                                @if (item.OrderState.ToString() == "成功交易")
-                                {
-                                    <option value="已支付" selected="selected">成功交易</option>
+        @Html.ActionLink("上一页", "HotelOrder", new { pageindex = (pageindex - 1), pagesize = pagesize }, new { @class = "btn btn-primary" })
+    }
+    @if (pageindex >= pagecount)
+    {
+        @Html.ActionLink("下一页", "HotelOrder", null, new { disabled = "disabled", id = "dfd", @class = "btn btn-primary" })
+    }
+    else
+    {
 
-                                }
-                                @if (item.OrderState.ToString() == "已退款")
-                                {
-                                    <option value="已退款" selected="selected">已退款</option>
-
-                                }
-                                @if (item.OrderState.ToString() == "待支付")
-                                {
-                                 <option value="待支付" selected="selected">未支付</option>
-
-                                }
-                            </select>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-        @{
-            var pageindex = (int)ViewBag.pageindex;
-            var pagecount = (int)ViewBag.pagecount;
-            var pagesize = (int)ViewBag.pagesize;
-
-        }
-
-
-
-        <span>第 @pageindex 页</span>
-        <span>总 @pagecount 页</span>
-        @if (pageindex <= 1)
-        {
-            @Html.ActionLink("上一页", "HotelOrder", null, new { disabled = "disabled", id = "df", @class = "btn btn-primary" })
-        }
-        else
-        {
-
-            @Html.ActionLink("上一页", "HotelOrder", new { pageindex = (pageindex - 1), pagesize = pagesize }, new { @class = "btn btn-primary" })
-        }
-        @if (pageindex >= pagecount)
-        {
-            @Html.ActionLink("下一页", "HotelOrder", null, new { disabled = "disabled", id = "dfd", @class = "btn btn-primary" })
-        }
-        else
-        {
-
-            @Html.ActionLink("下一页", "HotelOrder", new { pageindex = (pageindex + 1), pagesize = pagesize }, new { @class = "btn btn-primary" })
-        }
-        @*<select name="counts" id="counts">
+        @Html.ActionLink("下一页", "HotelOrder", new { pageindex = (pageindex + 1), pagesize = pagesize }, new { @class = "btn btn-primary" })
+    }
+    @*<select name="counts" id="counts">
             @for (int i = 5; i <= 20; i += 5)
             {
                 if (@i == countss)
@@ -265,7 +187,7 @@
             }
         </select>*@
 
-    </form>
+
     @section scripts{
         <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
         <script src="~/Scripts/jquery-3.4.1.min.js"></script>
@@ -273,16 +195,7 @@
         @*$("#counts").change(function () {
             window.location.href ="/GHotelHome/HotelOrder?pageindex=@pageindex&&pagesize="+$("#counts").val();
         })*@
-        function Pass(id,hh) {
-            jQuery.ajax({
-                url: '/GHotelHome/HotelOrder?pageindex=@pageindex&&pagesize='+$("#counts").val(),
-                type: "post",
-                data: { "OrderID": id, "OrderState": hh },
-                success: function (data) {
-                    history.go(0)
-                }
-            })
-        }
+
         </script>
     }
 
