@@ -204,21 +204,20 @@ namespace SmartRental.DAL.MapperAdmin
             using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
             {
                 var orders = db.Order.Include("HotelManag").Include("RoomMessage").Where(s => s.HotelID == HotelID);
+                    var df = DateTime.Now.Date;
 
-
-                if (b == "今日订单")
+                if (b=="今日订单")
                 {
-                    var d = DateTime.Now.Date;
-                    var f = DateTime.Now.Date.AddDays(-1);
-                    var students = orders.Where(t => t.Ordertime<=d&&t.Ordertime>f).ToList();
+                   
+                    DateTime bd = DateTime.Parse( df.ToString());
+                    var students = orders.Where(s => s.Ordertime> bd).ToList();
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
                     return students.OrderByDescending(s => s.Ordertime).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
                 }
                 else if (b == "今日到店")
                 {
-                    var d = DateTime.Now.Date;
-                    var f = DateTime.Now.Date.AddDays(-1);
-                    var students = orders.Where(t => t.ArrivalDate <= d && t.ArrivalDate > f).ToList();
+                
+                    var students = orders.Where(t => t.ArrivalDate == df ).ToList();
                     pagecount = (int)Math.Ceiling(students.Count() * 1.0 / pagesize);
                     return students.OrderByDescending(s => s.Ordertime).Skip(pagesize * (pageindex - 1)).Take(pagesize).ToList();
                 }

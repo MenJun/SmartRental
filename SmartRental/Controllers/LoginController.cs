@@ -28,6 +28,7 @@ namespace SmartRental.Controllers
         [HttpGet]
         public JsonResult GetDecryptionString(UserMessage userMessage)
         {
+            Session.Timeout=720;
             var decryptionResult = LoginService.Decryption(userMessage.UserPhone, userMessage.UserPwd);
             if (int.Parse(decryptionResult.ToString()) == 1) //超级管理员
             {
@@ -47,6 +48,9 @@ namespace SmartRental.Controllers
                 {
                      return Json(new { succeed = 200, roestr = "/GHotelHome/Main" }, JsonRequestBehavior.AllowGet);
                 }
+          
+                
+                
                 Session["GeneralManager"] = userMessage.UserPhone;
                 Session["HotelID"] = BLL.LoginService.DecryptionHotelID(userMessage.UserPhone);
                 return Json(new { succeed = 200, roestr = "/GHotelHome/MainIndex" }, JsonRequestBehavior.AllowGet);

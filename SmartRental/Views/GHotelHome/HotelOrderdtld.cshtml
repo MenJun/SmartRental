@@ -20,11 +20,13 @@
                 <span>入住时间:@orderdtel.ArrivalDate.Value.ToLongDateString()</span><br /><br />
                 <span>离开时间:@orderdtel.LeaveTime.Value.ToLongDateString()</span><br /><br />
                 <span>房间数量:@orderdtel.Ordercount 间</span><br />
-            </div> 
+            </div>
             <h4 style="margin-left: 50px;">订单处理</h4>
+            <br />
+            <br />
             <form action="/GHotelHome/HotelOrderdtld" method="post">
-                <div style="margin-left:50px;text-align:center ">
-                    @Html.Hidden("id",orderdtel.OrderID)
+                <div style="margin-left:-100px;text-align:center ">
+                    @Html.Hidden("id", orderdtel.OrderID)
                     @if (orderdtel.OrderState == "退款")
                     {
                         <button style="margin-right: 20px;" value="已退款" name="OrderState" class="btn btn-primary">同意退款</button>
@@ -55,5 +57,8 @@
 
                 </div>
             </form>
+            <br />
+            <br />
+            <br />
         </div>
     </div>
