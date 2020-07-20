@@ -51,7 +51,7 @@ namespace SmartRental.Controllers.API
             using (SmartRentalSystemEntities db = new SmartRentalSystemEntities())
             {
                
-                var Order = db.view_OrderHotelPhotos.Where(t => t.UserID == UserId).ToList();
+                var Order = db.view_OrderHotelPhotos.OrderByDescending(t => t.Ordertime).Where(t => t.UserID == UserId).ToList();
                 return Ok(Order);
             }
 
@@ -69,7 +69,7 @@ namespace SmartRental.Controllers.API
             {
 
                 var aa = DateTime.Now.Date;
-                var Order = db.view_OrderHotelPhotos.Where(t => t.UserID == UserId && t.LeaveTime >= aa && t.OrderState =="已支付").ToList();
+                var Order = db.view_OrderHotelPhotos.OrderByDescending(t=>t.Ordertime).Where(t => t.UserID == UserId && t.LeaveTime >= aa && t.OrderState =="已支付").ToList();
                 return Ok(Order);
             }
 
@@ -99,7 +99,7 @@ namespace SmartRental.Controllers.API
             {
 
                 var aa = DateTime.Now.Date;
-                var Order = db.view_OrderHotelPhotos.Where(t => t.UserID == UserId && t.OrderState == "已退款").ToList();
+                var Order = db.view_OrderHotelPhotos.OrderByDescending(t => t.Ordertime).Where(t => t.UserID == UserId && t.OrderState == "已退款").ToList();
                 return Ok(Order);
             }
 

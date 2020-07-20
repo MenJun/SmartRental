@@ -413,7 +413,7 @@ namespace SmartRental.Controllers.admin
             var HotelNameID =  int.Parse(Session["HotelID"].ToString());//以酒店为10做测试   //Session["HotelID"] 酒店ID
 
             SmartRentalSystemEntities db = new SmartRentalSystemEntities();
-          
+            
             int pageSize = int.Parse(Request["limit"] ?? "10");
             int pageIndex = int.Parse(Request["page"] ?? "1");
             var roommessagelist = db.RoomMessage.Include(n=>n.RoomType).Include(s=>s.Mattres).Where(f => f.HotelID == HotelNameID&&f.Roomstate!=false).OrderBy(s => s.RoomID).Skip(pageSize * (pageIndex - 1)).Take(pageSize).Select(n => new { Mattres = n.Mattres.MattresType, RoomType = n.RoomType.RoomType1, RoomName=n.RoomName, RoomFacility = n.RoomFacility, RoomLayout = n.RoomLayout, RoomRemain = n.RoomRemain, Boolbreakfast = n.Boolbreakfast==true?"是":"否", PrimeCost = n.PrimeCost, RoomPrice = n.RoomPrice, RoomID = n.RoomID });
