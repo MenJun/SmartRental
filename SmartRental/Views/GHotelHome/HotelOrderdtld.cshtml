@@ -1,0 +1,59 @@
+﻿@using SmartRental.Models
+@{
+    ViewBag.Title = "HotelOrderdtld";
+    var orderdtel = Model as view_OrderHotelPhotos;
+}
+    <div>
+        <div style="margin-left:150px;border-left:1px solid black">
+
+            <div style="margin-left:50px; border-bottom:0.5px solid black">
+                <h3>订单详情</h3>
+                <span style="font-size:14px;font-weight:900"> 订单编号: @orderdtel.OrderNumber </span><br /><br />
+                <span style="font-size:14px;font-weight:900">@orderdtel.ClientPhone </span>预留订房<br /><br />
+                订单状态: <span style="font-weight:900"> @orderdtel.OrderState</span> &nbsp;&nbsp;&nbsp; <span>下单日期:@orderdtel.Ordertime.Value.ToLongDateString() &nbsp;@orderdtel.Ordertime.Value.ToLongTimeString()</span><br /><br />
+                <span>总金额:@orderdtel.ActualPrice 元</span>
+            </div>
+            <div style="margin-left:50px; border-bottom:0.5px solid black">
+                <h4>入住信息</h4>
+                <span>入住人:@orderdtel.ClientName </span><br /><br />
+                <span>身份证:@orderdtel.ClientId </span> <br /><br />
+                <span>入住时间:@orderdtel.ArrivalDate.Value.ToLongDateString()</span><br /><br />
+                <span>离开时间:@orderdtel.LeaveTime.Value.ToLongDateString()</span><br /><br />
+                <span>房间数量:@orderdtel.Ordercount 间</span><br />
+            </div> 
+            <h4 style="margin-left: 50px;">订单处理</h4>
+            <form action="/GHotelHome/HotelOrderdtld" method="post">
+                <div style="margin-left:50px;text-align:center ">
+                    @Html.Hidden("id",orderdtel.OrderID)
+                    @if (orderdtel.OrderState == "退款")
+                    {
+                        <button style="margin-right: 20px;" value="已退款" name="OrderState" class="btn btn-primary">同意退款</button>
+                        <button style="margin-right: 20px;" value="已支付" name="OrderState" class="btn btn-primary">拒绝退款</button>
+                    }
+
+                    @if (orderdtel.OrderState == "已支付")
+                    {
+                        <button style="margin-right: 20px;" value="已退款" name="OrderState" class="btn btn-primary">退款</button>
+
+                    }
+                    @if (orderdtel.OrderState == "成功交易")
+                    {
+                        <button style="margin-right: 20px; pointer-events: none;" disabled="disabled" name="OrderState" value="成功交易" class="btn btn-primary">成功交易</button>
+
+
+                    }
+                    @if (orderdtel.OrderState == "已退款")
+                    {
+                        <button style="margin-right: 20px; pointer-events: none;" disabled="disabled" name="OrderState" value="已退款" class="btn btn-primary">已退款</button>
+
+                    }
+                    @if (orderdtel.OrderState == "待支付")
+                    {
+                        <button style="margin-right: 30px; pointer-events: none;" disabled="disabled" name="OrderState" value="待支付" class="btn btn-primary">待支付</button>
+
+                    }<a href="/GHotelHome/HotelOrder" style="font-size:20px;">返回</a>
+
+                </div>
+            </form>
+        </div>
+    </div>

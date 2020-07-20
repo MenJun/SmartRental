@@ -57,6 +57,10 @@ namespace SmartRental.BLL.ServiceAdmin
             return DAL.MapperAdmin.GHotelManagerMan.Select1(pageindex, pagesize, out pagecount, a, b,  HotelID);
         }
 
+        public static List<Order> Selectorderdate(int pageindex, int pagesize, out int pagecount, string b, int HotelID)
+        {
+            return DAL.MapperAdmin.GHotelManagerMan.Selectorderdate(pageindex, pagesize, out pagecount, b, HotelID);
+        }
         //public static List<Order> ClassInfo(int hotel)
         //{
         //    return DAL.MapperAdmin.GHotelManagerMan.SelectClassInfo(hotel);
