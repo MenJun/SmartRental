@@ -71,7 +71,7 @@ namespace SmartRental.Controllers.API
             model.StoreId = "William001";
               model.ProductCode = "FAST_INSTANT_TRADE_PAY";
             requestPagePay.SetBizModel(model);
-            requestPagePay.SetReturnUrl("http://localhost:8081/#/OrderDetailss");
+            requestPagePay.SetReturnUrl("http://47.106.255.80:8080/Snail/#/OrderDetailss");
             var response = client.SdkExecute(requestPagePay);//Execute(request);
             if (!response.IsError)
             {

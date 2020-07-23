@@ -18,6 +18,7 @@ namespace SmartRental.Models
         public SmartRentalSystemEntities()
             : base("name=SmartRentalSystemEntities")
         {
+            Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
