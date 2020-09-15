@@ -44,21 +44,7 @@ namespace SmartRental.Controllers.API
             return Ok(new { Code = "404", SUCCESS = "失败"});
         }
 
-        /// <summary>
-        /// 用户信息查询判断是否存在
-        /// </summary>
-        /// <param name="UserPhone">号码</param>
-        /// <returns></returns>
-        [System.Web.Http.HttpGet]
-        public IHttpActionResult GetUser(string UserPhone)
-        {
-            var user = UserLoginService.QueryAccount(UserPhone);
-            if (user != null)
-            {
-                return Ok(new { Code = "200", SUCCESS = "成功", details = user });
-            }
-            return Ok(new { Code = "404", SUCCESS = "失败", details = user });
-        }
+
 
         /// <summary>
         /// 用户修改密码
@@ -95,6 +81,23 @@ namespace SmartRental.Controllers.API
             }
             return Ok(new { Code = "404", SUCCESS = "失败", details = user });
         }
+
+        /// <summary>
+        /// 用户信息查询判断是否存在
+        /// </summary>
+        /// <param name="UserPhone">号码</param>
+        /// <returns></returns>
+        [System.Web.Http.HttpGet]
+        public IHttpActionResult GetUser(string UserPhone)
+        {
+            var user = UserLoginService.QueryAccount(UserPhone);
+            if (user != null)
+            {
+                return Ok(new { Code = "200", SUCCESS = "成功", details = user });
+            }
+            return Ok(new { Code = "404", SUCCESS = "失败", details = user });
+        }
+
         /// <summary>
         /// 验证码
         /// </summary>

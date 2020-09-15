@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SmartRental.Models.HotelManag" Collapsed="true">
+    <Position X="2" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAMAACEAAgAwQAAgAAAAhAiCAAAAAQAABABAAAAEgQA=</HashCode>
+      <FileName>Models\HotelManag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.HotelPhoto" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEQAgAAAACAQQAAACAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Models\HotelPhoto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.Mattres" Collapsed="true">
+    <Position X="3.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAgIAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mattres.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.Order">
+    <Position X="5.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABLCQAAAAACggEAEEAgCAAAAAAAAQAkAAAAEAEA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.RoomMessage" Collapsed="true">
+    <Position X="7.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAECACACQQAAAAAQAAAAACAAQAAAQAAgAEAAEBAMAAA=</HashCode>
+      <FileName>Models\RoomMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.RoomPhoto" Collapsed="true">
+    <Position X="9" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAwB8AAAAAAAAgAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Models\RoomPhoto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.RoomType" Collapsed="true">
+    <Position X="2" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Models\RoomType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.user_roles" Collapsed="true">
+    <Position X="3.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAQ=</HashCode>
+      <FileName>Models\user_roles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.UserBrowse" Collapsed="true">
+    <Position X="5.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAgCAAAAAAAABAAAAAAEAAI=</HashCode>
+      <FileName>Models\UserBrowse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.UserEvaluate" Collapsed="true">
+    <Position X="7.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQAAACAAAAAAAAAgCAAQAAIAAAAgAAAIEAAA=</HashCode>
+      <FileName>Models\UserEvaluate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.UserMessage">
+    <Position X="13" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAEAAAAAQCAAAAAAAAQAAAggEABIAAAAEQgAAAAEwAI=</HashCode>
+      <FileName>Models\UserMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.view_Datedaymoney" Collapsed="true">
+    <Position X="2" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Models\view_Datedaymoney.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.view_DateHourmoney" Collapsed="true">
+    <Position X="3.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Models\view_DateHourmoney.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.view_Datemonthmoney" Collapsed="true">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Models\view_Datemonthmoney.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.view_DateWeekmoney" Collapsed="true">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAgAAAAAABA=</HashCode>
+      <FileName>Models\view_DateWeekmoney.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.view_DateYearmoney" Collapsed="true">
+    <Position X="9" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Models\view_DateYearmoney.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.view_HotelDatedaymoney" Collapsed="true">
+    <Position X="2" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAEABA=</HashCode>
+      <FileName>Models\view_HotelDatedaymoney.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.view_HotelDateHourmoney" Collapsed="true">
+    <Position X="3.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAEABA=</HashCode>
+      <FileName>Models\view_HotelDateHourmoney.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.view_HotelDatemonthmoney" Collapsed="true">
+    <Position X="5.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAEABA=</HashCode>
+      <FileName>Models\view_HotelDatemonthmoney.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.view_HotelDateWeekmoney" Collapsed="true">
+    <Position X="7.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAgAAAAEABA=</HashCode>
+      <FileName>Models\view_HotelDateWeekmoney.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.view_HotelDateYearmoney" Collapsed="true">
+    <Position X="9" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAEABA=</HashCode>
+      <FileName>Models\view_HotelDateYearmoney.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.view_OrderHotelPhotos" Collapsed="true">
+    <Position X="2" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAADPAAAAAQACCgEAEEAgAAAAAAAAAQAgAAAAAAEA=</HashCode>
+      <FileName>Models\view_OrderHotelPhotos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Models.View_UserBrHishory" Collapsed="true">
+    <Position X="3.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACEAAAAAQAACAAAAhAgAAAAAAAAABAAAAAAEAAI=</HashCode>
+      <FileName>Models\View_UserBrHishory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Controllers.API.accountController">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAIAAAAAgAAAAAAAAAAAAEAAgAAABAAA=</HashCode>
+      <FileName>Controllers\API\accountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Controllers.API.HotelDetailsController">
+    <Position X="1.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAABAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\API\HotelDetailsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartRental.Controllers.API.PaymentController">
+    <Position X="3.5" Y="6.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEAAAADAABgAABAAIAQAACAACAAAEAgACAABAAYAAA=</HashCode>
+      <FileName>Controllers\API\PaymentController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

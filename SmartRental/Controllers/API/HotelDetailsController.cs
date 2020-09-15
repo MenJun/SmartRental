@@ -25,7 +25,7 @@ namespace SmartRental.Controllers.API
         }
 
         /// <summary>
-        /// 查询某个酒店
+        /// 查询单个酒店
         /// </summary>
         /// <param name="HotelId">酒店ID</param>
         /// <returns></returns>
